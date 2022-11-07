@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Geonames APIs</title>
+
+  </head>
+  <body>
+    <h1>Geonames APIs</h1>
+
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Names</th>
+            <th>Parameters</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Timezone</td>
+            <td>
+              <input
+                type="number"
+                name="lat"
+                placeholder="Latitude"
+                class="coordinates-input"
+                id="LatInput"
+              />
+              <input
+                type="number"
+                name="lng"
+                placeholder="Longitude"
+                class="coordinates-input"
+                id="LngInput"
+              />
+            </td>
+            <td><button id="timezone-send">Send</button></td>
+            <tr>
+              Example Lat:41.902782 Lng:12.496366
+            </tr>
+          </tr>
+          <tr>
+            <td>Weather</td>
+            <td><input
+              type="number"
+              name="North"
+              placeholder="North"
+              class="coordinates-input"
+              id="northInput"
+            /> 
+
+            <input
+            type="number"
+            name="East"
+            placeholder="East"
+            class="coordinates-input"
+            id="eastInput"
+          />
+          <input
+          type="number"
+          name="South"
+          placeholder="South"
+          class="coordinates-input"
+          id="southInput"
+        />
+        <input
+        type="number"
+        name="West"
+        placeholder="West"
+        class="coordinates-input"
+        id="westInput"
+      /></td>
+            <td><button id="weather-send">Send</button></td>
+          </tr>
+          <tr>
+            <td>Ocean</td>
+            <td>
+              <input
+                type="number"
+                name="oceanLat"
+                placeholder="Latitude"
+                class="oceanCoordinates-input"
+                id="oceanLatInput"
+              />
+              <input
+                type="number"
+                name="oceanLng"
+                placeholder="Longitude"
+                class="oceanCoordinates-input"
+                id="oceanLngInput"
+              />
+            </td>
+            <td><button id="ocean-send">Send</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script
+      type="application/javascript"
+      src="libs/js/jquery-2.2.3.min.js"
+    ></script>
+    <script type="application/javascript" src="libs/js/script.js"></script>
+  </body>
+</html>

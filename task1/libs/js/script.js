@@ -1,19 +1,15 @@
 let timeZoneLat = 0;
 let timeZoneLng = 0;
 
-let latitude = 55;
-let longitude = 21;
+let north = 0;
+let east = 0;
+let south = 0;
+let west = 0;
 
 let oceanLat = 0;
 let oceanLng = 0;
 
-// const timezoneUrl = `http://api.geonames.org/timezoneJSON?lat=${latitude}&lng=${longitude}&username=antch`;
-
-// const oceanNameUrl = `http://api.geonames.org/oceanJSON?lat=${oceanLat}&lng=${oceanLng}&username=antch`;
-
-// const weatherUrl = "http://api.geonames.org/weatherJSON?north=68&south=-45&east=-80&west=100&username=antch";
-
-const phpApi = "http://localhost/task1/libs/php/api.php";
+const phpApi = "http://localhost/anthonyHeneghan/task1/libs/php/api.php";
 
 // Timezone code
 const latitudeInput = document.getElementById("LatInput");
@@ -24,6 +20,27 @@ document.getElementById("LatInput").addEventListener("change", (e) => {
 const longitudeInput = document.getElementById("LngInput");
 longitudeInput.addEventListener("change", (e) => {
   timeZoneLng = e.target.value;
+});
+
+// Weather
+const northInput = document.getElementById("northInput");
+document.getElementById("northInput").addEventListener("change", (e) => {
+  north = e.target.value;
+});
+
+const eastInput = document.getElementById("eastInput");
+document.getElementById("eastInput").addEventListener("change", (e) => {
+  east = e.target.value;
+});
+
+const southInput = document.getElementById("southInput");
+document.getElementById("southInput").addEventListener("change", (e) => {
+  south = e.target.value;
+});
+
+const westInput = document.getElementById("westInput");
+document.getElementById("westInput").addEventListener("change", (e) => {
+  west = e.target.value;
 });
 
 // Ocean code
@@ -63,8 +80,10 @@ function oceanName() {
   whenIClickTheButton(`${phpApi}?api=ocean&lat=${oceanLat}&lng=${oceanLng}`);
 }
 
-function getTheWeatherInformation() {
-  whenIClickTheButton(weatherUrl);
+function weatherInfo() {
+  whenIClickTheButton(
+    `${phpApi}?api=weather&north=${north}&south=${south}&east=${east}&west=${west}`
+  );
 }
 
 function callPHPApi() {
@@ -72,5 +91,5 @@ function callPHPApi() {
 }
 
 $("#timezone-send").click(getTimezone);
-$("#weather-send").click(getTheWeatherInformation);
+$("#weather-send").click(weatherInfo);
 $("#ocean-send").click(oceanName);

@@ -5,29 +5,22 @@
 
 	$executionStartTime = microtime(true);
 
-    $timezoneUrl =
-    "http://api.geonames.org/timezoneJSON";
+    $timezoneUrl = "http://api.geonames.org/timezoneJSON";
 
-  $weatherUrl =
-    "http://api.geonames.org/weatherJSON?north=68&south=-45&east=-80&west=100&username=antch";
+  	$weatherUrl = "http://api.geonames.org/weatherJSON?";
   
-  $oceanNameUrl =
-    "http://api.geonames.org/oceanJSON";
+  	$oceanNameUrl = "http://api.geonames.org/oceanJSON";
 
 
     if ( $_REQUEST['api'] && $_REQUEST['api'] == "timezone" ) {
         $url= $timezoneUrl . "?". "lat=" .  $_REQUEST['lat'] . "&lng=" .  $_REQUEST['lng']  . "&username=antch";
-    } elseif ( $_REQUEST['api'] && $_REQUEST['api'] == "ocean" ) { 
+    } 
+	elseif ($_REQUEST['api'] && $_REQUEST['api'] == "weather") {
+		$url= $weatherUrl . "?". "north=" .  $_REQUEST['north'] . "&east=" .  $_REQUEST['east']  .  "&south=" .  $_REQUEST['south'] . "&west=" .  $_REQUEST['west']  . "&username=antch";
+	}
+	elseif ( $_REQUEST['api'] && $_REQUEST['api'] == "ocean" ) { 
 		$url= $oceanNameUrl . "?". "lat=" .  $_REQUEST['lat'] . "&lng=" .  $_REQUEST['lng']  . "&username=antch";
-    }
-
-	// $url='http://api.geonames.org/weatherJSON?north=68&south=-45&east=-80&west=100&username=antch';
-
-	// Ocean Code
-	
-   
-       // $url='http://api.geonames.org/weatherJSON?north=68&south=-45&east=-80&west=100&username=antch';
-
+    } 
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);

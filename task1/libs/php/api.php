@@ -3,11 +3,16 @@
 	ini_set('display_errors', 'On');
 	error_reporting(E_ALL);
 
+	function writeLog($txt) {
+		$myfile = file_put_contents('logs.txt', $txt.PHP_EOL , FILE_APPEND | LOCK_EX);
+	}
+
 	$executionStartTime = microtime(true);
 
     $timezoneUrl = "http://api.geonames.org/timezoneJSON";
 
-  	$weatherUrl = "http://api.geonames.org/weatherJSON?";
+
+  	$weatherUrl = "http://api.geonames.org/weatherJSON";
   
   	$oceanNameUrl = "http://api.geonames.org/oceanJSON";
 
@@ -22,6 +27,7 @@
 		$url= $oceanNameUrl . "?". "lat=" .  $_REQUEST['lat'] . "&lng=" .  $_REQUEST['lng']  . "&username=antch";
     } 
 
+	writeLog($url);
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

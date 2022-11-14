@@ -1,4 +1,5 @@
 .example-coordinates {
-    padding: 1rem 2rem;
+    padding: 5px 5px;
     border: 1px solid green;
+    width: fit-content;
 }

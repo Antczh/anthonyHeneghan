@@ -1,0 +1,5 @@
+http://api.geonames.org/weatherJSON?north=0&east=0&south=0&west=0&username=antch
+http://api.geonames.org/timezoneJSON?lat=0&lng=0&username=antch
+http://api.geonames.org/weatherJSON?north=0&east=0&south=0&west=0&username=antch
+http://api.geonames.org/timezoneJSON?lat=0&lng=0&username=antch
+http://api.geonames.org/timezoneJSON?lat=0&lng=0&username=antch

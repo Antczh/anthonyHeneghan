@@ -1,4 +1,5 @@
 <?php
+// header('Access-Control-Allow-Origin: *'); 
 
 	ini_set('display_errors', 'On');
 	error_reporting(E_ALL);
@@ -10,7 +11,6 @@
 	$executionStartTime = microtime(true);
 
     $timezoneUrl = "http://api.geonames.org/timezoneJSON";
-
 
   	$weatherUrl = "http://api.geonames.org/weatherJSON";
   

@@ -9,7 +9,7 @@ let west = 0;
 let oceanLat = 0;
 let oceanLng = 0;
 
-const phpApi = "http://localhost/anthonyHeneghan/task1/libs/php/api.php";
+const phpApi = "http://anthonyheneghan.co.uk/libs/php/api.php";
 
 // Timezone code
 const latitudeInput = document.getElementById("LatInput");

@@ -16,10 +16,7 @@ const setTimezoneCoordinates = (lat, lng) => {
   timeZoneLat = lat;
   timeZoneLng = lng;
   document.getElementById("LatInput").value = lat;
-  document.getElementById("latitude").value = lat;
-
   document.getElementById("LngInput").value = lng;
-  document.getElementById("longitude").value = longitude;
 };
 
 const setTimezoneValues = () => {

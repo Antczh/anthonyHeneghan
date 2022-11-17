@@ -98,7 +98,7 @@ oceanLngInput.addEventListener("change", (e) => {
   oceanLng = e.target.value;
 });
 
-// Timezone display results 
+// Timezone display results
 
 function onSuccess(result) {
   console.log(result);
@@ -114,9 +114,26 @@ function onSuccess(result) {
 
   const time = document.getElementById("timezoneCurrentTime");
   time.innerHTML = result.data.time;
-};
+}
 
+// // Weather display results
+// function onSuccess(result) {
+//   console.log(result);
 
+//   const stationName = document.getElementById("stationName");
+//   stationName.innerHTML = result.data.weatherObservations.stationName;
+// }
+
+// // Ocean display results
+// function onSuccess(result) {
+//   console.log(result);
+
+//   const oceanName = document.getElementById("oceanName");
+//   oceanName.innerHTML = result.data.ocean.name;
+
+//   const oceanDistance = document.getElementById("oceanDistance");
+//   oceanDistance.innerHTML = result.data.ocean.distance;
+// }
 
 // Ajax function
 function whenIClickTheButton(url) {
@@ -134,14 +151,14 @@ function getTimezone() {
   );
 }
 
-function oceanName() {
-  whenIClickTheButton(`${phpApi}?api=ocean&lat=${oceanLat}&lng=${oceanLng}`);
-}
-
 function weatherInfo() {
   whenIClickTheButton(
     `${phpApi}?api=weather&north=${north}&south=${south}&east=${east}&west=${west}`
   );
+}
+
+function oceanName() {
+  whenIClickTheButton(`${phpApi}?api=ocean&lat=${oceanLat}&lng=${oceanLng}`);
 }
 
 function callPHPApi() {

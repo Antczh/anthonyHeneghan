@@ -13,10 +13,19 @@
 
     <div> <div class="example-coordinates">
               Example Values<br>
-              Timezone : Lat: 41.902782 Lng: 12.496366 (Italy)<br>
-              Weather Station : North: 44.1 East: -22.4 South: -9.9 West: 55.2 (Knox City)<br>
-              Ocean : Lat: -14 Lng: -28 (Atlantic Ocean)
+              Timezone : Lat: 41.902782 Lng: 12.496366 (Italy)<button onclick="setTimezoneValues()">Set Example</button><br>
+              Weather Station : North: 44.1 East: -22.4 South: -9.9 West: 55.2 (Knox City)<button onclick="setWeatherValues()">Set Example</button><br>
+              Ocean : Lat: -14 Lng: -28 (Atlantic Ocean)<button onclick="setOceanValues()">Set Example</button>
             </div>
+
+
+            <div class="current-values">
+              <!-- <h2>Current Values</h2> -->
+              <div class="timezone">
+                <div id="latitude"></div><div id="longitude"></div>
+              </div>
+            </div>
+
       <table>
         <thead>
           <tr>
@@ -103,6 +112,101 @@
         </tbody>
       </table>
     </div>
+
+    <div id="timezoneResults">
+			<table>
+				<tr>
+					<td>
+						Country Name: 
+					</td>
+					<td id="countryName">
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Sunrise: 
+					</td>
+					<td id=timezoneSunrise>
+          </td>
+				</tr>
+
+				<tr>
+					<td>
+						Sunset: 
+					</td>
+					<td id="timezoneSunset">
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Current Time: 
+					</td>
+					<td id="timezoneCurrentTime">
+					</td>
+				</tr>
+			</table>
+
+		</div>
+    <br>
+
+    <div id="">
+			<table>
+				<tr>
+					<td>
+						Station Name: 
+					</td>
+					<td id="stationName">
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Temperature: 
+					</td>
+					<td id=weatherTemp>
+          </td>
+				</tr>
+
+				<tr>
+					<td>
+						Humidity: 
+					</td>
+					<td id="weatherHumidity">
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Clouds: 
+					</td>
+					<td id="weatherClouds">
+					</td>
+				</tr>
+			</table>
+
+		</div>
+    <br>
+
+    <div id="oceanResults">
+			<table>
+				<tr>
+					<td>
+						Ocean Name: 
+					</td>
+					<td id="countryName">
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						Distance: 
+					</td>
+					<td id=timezoneSunrise>
+          </td>
+				</tr>
+		</div>
 
     <script
       type="application/javascript"

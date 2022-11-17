@@ -11,7 +11,50 @@ let oceanLng = 0;
 
 const phpApi = "http://anthonyheneghan.co.uk/libs/php/api.php";
 
-// Timezone code
+// Timezone preset
+const setTimezoneCoordinates = (lat, lng) => {
+  timeZoneLat = lat;
+  timeZoneLng = lng;
+  document.getElementById("LatInput").value = lat;
+  document.getElementById("latitude").value = lat;
+
+  document.getElementById("LngInput").value = lng;
+  document.getElementById("longitude").value = longitude;
+};
+
+const setTimezoneValues = () => {
+  setTimezoneCoordinates(41.902782, 12.496366);
+};
+
+// Weather preset
+const setWeatherCoordinates = (n, e, s, w) => {
+  north = n;
+  east = e;
+  south = s;
+  west = w;
+  document.getElementById("northInput").value = n;
+  document.getElementById("eastInput").value = e;
+  document.getElementById("southInput").value = s;
+  document.getElementById("westInput").value = w;
+};
+
+const setWeatherValues = () => {
+  setWeatherCoordinates(44.1, -22.4, -9.9, 55.2);
+};
+
+// Ocean preset
+const setOceanCoordinates = (oceanLat, oceanLng) => {
+  oceanLat = oceanLat;
+  oceanLng = oceanLng;
+  document.getElementById("oceanLatInput").value = oceanLat;
+  document.getElementById("oceanLngInput").value = oceanLng;
+};
+
+const setOceanValues = () => {
+  setOceanCoordinates(-14, -28);
+};
+
+// Timezone event code
 const latitudeInput = document.getElementById("LatInput");
 document.getElementById("LatInput").addEventListener("change", (e) => {
   timeZoneLat = e.target.value;
@@ -22,7 +65,7 @@ longitudeInput.addEventListener("change", (e) => {
   timeZoneLng = e.target.value;
 });
 
-// Weather
+// Weather event code
 const northInput = document.getElementById("northInput");
 document.getElementById("northInput").addEventListener("change", (e) => {
   north = e.target.value;
@@ -43,7 +86,7 @@ document.getElementById("westInput").addEventListener("change", (e) => {
   west = e.target.value;
 });
 
-// Ocean code
+// Ocean event code
 
 const oceanLatInput = document.getElementById("oceanLatInput");
 document.getElementById("oceanLatInput").addEventListener("change", (e) => {
@@ -55,10 +98,25 @@ oceanLngInput.addEventListener("change", (e) => {
   oceanLng = e.target.value;
 });
 
+// Timezone display results 
+
 function onSuccess(result) {
   console.log(result);
-  alert(JSON.stringify(result));
-}
+
+  const country = document.getElementById("countryName");
+  country.innerHTML = result.data.countryName;
+
+  const sunrise = document.getElementById("timezoneSunrise");
+  sunrise.innerHTML = result.data.sunrise;
+
+  const sunset = document.getElementById("timezoneSunset");
+  sunset.innerHTML = result.data.sunset;
+
+  const time = document.getElementById("timezoneCurrentTime");
+  time.innerHTML = result.data.time;
+};
+
+
 
 // Ajax function
 function whenIClickTheButton(url) {

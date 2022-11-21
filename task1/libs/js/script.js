@@ -98,7 +98,7 @@ oceanLngInput.addEventListener("change", (e) => {
   oceanLng = e.target.value;
 });
 
-// Timezone display results
+// Display results
 
 function onSuccess(result) {
   console.log("result", result);
@@ -110,7 +110,7 @@ function onSuccess(result) {
 
     const oceanDistance = document.getElementById("oceanDistance");
     oceanDistance.innerHTML = result.data.ocean.distance;
-  } else {
+  } else if (requestType === "timezone") {
     const country = document.getElementById("countryName");
     country.innerHTML = result.data.countryName;
 
@@ -122,15 +122,11 @@ function onSuccess(result) {
 
     const time = document.getElementById("timezoneCurrentTime");
     time.innerHTML = result.data.time;
+  } else {
+    const stationName = document.getElementById("stationName");
+    stationName.innerHTML = result.data.weatherObservations.stationName;
   }
-}
-// Weather display results
-// function onSuccess(result) {
-//   console.log(result);
-
-//   const stationName = document.getElementById("stationName");
-//   stationName.innerHTML = result.data.weatherObservations.stationName;
-// }
+  }
 
 // Ajax function
 function whenIClickTheButton(url) {

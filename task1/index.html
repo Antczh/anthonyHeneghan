@@ -11,21 +11,14 @@
   <body>
     <h1>Geonames API </h1>
 
-    <div> <div class="example-coordinates">
+     <div class="example-coordinates">
               Example Values<br>
               Timezone : Lat: 41.902782 Lng: 12.496366 (Italy)<button onclick="setTimezoneValues()">Set Example</button><br>
-              Weather Station : North: 44.1 East: -22.4 South: -9.9 West: 55.2 (Knox City)<button onclick="setWeatherValues()">Set Example</button><br>
+              Weather Station : North: 44.1 East: -22.4 South: -9.9 West: 55.2 <button onclick="setWeatherValues()">Set Example</button><br>
               Ocean : Lat: -14 Lng: -28 (Atlantic Ocean)<button onclick="setOceanValues()">Set Example</button>
-            </div>
+    </div>
 
-
-            <div class="current-values">
-              <!-- <h2>Current Values</h2> -->
-              <div class="timezone">
-                <div id="latitude"></div><div id="longitude"></div>
-              </div>
-            </div>
-
+<!-- Input values -->
       <table>
         <thead>
           <tr>
@@ -43,14 +36,14 @@
                 name="lat"
                 placeholder="Latitude"
                 class="coordinates-input"
-                id="LatInput"
+                id="latInput"
               />
               <input
                 type="number"
                 name="lng"
                 placeholder="Longitude"
                 class="coordinates-input"
-                id="LngInput"
+                id="lngInput"
               />
             </td>
             <td><button id="timezone-send">Send</button></td>
@@ -112,9 +105,11 @@
         </tbody>
       </table>
     </div>
-
+<br>
+<!-- timezone results -->
     <div id="timezoneResults">
 			<table>
+        <caption class="resultsTitle"><h4>Timzone Results</h4></caption>
 				<tr>
 					<td>
 						Country Name: 
@@ -127,7 +122,7 @@
 					<td>
 						Sunrise: 
 					</td>
-					<td id=timezoneSunrise>
+					<td id="timezoneSunrise">
           </td>
 				</tr>
 
@@ -147,12 +142,13 @@
 					</td>
 				</tr>
 			</table>
-
 		</div>
     <br>
 
-    <div id="">
+<!-- weather results -->
+    <div id="weatherResults">
 			<table>
+        <caption class="resultsTitle"><h4>Weather Results</h4></caption>
 				<tr>
 					<td>
 						Station Name: 
@@ -165,7 +161,7 @@
 					<td>
 						Temperature: 
 					</td>
-					<td id=weatherTemp>
+					<td id="weatherTemp">
           </td>
 				</tr>
 
@@ -185,12 +181,13 @@
 					</td>
 				</tr>
 			</table>
-
 		</div>
     <br>
 
+<!-- ocean results -->
     <div id="oceanResults">
 			<table>
+        <caption class="resultsTitle"><h4>Ocean Results</h4></caption>
 				<tr>
 					<td>
 						Ocean Name: 
@@ -203,9 +200,10 @@
 					<td>
 						Distance: 
 					</td>
-					<td id=oceanDistance>
+					<td id="oceanDistance">
           </td>
 				</tr>
+        </table>
 		</div>
 
     <script

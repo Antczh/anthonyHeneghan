@@ -18,8 +18,8 @@ const setTimezoneCoordinates = (lat, lng) => {
   timeZoneLat = lat;
   timeZoneLng = lng;
   // $("#LatInput").value = lat;
-  document.getElementById("LatInput").value = lat;
-  document.getElementById("LngInput").value = lng;
+  document.getElementById("latInput").value = lat;
+  document.getElementById("lngInput").value = lng;
 };
 
 const setTimezoneValues = () => {
@@ -55,12 +55,12 @@ const setOceanValues = () => {
 };
 
 // Timezone event code
-const latitudeInput = document.getElementById("LatInput");
-document.getElementById("LatInput").addEventListener("change", (e) => {
+const latitudeInput = document.getElementById("latInput");
+document.getElementById("latInput").addEventListener("change", (e) => {
   timeZoneLat = e.target.value;
 });
 
-const longitudeInput = document.getElementById("LngInput");
+const longitudeInput = document.getElementById("lngInput");
 longitudeInput.addEventListener("change", (e) => {
   timeZoneLng = e.target.value;
 });
@@ -122,11 +122,20 @@ function onSuccess(result) {
 
     const time = document.getElementById("timezoneCurrentTime");
     time.innerHTML = result.data.time;
-  } else {
+  } else if (requestType === "weather") {
     const stationName = document.getElementById("stationName");
-    stationName.innerHTML = result.data.weatherObservations.stationName;
+    stationName.innerHTML = result.data.weatherObservations[0].stationName;
+
+    const weatherTemp = document.getElementById("weatherTemp");
+    weatherTemp.innerHTML = result.data.weatherObservations[0].temperature;
+
+    const weatherHumidity = document.getElementById("weatherHumidity");
+    weatherHumidity.innerHTML = result.data.weatherObservations[0].humidity;
+
+    const weatherClouds = document.getElementById("weatherClouds");
+    weatherClouds.innerHTML = result.data.weatherObservations[0].clouds;
   }
-  }
+}
 
 // Ajax function
 function whenIClickTheButton(url) {

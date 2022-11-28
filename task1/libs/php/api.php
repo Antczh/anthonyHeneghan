@@ -22,7 +22,6 @@ $oceanNameUrl = "http://api.geonames.org/oceanJSON";
 if ($_REQUEST['api'] && $_REQUEST['api'] == "timezone") {
 	$url = "$timezoneUrl?lat={$lat}&lng={$_REQUEST['lng']}&username=antch";
 } elseif ($_REQUEST['api'] && $_REQUEST['api'] == "weather") {
-	// $url = $weatherUrl . "?" . "north=" .  $_REQUEST['north'] . "&east=" .  $_REQUEST['east']  .  "&south=" .  $_REQUEST['south'] . "&west=" .  $_REQUEST['west']  . "&username=antch";
 	$url = "$weatherUrl?north={$north}&east={$east}&south={$south}&west={$_REQUEST['west']}&username=antch";
 } elseif ($_REQUEST['api'] && $_REQUEST['api'] == "ocean") {
 	$url = "$oceanNameUrl$url?lat={$lat}&lng={$_REQUEST['lng']}&username=antch";

@@ -1,5 +1,5 @@
 <?php
-// header('Access-Control-Allow-Origin: *'); 
+header('Access-Control-Allow-Origin: *'); 
 
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
@@ -20,11 +20,11 @@ $oceanNameUrl = "http://api.geonames.org/oceanJSON";
 
 
 if ($_REQUEST['api'] && $_REQUEST['api'] == "timezone") {
-	$url = "$timezoneUrl?lat={$lat}&lng={$_REQUEST['lng']}&username=antch";
+	$url = "$timezoneUrl?lat={$_REQUEST['lat']}&lng={$_REQUEST['lng']}&username=antch";
 } elseif ($_REQUEST['api'] && $_REQUEST['api'] == "weather") {
-	$url = "$weatherUrl?north={$north}&east={$east}&south={$south}&west={$_REQUEST['west']}&username=antch";
+	$url = "$weatherUrl?north={$_REQUEST['north']}&east={$_REQUEST['east']}&south={$_REQUEST['south']}&west={$_REQUEST['west']}&username=antch";
 } elseif ($_REQUEST['api'] && $_REQUEST['api'] == "ocean") {
-	$url = "$oceanNameUrl$url?lat={$lat}&lng={$_REQUEST['lng']}&username=antch";
+	$url = "$oceanNameUrl?lat={$_REQUEST['lat']}&lng={$_REQUEST['lng']}&username=antch";
 }
 
 writeLog($url);

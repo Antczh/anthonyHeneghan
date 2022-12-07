@@ -11,7 +11,7 @@ let oceanLng = 0;
 
 let requestType = null;
 
-const phpApi = "http://anthonyheneghan.co.uk/libs/php/api.php";
+const phpApi = "https://anthonyheneghan.co.uk/libs/php/api.php";
 
 // Timezone preset
 const setTimezoneCoordinates = (lat, lng) => {
@@ -43,9 +43,9 @@ const setWeatherValues = () => {
 };
 
 // Ocean preset
-const setOceanCoordinates = (oceanLat, oceanLng) => {
-  oceanLat = oceanLat;
-  oceanLng = oceanLng;
+const setOceanCoordinates = (lat, lng) => {
+  oceanLat = lat;
+  oceanLng = lng;
   document.getElementById("oceanLatInput").value = oceanLat;
   document.getElementById("oceanLngInput").value = oceanLng;
 };

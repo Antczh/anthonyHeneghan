@@ -1,0 +1,67 @@
+#map {
+    height: 100vh;
+    z-index: 0;
+    
+  }
+  body {
+  
+    margin: 0;
+  }
+  
+  .controls {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    min-height: 30px;
+    background-color: black;
+    color: white;
+    padding: 1rem;
+    border-radius: 10px;
+    opacity: 0.8;
+    margin-left: 50px;
+    display: inline-block;
+    margin-top: 10px;
+  
+  }
+
+  #discoverBtn {
+    border-radius: 10px;
+    padding: 2.5px;
+    margin-left: 5px;
+    margin-top: -3px;
+    width: fit-content;
+   
+  }
+
+  .modal-content {
+    width: 300px;
+  }
+
+  .weatherBtn {
+    color: darkgreen;
+    position: fixed;
+    z-index: 1;
+    margin-top: 100px;
+    margin-left: 15px;
+  }
+
+  .newsBtn{
+    z-index: 1;
+    position: fixed;
+    margin-top: 140px;
+    margin-left: 15px;
+  }
+
+  .moneyBtn {
+    z-index: 1;
+    position: fixed;
+    margin-top: 180px;
+    margin-left: 15px;
+  }
+  .nationalHolidayBtn{
+    z-index: 1;
+    position: fixed;
+    margin-top: 220px;
+    margin-left: 15px;
+  }

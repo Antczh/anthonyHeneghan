@@ -37,7 +37,7 @@ curl_setopt($ch, CURLOPT_URL, $url);
 $result = curl_exec($ch);
 $decode = json_decode($result, true);
 $output['data'][0]['weather'] = $decode["weather"][0]["description"];
-// $output['data'][0]['main'] = $decode["main"]["feels_like"];
+// $output['data'][0]['main'] = $decode["main"];
 // var_dump($output);
 
 curl_close($ch);

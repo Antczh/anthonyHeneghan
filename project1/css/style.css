@@ -4,7 +4,6 @@
     
   }
   body {
-  
     margin: 0;
   }
   
@@ -17,7 +16,7 @@
     background-color: black;
     color: white;
     padding: 1rem;
-    border-radius: 10px;
+    border-radius: 30px;
     opacity: 0.8;
     margin-left: 50px;
     display: inline-block;
@@ -25,43 +24,86 @@
   
   }
 
-  #discoverBtn {
-    border-radius: 10px;
-    padding: 2.5px;
-    margin-left: 5px;
-    margin-top: -3px;
-    width: fit-content;
-   
-  }
-
   .modal-content {
     width: 300px;
   }
 
-  .weatherBtn {
-    color: darkgreen;
-    position: fixed;
+  #maginfyBtn{
     z-index: 1;
-    margin-top: 100px;
+    position: fixed;
+    margin-top: 90px;
     margin-left: 15px;
   }
 
-  .newsBtn{
+  #discoverIcon {
+    height: 30px;
+    width: 30px;
+   
+  }
+
+
+  #newspaperIcon{
+    height: 30px;
+    width: 30px;
+  }
+
+  #moneyIcon{
+    height: 30px;
+    width: 30px;
+  }
+
+  #holidayIcon{
+    height: 30px;
+    width: 30px;
+  }
+
+  #weatherModalBtn{
     z-index: 1;
+    color: darkgreen;
     position: fixed;
     margin-top: 140px;
     margin-left: 15px;
+    
   }
 
-  .moneyBtn {
-    z-index: 1;
+#weatherID2{
+  z-index: 1;
+  height: 30px;
+  width: 30px;
+}
+
+#newspaperIcon2{
+  height: 30px;
+  width: 30px;
+}
+
+#localNewsInfo{
+  z-index: 1;
     position: fixed;
-    margin-top: 180px;
+    margin-top: 190px;
     margin-left: 15px;
-  }
-  .nationalHolidayBtn{
-    z-index: 1;
-    position: fixed;
-    margin-top: 220px;
-    margin-left: 15px;
-  }
+}
+
+#moneyIcon2{
+  height: 30px;
+  width: 30px;
+}
+
+#mnyBtn{
+  z-index: 1;
+  position: fixed;
+  margin-top: 240px;
+  margin-left: 15px;
+}
+
+#holidayIcon2{
+  height: 30px;
+  width: 30px;
+}
+
+#nationalHolBtn2{
+  z-index: 1;
+  position: fixed;
+  margin-top: 290px;
+  margin-left: 15px;
+}

@@ -4,11 +4,18 @@ let coords = [];
 let polygon = "";
 let markerCountry = "";
 let mapIcon = L.icon({
-  iconUrl: "./css/img/mapLocationIcon.png",
+  iconUrl: "./fontawesome-free-6.2.1-web/svgs/icons/map-pin-solid.svg",
   iconSize: [48, 48], // size of the icon
   iconAnchor: [24, 48], // point of the icon which will correspond to marker's location
   popupAnchor: [0, -48], // point from which the popup should open relative to the iconAnchor
 });
+let nearbyCityIcon = L.icon({
+  iconUrl: "./fontawesome-free-6.2.1-web/svgs/icons/location-dot-solid.svg",
+  iconSize: [48, 48], // size of the icon
+  iconAnchor: [24, 48], // point of the icon which will correspond to marker's location
+  popupAnchor: [0, -48], // point from which the popup should open relative to the iconAnchor
+});
+
 const map = L.map("map").setView([0, 0], 2);
 
 navigator.geolocation.getCurrentPosition(success, error);
@@ -24,12 +31,26 @@ function success(pos) {
 }
 
 function error(err) {
-  if (err.code === 1) {
-    alert("Please allow location access");
-  } else {
-    alert("Cannot get location");
-  }
+  latitudeAfghanistan = 33.9391;
+  lngAfghanistan = 67.71;
+  marker = L.marker([latitudeAfghanistan, lngAfghanistan], { icon: mapIcon });
+  marker.addTo(map).bindPopup("We have placed you here!").openPopup();
+  map.setView([latitudeAfghanistan, lngAfghanistan], 10);
+  // if (err.code === 1) {
+  //   alert("Please allow location access");
+  // } else {
+  //   alert("Cannot get location");
+  // }
 }
+
+window.addEventListener("load", (event) => {
+  navigator.permissions.query({ name: "geolocation" }).then((result) => {
+    if (result.state === "denied") {
+      document.getElementById("country").value = "AF";
+    }
+    // console.log(result.state);
+  });
+});
 
 $.ajax({
   type: "GET",
@@ -37,6 +58,13 @@ $.ajax({
   dataType: "json",
   success: function (data) {
     countryList = data.data.features;
+    // console.log("before sorting ", countryList);
+    countryList = countryList.sort(function (firstElement, secondElement) {
+      return firstElement.properties.name > secondElement.properties.name
+        ? 1
+        : -1;
+    });
+    // console.log("after sorting ", countryList);
     countryList.forEach((item) => {
       $("#country").append(
         `<option id="countryId" value="${item.properties.iso_a2}">${item.properties.name}</option>`
@@ -65,7 +93,7 @@ document.getElementById("country").addEventListener("change", function (event) {
         if (markerCountry != "") {
           map.removeLayer(markerCountry);
         }
-        markerCountry = L.marker(res[0].latlng);
+        markerCountry = L.marker(res[0].latlng, { icon: mapIcon });
         markerCountry.addTo(map).bindPopup("You have arrived!").openPopup();
 
         const latlngs = [];
@@ -105,7 +133,7 @@ document.getElementById("country").addEventListener("change", function (event) {
   }
 });
 
-document.getElementById("discoverBtn").addEventListener("click", () => {
+document.getElementById("maginfyBtn").addEventListener("click", () => {
   const countryCode = $("#country").val();
   $.ajax({
     url: "php/server.php?c=" + countryCode,
@@ -156,7 +184,7 @@ document.getElementById("discoverBtn").addEventListener("click", () => {
 });
 // <img src="http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png"  <h3 class="card-title"></h3>
 
-document.getElementById("weatherModalInfo").addEventListener("click", () => {
+document.getElementById("weatherModalBtn").addEventListener("click", () => {
   const countryCode = $("#country").val();
   $.ajax({
     url: "php/openWeather.php?c=" + countryCode,
@@ -181,15 +209,27 @@ document.getElementById("weatherModalInfo").addEventListener("click", () => {
   });
 });
 
-// News modal
+// News Modal
 document.getElementById("newsModal").addEventListener("click", () => {
-  jQuery("#newsModal .modal-body").html(` <div class="card-body">
-  <p class="card-text">Title</p>
-  <p class="card-text">Source Name</p>
+  const countryCode = $("#country").val();
+  $.ajax({
+    url: "php/topNews.php?c=" + countryCode,
+    type: "GET",
+    dataType: "json",
+    success: function (res) {
+      console.log(res);
+      jQuery("#newsModal .modal-body").html(` <div class="card-body">
+      <p class="card-text">Title</p>
+      <p class="card-text">Source Name</p>
+      <p class="card-text">URL</p>
+      <p class="Published at</p>
 
-</div>`);
+    </div>`);
+    },
+  });
 });
-// currency modal
+
+// Currency Modal
 document.getElementById("currencyModal").addEventListener("click", () => {
   jQuery("#currencyModal .modal-body").html(` <div class="card-body">
   <p class="card-text">Currency Code</p>
@@ -199,14 +239,20 @@ document.getElementById("currencyModal").addEventListener("click", () => {
 });
 // National Holidays
 document.getElementById("nationalHolModal").addEventListener("click", () => {
-  jQuery("#nationalHolModal .modal-body").html(`<div class="card-body">
-  <h3 class="card-title"></h3>
-  <p class="card-text">Name</p>
-  <p class="card-text">Date</p>
-  <p class="card-text">Weekday Name</p>
-
-
-</div>`);
+  const countryCode = $("#country").val();
+  $.ajax({
+    url: "php/hols.php?c=" + countryCode,
+    type: "GET",
+    dataType: "json",
+    success: function (res) {
+      jQuery("#nationalHolModal .modal-body").html(`<div class="card-body">
+      <h3 class="card-title"></h3>
+      <p class="card-text">Name</p>
+      <p class="card-text">Date</p>
+      <p class="card-text">Weekday Name</p>
+    </div>`);
+    },
+  });
 });
 
 // Map display

@@ -228,7 +228,7 @@ document.getElementById("newsModal").addEventListener("click", () => {
     type: "GET",
     dataType: "json",
     success: function (res) {
-      console.log("hello ", res);
+      console.log("news ", res);
       jQuery("#newsModal .modal-body").html(` <div class="card-body">
       <p class="card-text">Title</p>
       <p class="card-text">Source Name</p>

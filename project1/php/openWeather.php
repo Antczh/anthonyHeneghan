@@ -29,15 +29,18 @@ curl_close($ch);
 // exit;
 
 // open weather 
-$url = 'https://api.openweathermap.org/data/2.5/weather?lat=' . $latlng[0] . '&lon=' . $latlng[1] . '&appid=2cc2e66eaabbee0304c1c626a25344bc';
+$url = 'https://api.openweathermap.org/data/2.5/weather?lat=' . $latlng[0] . '&lon=' . $latlng[1] . '&appid=2cc2e66eaabbee0304c1c626a25344bc&units=metric';
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_URL, $url);
 $result = curl_exec($ch);
 $decode = json_decode($result, true);
-$output['data'][0]['weather'] = $decode["weather"][0]["description"];
-// $output['data'][0]['main'] = $decode["main"];
+
+$main = $decode["main"];
+$weather = $decode["weather"][0];
+$output['data'] = array_merge($main, $weather);
+
 // var_dump($output);
 
 curl_close($ch);

@@ -4,24 +4,18 @@ ini_set('display_errors', 'On');
 error_reporting(E_ALL);
 $executionStartTime = microtime(true);
 $countryCode = $_GET['c'];
+$url = './countryBorders.geo.json';
 
-$url = "https://restcountries.com/v3.1/alpha/" . $countryCode;
+$data = file_get_contents($url);
+$decode = json_decode($data, true);
+// country code
+$url = 'http://api.geonames.org/countryInfoJSON?formatted=true&country=' . $countryCode . '&username=antch';
 
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_URL, $url);
-
-$result = curl_exec($ch);
-$decode = json_decode($result, true);
-
-$latlng = $decode[0]['latlng'];
-curl_close($ch);
 
 $curl = curl_init();
 
 curl_setopt_array($curl, [
-    CURLOPT_URL => "https://countries-cities.p.rapidapi.com/location/city/nearby?latitude=' . $latlng[0] . '&longitude=' . $latlng[1] .'&radius=25&min_population=99&max_population=10000&per_page=10",
+    CURLOPT_URL => 'https://countries-cities.p.rapidapi.com/location/country/' . $countryCode . '/city/list?page=2&per_page=30&population=15000',
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_FOLLOWLOCATION => true,
     CURLOPT_ENCODING => "",

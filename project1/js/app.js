@@ -128,6 +128,15 @@ document.getElementById("country").addEventListener("change", function (event) {
             }
           },
         });
+
+        $.ajax({
+          url: "php/nearbyCities.php?c=" + country[0].properties.iso_a2,
+          type: "GET",
+          dataType: "json",
+          success: function (res) {
+            // console.log("result ", res);
+          },
+        });
       },
     });
   }
@@ -144,7 +153,6 @@ document.getElementById("maginfyBtn").addEventListener("click", () => {
       let population = res["data"][0].population;
       let countryName = res["data"][0].countryName;
       let currency = res["data"][0].currencyCode;
-      let currentWeather = res["data"][0].weather;
       let wikipedia = res["data"][0].wiki;
 
       jQuery("#exampleModal .modal-body")
@@ -163,15 +171,9 @@ document.getElementById("maginfyBtn").addEventListener("click", () => {
     <td>Population:</td>
     <td id="countryPopulation">${population}</td>
   </tr>
-
   <tr>
     <td>Currency:</td>
     <td id="countryPopulation">${currency}</td>
-  </tr>
-
-  <tr>
-    <td>Current Weather:</td>
-    <td id="countryWeather">${currentWeather}</td>
   </tr>
 
   <tr>
@@ -182,7 +184,6 @@ document.getElementById("maginfyBtn").addEventListener("click", () => {
     },
   });
 });
-// <img src="http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png"  <h3 class="card-title"></h3>
 
 document.getElementById("weatherModalBtn").addEventListener("click", () => {
   const countryCode = $("#country").val();
@@ -190,20 +191,25 @@ document.getElementById("weatherModalBtn").addEventListener("click", () => {
     url: "php/openWeather.php?c=" + countryCode,
     type: "GET",
     dataType: "json",
-    success: function (res) {
-      let temp = res["data"][0].weather;
-      let tempFeels = "feelLikeTemp";
-      let tempMax = "tempMax";
-      let tempMin = "tempMin";
-      let humidity = "humidity";
+    success: function ({ data }) {
+      // console.log(data);
+      let description = data.description;
+      let temp = data.temp;
+      let feelsLike = data.feels_like;
+      let tempMax = data.temp_max;
+      let tempMin = data.temp_min;
+      let humidity = data.humidity;
 
       jQuery("#weatherModal .modal-body").html(` <div class="card-body">
-  <img src="http://openweathermap.org/img/wn/10d@2x.png">
-  <p class="card-text">Temp ${temp}</p>
-  <p class="card-text">Temp feels like</p>
-  <p class="card-text">Temp min</p>
-  <p class="card-text">Temp max</p>
-  <p class="card-text">Humidity</p>
+      <p class="card-text">General Weather: ${description}</p>
+  <img src="http://openweathermap.org/img/wn/${data.icon}@2x.png">
+  <p class="card-text">Temperature: ${Math.round(temp)}&#8451;</p>
+  <p class="card-text">Temperature feels like: ${Math.round(
+    feelsLike
+  )}&#8451;</p>
+  <p class="card-text">Max temperature: ${Math.round(tempMax)}&#8451;</p>
+  <p class="card-text">Minimun Temperature: ${Math.round(tempMin)}&#8451;</p>
+  <p class="card-text">Humidity: ${humidity}%</p>
 </div>`);
     },
   });
@@ -217,7 +223,7 @@ document.getElementById("newsModal").addEventListener("click", () => {
     type: "GET",
     dataType: "json",
     success: function (res) {
-      console.log(res);
+      console.log("hello ", res);
       jQuery("#newsModal .modal-body").html(` <div class="card-body">
       <p class="card-text">Title</p>
       <p class="card-text">Source Name</p>

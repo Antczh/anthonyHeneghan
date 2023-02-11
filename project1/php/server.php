@@ -31,7 +31,7 @@ $output['data'] = $decode['geonames'];
 // get wikipedia
 $capital = $output['data'][0]['capital'];
 
-$url = 'http://api.geonames.org/wikipediaSearchJSON?formatted=true&q=' . $capital . '&maxRows=500&username=antch&style=full';
+$url = 'http://api.geonames.org/wikipediaSearchJSON?formatted=true&q=' . $capital . '&maxRows=10&username=antch&style=full';
 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -51,7 +51,7 @@ if (isset($decode) && isset($decode['geonames']) && isset($decode['geonames'][0]
 }
 header('Content-Type: application/json; charset=UTF-8');
 
-//lat lng API
+// lat lng API
 $url = "https://restcountries.com/v3.1/alpha/" . $countryCode;
 
 $ch = curl_init();
@@ -66,7 +66,7 @@ $latlng = $decode[0]['latlng'];
 curl_close($ch);
 
 
-//weather API
+// weather API
 $url = 'https://api.openweathermap.org/data/2.5/weather?lat=' . $latlng[0] . '&lon=' . $latlng[1] . '&appid=2cc2e66eaabbee0304c1c626a25344bc';
 
 $ch = curl_init();

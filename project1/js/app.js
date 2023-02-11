@@ -134,6 +134,11 @@ document.getElementById("country").addEventListener("change", function (event) {
           type: "GET",
           dataType: "json",
           success: function (res) {
+            if (country[0].properties.iso_a2 == res) {
+              var markers = L.markerClusterGroup();
+              markers.addLayer(L.marker(res.cities.latitude.longitude(map)));
+              map.addLayer(markers);
+            }
             console.log("result ", res);
           },
         });
@@ -259,6 +264,7 @@ document.getElementById("nationalHolModal").addEventListener("click", () => {
     type: "GET",
     dataType: "json",
     success: function (res) {
+      console.log("holidays", res);
       jQuery("#nationalHolModal .modal-body").html(`<div class="card-body">
       <h3 class="card-title"></h3>
       <p class="card-text">Name</p>

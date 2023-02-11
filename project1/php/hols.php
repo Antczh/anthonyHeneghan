@@ -10,26 +10,32 @@ $decode = json_decode($data, true);
 
 $executionStartTime = microtime(true);
 $countryCode = $_GET['c'];
-$key = 'fcb99439-a44d-48d5-b412-a7d34cb34a8e';
-
-$url = 'https://holidayapi.com/v1/holidays?pretty&' . $key . '&country=' . $countryCode . '&year=2022';
 
 
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_URL, $url);
+$curl = curl_init();
 
-$result = curl_exec($ch);
+curl_setopt_array($curl, [
+    CURLOPT_URL => "https://public-holiday.p.rapidapi.com/2022/" . $countryCode . "",
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_ENCODING => "",
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 30,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => "GET",
+    CURLOPT_HTTPHEADER => [
+        "X-RapidAPI-Host: public-holiday.p.rapidapi.com",
+        "X-RapidAPI-Key: 450da59770msh48f578fe4ec52bcp1e3255jsn924835a58ab7"
+    ],
+]);
 
-curl_close($ch);
+$response = curl_exec($curl);
+$err = curl_error($curl);
 
-$decode = json_decode($result, true);
+curl_close($curl);
 
-$output['status']['code'] = "200";
-$output['status']['name'] = "ok";
-$output['status']['description'] = "success";
-$output['status']['returnedIn'] = intval((microtime(true) - $executionStartTime) * 1000) . " ms";
-$output['data'] = $decode['holidays'];
-// https://holidayapi.com/docs
-// fcb99439-a44d-48d5-b412-a7d34cb34a8e
+if ($err) {
+    echo "cURL Error #:" . $err;
+} else {
+    echo $response;
+}

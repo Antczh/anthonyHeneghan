@@ -16,6 +16,13 @@ let nearbyCityIcon = L.icon({
   popupAnchor: [0, -48], // point from which the popup should open relative to the iconAnchor
 });
 
+let natureIcon = L.icon({
+  iconUrl: "./fontawesome-free-6.2.1-web/svgs/icons/tree-solid.svg",
+  iconSize: [48, 48], // size of the icon
+  iconAnchor: [24, 48], // point of the icon which will correspond to marker's location
+  popupAnchor: [0, -48], // point from which the popup should open relative to the iconAnchor
+});
+
 const map = L.map("map").setView([0, 0], 2);
 
 navigator.geolocation.getCurrentPosition(success, error);

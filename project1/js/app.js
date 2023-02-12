@@ -164,7 +164,7 @@ document.getElementById("maginfyBtn").addEventListener("click", () => {
       let capital = res["data"][0].capital;
       let population = res["data"][0].population;
       let countryName = res["data"][0].countryName;
-      let currency = res["data"][0].currencyCode;
+      // let currency = res["data"][0].currencyCode;
       let wikipedia = res["data"][0].wiki;
 
       jQuery("#exampleModal .modal-body")
@@ -184,9 +184,6 @@ document.getElementById("maginfyBtn").addEventListener("click", () => {
     <td id="countryPopulation">${population}</td>
   </tr>
   <tr>
-    <td>Currency:</td>
-    <td id="countryPopulation">${currency}</td>
-  </tr>
 
   <tr>
     <td>Wikipedia Link:</td>
@@ -259,13 +256,12 @@ document.getElementById("currencyModal").addEventListener("click", () => {
     success: function (res) {
       console.log("money", res);
 
-      let baseCurrency = res.old_currency;
+      // let baseCurrency = res.old_currency;
       let baseAmount = res.old_amount;
       let countryCurrency = res.new_currency;
       let targetCountryAmount = res.new_amount;
 
       jQuery("#currencyModal .modal-body").html(` <div class="card-body">
-      <p class="card-text">Base Currency: ${baseCurrency}</p>
       <p class="card-text">Country Currency: ${countryCurrency}</p>
       <p class="card-text">Conversion: ${baseAmount} USD = ${targetCountryAmount} ${countryCurrency} </p>
 

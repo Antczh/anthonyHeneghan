@@ -12,21 +12,32 @@ $decode = json_decode($data, true);
 $url = 'http://api.geonames.org/countryInfoJSON?formatted=true&country=' . $countryCode . '&username=antch';
 
 
-$url = 'https://newsapi.org/v2/top-headlines?country=' . $countryCode . '&apiKey=77e8b965b865464a9fb1e7de9c51b975';
 
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_URL, $url);
 
-$result = curl_exec($ch);
+$curl = curl_init();
 
-curl_close($ch);
+curl_setopt_array($curl, [
+    CURLOPT_URL => "https://real-time-news-data.p.rapidapi.com/top-headlines?country=" . $countryCode . "&lang=",
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_ENCODING => "",
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 30,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => "GET",
+    CURLOPT_HTTPHEADER => [
+        "X-RapidAPI-Host: real-time-news-data.p.rapidapi.com",
+        "X-RapidAPI-Key: 450da59770msh48f578fe4ec52bcp1e3255jsn924835a58ab7"
+    ],
+]);
 
-$decode = json_decode($result, true);
+$response = curl_exec($curl);
+$err = curl_error($curl);
 
-$output['status']['code'] = "200";
-$output['status']['name'] = "ok";
-$output['status']['description'] = "success";
-$output['status']['returnedIn'] = intval((microtime(true) - $executionStartTime) * 1000) . " ms";
-$output['data'] = $decode['articles'];
+curl_close($curl);
+
+if ($err) {
+    echo "Not available for this country" . $err;
+} else {
+    echo $response;
+}

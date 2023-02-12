@@ -15,7 +15,7 @@ $countryCode = $_GET['c'];
 $curl = curl_init();
 
 curl_setopt_array($curl, [
-    CURLOPT_URL => "https://public-holiday.p.rapidapi.com/2022/" . $countryCode . "",
+    CURLOPT_URL => "https://public-holiday.p.rapidapi.com/2023/" . $countryCode . "",
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_FOLLOWLOCATION => true,
     CURLOPT_ENCODING => "",

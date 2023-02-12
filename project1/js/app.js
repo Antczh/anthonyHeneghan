@@ -244,7 +244,6 @@ document.getElementById("newsModal").addEventListener("click", () => {
       <p class="card-text">Title: ${title}</p>
       <p class="card-text">Source: <a href="https://${sourceName}">${sourceName}</a></p>
       <p class="card-text">Link: <a href="https://${url}">${url}</a></p>
-      
     </div>`);
     },
   });
@@ -290,9 +289,7 @@ document.getElementById("nationalHolModal").addEventListener("click", () => {
 
       jQuery("#nationalHolModal .modal-body").html(`<div class="card-body">
       <h3 class="card-title"></h3>
-      <p class="card-text">Name: ${name}</p>
-      <p class="card-text">Date: ${date}</p>
-      <p class="card-text">Type of holiday: ${type} </p>
+      <p class="card-text">Name: ${name}<br>Date: ${date}<br>Holiday Type: ${type}</p>
     </div>`);
     },
   });

@@ -10,7 +10,14 @@ let mapIcon = L.icon({
   popupAnchor: [0, -48], // point from which the popup should open relative to the iconAnchor
 });
 let nearbyCityIcon = L.icon({
-  iconUrl: "./fontawesome-free-6.2.1-web/svgs/icons/location-dot-solid.svg",
+  iconUrl: "./fontawesome-free-6.2.1-web/svgs/icons/city-solid.svg",
+  iconSize: [48, 48], // size of the icon
+  iconAnchor: [24, 48], // point of the icon which will correspond to marker's location
+  popupAnchor: [0, -48], // point from which the popup should open relative to the iconAnchor
+});
+
+let natureIcon = L.icon({
+  iconUrl: "./fontawesome-free-6.2.1-web/svgs/icons/tree-solid.svg",
   iconSize: [48, 48], // size of the icon
   iconAnchor: [24, 48], // point of the icon which will correspond to marker's location
   popupAnchor: [0, -48], // point from which the popup should open relative to the iconAnchor
@@ -134,7 +141,12 @@ document.getElementById("country").addEventListener("change", function (event) {
           type: "GET",
           dataType: "json",
           success: function (res) {
-            console.log("result ", res);
+            if (country[0].properties.iso_a2 == res) {
+              var markers = L.markerClusterGroup();
+              markers.addLayer(L.marker(res.cities.latitude.longitude(map)));
+              map.addLayer(markers);
+            }
+            // console.log("result ", res);
           },
         });
       },
@@ -222,14 +234,16 @@ document.getElementById("newsModal").addEventListener("click", () => {
     url: "php/topNews.php?c=" + countryCode,
     type: "GET",
     dataType: "json",
-    success: function (res) {
-      console.log("hello ", res);
-      jQuery("#newsModal .modal-body").html(` <div class="card-body">
-      <p class="card-text">Title</p>
-      <p class="card-text">Source Name</p>
-      <p class="card-text">URL</p>
-      <p class="Published at</p>
+    success: function (data) {
+      let title = data.data[0].title;
+      let url = data.data[0].link;
+      let sourceName = data.data[0].source_url;
 
+      console.log("news ", data);
+      jQuery("#newsModal .modal-body").html(` <div class="card-body">
+      <p class="card-text">Title: ${title}<br></p>
+      <p class="card-text">Source: <a href="https://${sourceName}">${sourceName}</a></p>
+      <p class="card-text">Link: <a href="https://${url}">${url}</a></p>
     </div>`);
     },
   });
@@ -244,9 +258,18 @@ document.getElementById("currencyModal").addEventListener("click", () => {
     dataType: "json",
     success: function (res) {
       console.log("money", res);
+
+      let baseCurrency = res.old_currency;
+      let baseAmount = res.old_amount;
+      let countryCurrency = res.new_currency;
+      let targetCountryAmount = res.new_amount;
+
       jQuery("#currencyModal .modal-body").html(` <div class="card-body">
-      <p class="card-text">Currency Code</p>
-      <p class="card-text">Currency Name</p>
+      <p class="card-text">Base Currency: ${baseCurrency}</p>
+      <p class="card-text">Base Amount: ${baseAmount} USD</p>
+      <p class="card-text">Country Currency: ${countryCurrency}</p>
+      <p class="card-text">Converted Amount: ${targetCountryAmount} ${countryCurrency}</p>
+
     </div>`);
     },
   });
@@ -259,11 +282,16 @@ document.getElementById("nationalHolModal").addEventListener("click", () => {
     type: "GET",
     dataType: "json",
     success: function (res) {
+      // console.log("holidays", res);
+      let name = res[0].name;
+      let date = res[0].date;
+      let type = res[0].type;
+
       jQuery("#nationalHolModal .modal-body").html(`<div class="card-body">
       <h3 class="card-title"></h3>
-      <p class="card-text">Name</p>
-      <p class="card-text">Date</p>
-      <p class="card-text">Weekday Name</p>
+      <p class="card-text">Name: ${name}</p>
+      <p class="card-text">Date: ${date}</p>
+      <p class="card-text">Type of holiday: ${type} </p>
     </div>`);
     },
   });

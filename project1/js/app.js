@@ -242,8 +242,8 @@ document.getElementById("newsModal").addEventListener("click", () => {
       console.log("news ", data);
       jQuery("#newsModal .modal-body").html(` <div class="card-body">
       <p class="card-text">Title: ${title}</p>
-      <p class="card-text">Source: <a href="https://${sourceName}"</a>${sourceName}</p>
-      <p class="card-text">URL: <a href="https://${url}"</a>${url}</p>
+      <p class="card-text">Source: <a href="https://${sourceName}">${sourceName}</a></p>
+      <p class="card-text">Link: <a href="https://${url}">${url}</a></p>
       
     </div>`);
     },
@@ -258,10 +258,19 @@ document.getElementById("currencyModal").addEventListener("click", () => {
     type: "GET",
     dataType: "json",
     success: function (res) {
-      // console.log("money", res);
+      console.log("money", res);
+
+      let baseCurrency = res.old_currency;
+      let baseAmount = res.old_amount;
+      let countryCurrency = res.new_currency;
+      let targetCountryAmount = res.new_amount;
+
       jQuery("#currencyModal .modal-body").html(` <div class="card-body">
-      <p class="card-text">Currency Code</p>
-      <p class="card-text">Currency Name</p>
+      <p class="card-text">Base Currency: ${baseCurrency}</p>
+      <p class="card-text">Base Amount: ${baseAmount} USD</p>
+      <p class="card-text">Country Currency: ${countryCurrency}</p>
+      <p class="card-text">Country Currency Amount: ${targetCountryAmount} ${countryCurrency}</p>
+
     </div>`);
     },
   });

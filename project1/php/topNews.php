@@ -37,7 +37,7 @@ $err = curl_error($curl);
 curl_close($curl);
 
 if ($err) {
-    echo "cURL Error #:" . $err;
+    echo "Not available foe this country" . $err;
 } else {
     echo $response;
 }

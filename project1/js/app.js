@@ -234,17 +234,16 @@ document.getElementById("newsModal").addEventListener("click", () => {
     url: "php/topNews.php?c=" + countryCode,
     type: "GET",
     dataType: "json",
-    success: function (res) {
-      // let title = res.headline_stories[0].title;
-      // let url = res.headline_stories[0].url;
-      // let sourceName = res.headline_stories[0].by;
+    success: function (data) {
+      let title = data.data[0].title;
+      let url = data.data[0].link;
+      let sourceName = data.data[0].source_url;
 
-      // console.log("news ", res);
+      console.log("news ", data);
       jQuery("#newsModal .modal-body").html(` <div class="card-body">
-      <p class="card-text">Recent Local News<p>
-      <p class="card-text">Title:</p>
-      <p class="card-text">Source:</p>
-      <p class="card-text">URL: <a href="https://"</a></p>
+      <p class="card-text">Title: ${title}</p>
+      <p class="card-text">Source: <a href="https://${sourceName}"</a>${sourceName}</p>
+      <p class="card-text">URL: <a href="https://${url}"</a>${url}</p>
       
     </div>`);
     },
@@ -275,14 +274,13 @@ document.getElementById("nationalHolModal").addEventListener("click", () => {
     type: "GET",
     dataType: "json",
     success: function (res) {
-      console.log("holidays", res);
+      // console.log("holidays", res);
       let name = res[0].name;
       let date = res[0].date;
       let type = res[0].type;
 
       jQuery("#nationalHolModal .modal-body").html(`<div class="card-body">
       <h3 class="card-title"></h3>
-      
       <p class="card-text">Name: ${name}</p>
       <p class="card-text">Date: ${date}</p>
       <p class="card-text">Type of holiday: ${type} </p>

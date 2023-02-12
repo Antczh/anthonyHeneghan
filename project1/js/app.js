@@ -269,7 +269,7 @@ document.getElementById("currencyModal").addEventListener("click", () => {
       <p class="card-text">Base Currency: ${baseCurrency}</p>
       <p class="card-text">Base Amount: ${baseAmount} USD</p>
       <p class="card-text">Country Currency: ${countryCurrency}</p>
-      <p class="card-text">Country Currency Amount: ${targetCountryAmount} ${countryCurrency}</p>
+      <p class="card-text">Converted Amount: ${targetCountryAmount} ${countryCurrency}</p>
 
     </div>`);
     },

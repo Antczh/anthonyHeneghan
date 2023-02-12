@@ -146,7 +146,7 @@ document.getElementById("country").addEventListener("change", function (event) {
               markers.addLayer(L.marker(res.cities.latitude.longitude(map)));
               map.addLayer(markers);
             }
-            console.log("result ", res);
+            // console.log("result ", res);
           },
         });
       },
@@ -235,17 +235,17 @@ document.getElementById("newsModal").addEventListener("click", () => {
     type: "GET",
     dataType: "json",
     success: function (res) {
-      // let title = title;
-      // let url = url;
-      // let published = by;
+      // let title = res.headline_stories[0].title;
+      // let url = res.headline_stories[0].url;
+      // let sourceName = res.headline_stories[0].by;
 
-      console.log("news ", res);
+      // console.log("news ", res);
       jQuery("#newsModal .modal-body").html(` <div class="card-body">
-      <p class="card-text">Title</p>
-      <p class="card-text">Source Name</p>
-      <p class="card-text">URL</p>
-      <p class="Published at</p>
-
+      <p class="card-text">Recent Local News<p>
+      <p class="card-text">Title:</p>
+      <p class="card-text">Source:</p>
+      <p class="card-text">URL: <a href="https://"</a></p>
+      
     </div>`);
     },
   });
@@ -259,7 +259,7 @@ document.getElementById("currencyModal").addEventListener("click", () => {
     type: "GET",
     dataType: "json",
     success: function (res) {
-      console.log("money", res);
+      // console.log("money", res);
       jQuery("#currencyModal .modal-body").html(` <div class="card-body">
       <p class="card-text">Currency Code</p>
       <p class="card-text">Currency Name</p>
@@ -276,11 +276,16 @@ document.getElementById("nationalHolModal").addEventListener("click", () => {
     dataType: "json",
     success: function (res) {
       console.log("holidays", res);
+      let name = res[0].name;
+      let date = res[0].date;
+      let type = res[0].type;
+
       jQuery("#nationalHolModal .modal-body").html(`<div class="card-body">
       <h3 class="card-title"></h3>
-      <p class="card-text">Name</p>
-      <p class="card-text">Date</p>
-      <p class="card-text">Weekday Name</p>
+      
+      <p class="card-text">Name: ${name}</p>
+      <p class="card-text">Date: ${date}</p>
+      <p class="card-text">Type of holiday: ${type} </p>
     </div>`);
     },
   });

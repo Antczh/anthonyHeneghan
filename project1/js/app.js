@@ -266,9 +266,9 @@ document.getElementById("currencyModal").addEventListener("click", () => {
 
       jQuery("#currencyModal .modal-body").html(` <div class="card-body">
       <p class="card-text">Base Currency: ${baseCurrency}</p>
-      <p class="card-text">Base Amount: ${baseAmount} USD</p>
       <p class="card-text">Country Currency: ${countryCurrency}</p>
-      <p class="card-text">Converted Amount: ${targetCountryAmount} ${countryCurrency}</p>
+      <p class="card-text">Conversion: ${baseAmount} USD = ${targetCountryAmount} ${countryCurrency} </p>
+
 
     </div>`);
     },

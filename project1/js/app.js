@@ -10,7 +10,7 @@ let mapIcon = L.icon({
   popupAnchor: [0, -48], // point from which the popup should open relative to the iconAnchor
 });
 let nearbyCityIcon = L.icon({
-  iconUrl: "./fontawesome-free-6.2.1-web/svgs/icons/location-dot-solid.svg",
+  iconUrl: "./fontawesome-free-6.2.1-web/svgs/icons/city-solid.svg",
   iconSize: [48, 48], // size of the icon
   iconAnchor: [24, 48], // point of the icon which will correspond to marker's location
   popupAnchor: [0, -48], // point from which the popup should open relative to the iconAnchor
@@ -228,6 +228,10 @@ document.getElementById("newsModal").addEventListener("click", () => {
     type: "GET",
     dataType: "json",
     success: function (res) {
+      // let title = title;
+      // let url = url;
+      // let published = by;
+
       console.log("news ", res);
       jQuery("#newsModal .modal-body").html(` <div class="card-body">
       <p class="card-text">Title</p>

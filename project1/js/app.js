@@ -173,7 +173,6 @@ document.getElementById("maginfyBtn").addEventListener("click", () => {
     <td>Country:</td>
     <td id="countryName">${countryName}</td>
   </tr>
-
   <tr>
     <td>Capital:</td>
     <td id="capitalName">${capital}</td>
@@ -234,13 +233,17 @@ document.getElementById("newsModal").addEventListener("click", () => {
     success: function (data) {
       let title = data.data[0].title;
       let url = data.data[0].link;
-      let sourceName = data.data[0].source_url;
+      let photoURL = data.data[0].photo_url;
+      let published = data.data[0].published_datetime_utc;
+      // console.log("news ", data);
 
-      console.log("news ", data);
-      jQuery("#newsModal .modal-body").html(` <div class="card-body">
-      <p class="card-text">Title: ${title}</p>
-      <p class="card-text">Source: <a href="https://${sourceName}">${sourceName}</a></p>
-      <p class="card-text">Link: <a href="https://${url}">${url}</a></p>
+      jQuery("#newsModal .modal-body").html(` <div class="newsCard">
+      <img class="cardNewsImg" src="${photoURL}" alt="News Artcile Photo">
+      <div class="card-body">
+        <h5 class="card-title">${title}</h5>
+        <p class="card-text">${published}</p>
+        <a href="https://${url}" class="btn btn-primary">Article Link</a>
+      </div>
     </div>`);
     },
   });
@@ -278,7 +281,7 @@ document.getElementById("nationalHolModal").addEventListener("click", () => {
     type: "GET",
     dataType: "json",
     success: function (res) {
-      // console.log("holidays", res);
+      console.log("holidays", res);
       let name = res[0].name;
       let date = res[0].date;
       let type = res[0].type;

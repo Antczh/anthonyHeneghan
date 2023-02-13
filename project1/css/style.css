@@ -107,3 +107,12 @@
   margin-top: 290px;
   margin-left: 15px;
 }
+
+.newsCard{
+  width: 17.5rem;
+}
+
+.cardNewsImg{
+  height: 150px;
+  width: 270px;
+}

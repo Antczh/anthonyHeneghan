@@ -136,19 +136,19 @@ document.getElementById("country").addEventListener("change", function (event) {
           },
         });
 
-        $.ajax({
-          url: "php/nearbyCities.php?c=" + country[0].properties.iso_a2,
-          type: "GET",
-          dataType: "json",
-          success: function (res) {
-            if (country[0].properties.iso_a2 == res) {
-              var markers = L.markerClusterGroup();
-              markers.addLayer(L.marker(res.cities.latitude.longitude(map)));
-              map.addLayer(markers);
-            }
-            // console.log("result ", res);
-          },
-        });
+        // $.ajax({
+        //   url: "php/nearbyCities.php?c=" + country[0].properties.iso_a2,
+        //   type: "GET",
+        //   dataType: "json",
+        //   success: function (res) {
+        //     if (country[0].properties.iso_a2 == res) {
+        //       var markers = L.markerClusterGroup();
+        //       markers.addLayer(L.marker(res.cities.latitude.longitude(map)));
+        //       map.addLayer(markers);
+        //     }
+        //     // console.log("result ", res);
+        //   },
+        // });
       },
     });
   }
@@ -211,13 +211,32 @@ document.getElementById("weatherModalBtn").addEventListener("click", () => {
       jQuery("#weatherModal .modal-body").html(` <div class="card-body">
       <p class="card-text">General Weather: ${description}</p>
   <img src="http://openweathermap.org/img/wn/${data.icon}@2x.png">
-  <p class="card-text">Temperature: ${Math.round(temp)}&#8451;</p>
-  <p class="card-text">Temperature feels like: ${Math.round(
-    feelsLike
-  )}&#8451;</p>
-  <p class="card-text">Max Temperature: ${Math.round(tempMax)}&#8451;</p>
-  <p class="card-text">Minimun Temperature: ${Math.round(tempMin)}&#8451;</p>
-  <p class="card-text">Humidity: ${humidity}%</p>
+  <table>
+  <tr>
+  <td>Temperature:</td>
+  <td>&nbsp;&nbsp;&nbsp;${Math.round(temp)}&#8451;</td>
+  </tr>
+
+  <tr>
+  <td>Temperature feels like:</td>
+  <td>&nbsp;&nbsp;&nbsp;${Math.round(feelsLike)}&#8451;</td>
+  </tr>
+
+  <tr>
+  <td>Max Temperature:</td>
+  <td>&nbsp;&nbsp;&nbsp;${Math.round(tempMax)}&#8451;</td>
+  </tr>
+
+  <tr>
+  <td>Minimun Temperature:</td>
+  <td>&nbsp;&nbsp;&nbsp;${Math.round(tempMin)}&#8451;</td>
+  </tr>
+
+  <tr>
+  <td>Humidity:</td>
+  <td>&nbsp;&nbsp;&nbsp;${humidity}%</td>
+  </tr>
+  </table>
 </div>`);
     },
   });
@@ -282,10 +301,13 @@ document.getElementById("nationalHolModal").addEventListener("click", () => {
     dataType: "json",
     success: function (res) {
       console.log("holidays", res);
+
+      let i = 0;
       let name = res[0].name;
       let date = res[0].date;
       let type = res[0].type;
 
+      for (i < res.length; i++; ) {}
       jQuery("#nationalHolModal .modal-body").html(`<div class="card-body">
       <h3 class="card-title"></h3>
       <p class="card-text">Name: ${name}<br>Date: ${date}<br>Holiday Type: ${type}</p>

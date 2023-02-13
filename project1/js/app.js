@@ -171,16 +171,16 @@ document.getElementById("maginfyBtn").addEventListener("click", () => {
         .html(`<table class="retrievedInfoTable">
   <tr>
     <td>Country:</td>
-    <td id="countryName">${countryName}</td>
+    <td id="countryName">&nbsp;&nbsp;&nbsp;${countryName}</td>
   </tr>
   <tr>
     <td>Capital:</td>
-    <td id="capitalName">${capital}</td>
+    <td id="capitalName">&nbsp;&nbsp;&nbsp;${capital}</td>
   </tr>
 
   <tr>
     <td>Population:</td>
-    <td id="countryPopulation">${population}</td>
+    <td id="countryPopulation">&nbsp;&nbsp;&nbsp;${population}</td>
   </tr>
   <tr>
 
@@ -286,8 +286,6 @@ document.getElementById("currencyModal").addEventListener("click", () => {
       jQuery("#currencyModal .modal-body").html(` <div class="card-body">
       <p class="card-text">Country Currency: ${countryCurrency}</p>
       <p class="card-text">Conversion: ${baseAmount} USD = ${targetCountryAmount} ${countryCurrency} </p>
-
-
     </div>`);
     },
   });

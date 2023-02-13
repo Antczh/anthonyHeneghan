@@ -35,7 +35,7 @@ $err = curl_error($curl);
 curl_close($curl);
 
 if ($err) {
-    echo "cURL Error #:" . $err;
+    echo "Information not available" . $err;
 } else {
     echo $response;
 }

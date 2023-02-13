@@ -243,7 +243,7 @@ document.getElementById("weatherModalBtn").addEventListener("click", () => {
 });
 
 // News Modal
-document.getElementById("newsModal").addEventListener("click", () => {
+document.getElementById("localNewsInfo").addEventListener("click", () => {
   const countryCode = $("#country").val();
   $.ajax({
     url: "php/topNews.php?c=" + countryCode,
@@ -261,7 +261,7 @@ document.getElementById("newsModal").addEventListener("click", () => {
       <div class="card-body">
         <h5 class="card-title">${title}</h5>
         <p class="card-text">${published}</p>
-        <a href="https://${url}" class="btn btn-primary">Article Link</a>
+        <a href="${url}" class="btn btn-primary">Article Link</a>
       </div>
     </div>`);
     },
@@ -269,7 +269,7 @@ document.getElementById("newsModal").addEventListener("click", () => {
 });
 
 // Currency Modal
-document.getElementById("currencyModal").addEventListener("click", () => {
+document.getElementById("mnyBtn").addEventListener("click", () => {
   const countryCode = $("#country").val();
   $.ajax({
     url: "php/currency.php?c=" + countryCode,
@@ -291,7 +291,7 @@ document.getElementById("currencyModal").addEventListener("click", () => {
   });
 });
 // National Holidays
-document.getElementById("nationalHolModal").addEventListener("click", () => {
+document.getElementById("nationalHolBtn2").addEventListener("click", () => {
   const countryCode = $("#country").val();
   $.ajax({
     url: "php/hols.php?c=" + countryCode,

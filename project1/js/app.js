@@ -146,9 +146,18 @@ document.getElementById("country").addEventListener("change", function (event) {
         //       markers.addLayer(L.marker(res.cities.latitude.longitude(map)));
         //       map.addLayer(markers);
         //     }
-        //     // console.log("result ", res);
+        //     console.log("result ", res);
         //   },
         // });
+
+        $.ajax({
+          url: "php/nature.php?c=",
+          type: "GET",
+          dataType: "json",
+          success: function (res) {
+            console.log(res);
+          },
+        });
       },
     });
   }

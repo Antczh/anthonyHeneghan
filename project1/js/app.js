@@ -142,7 +142,7 @@ document.getElementById("country").addEventListener("change", function (event) {
           type: "GET",
           dataType: "json",
           success: function (res) {
-            console.log("cities ", res);
+            // console.log("cities ", res);
             // for (let i = 0; i < res.cities.length; i++) {
             //   if (country[0].properties.iso_a2 == res.country_code[i]) {
             //     cityLatLng.push(res.cities[i].latitude.longitude);
@@ -177,6 +177,7 @@ document.getElementById("country").addEventListener("change", function (event) {
   }
 });
 
+// General Info
 document.getElementById("maginfyBtn").addEventListener("click", () => {
   const countryCode = $("#country").val();
   $.ajax({
@@ -202,7 +203,9 @@ document.getElementById("maginfyBtn").addEventListener("click", () => {
 
   <tr>
     <td><strong>Population:</strong></td>
-    <td id="countryPopulation">&nbsp;&nbsp;&nbsp;${population}</td>
+    <td id="countryPopulation">&nbsp;&nbsp;&nbsp;${new Intl.NumberFormat(
+      "en-IN"
+    ).format(population)}</td>
   </tr>
   <tr>
 
@@ -215,6 +218,7 @@ document.getElementById("maginfyBtn").addEventListener("click", () => {
   });
 });
 
+// Weather
 document.getElementById("weatherModalBtn").addEventListener("click", () => {
   const countryCode = $("#country").val();
   $.ajax({
@@ -321,7 +325,7 @@ document.getElementById("mnyBtn").addEventListener("click", () => {
   });
 });
 
-// National Holidays
+// National Holidays modal
 document.getElementById("nationalHolBtn2").addEventListener("click", () => {
   const countryCode = $("#country").val();
   $.ajax({

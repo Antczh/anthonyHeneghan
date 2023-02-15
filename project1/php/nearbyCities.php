@@ -15,7 +15,7 @@ $url = 'http://api.geonames.org/countryInfoJSON?formatted=true&country=' . $coun
 $curl = curl_init();
 
 curl_setopt_array($curl, [
-    CURLOPT_URL => 'https://countries-cities.p.rapidapi.com/location/country/' . $countryCode . '/city/list?page=2&per_page=30&population=15000',
+    CURLOPT_URL => 'https://countries-cities.p.rapidapi.com/location/country/' . $countryCode . '/city/list?page=2&per_page=100&population=15000',
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_FOLLOWLOCATION => true,
     CURLOPT_ENCODING => "",

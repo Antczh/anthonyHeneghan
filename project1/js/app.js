@@ -136,26 +136,40 @@ document.getElementById("country").addEventListener("change", function (event) {
           },
         });
 
+        // const cityLatLng = [];
         // $.ajax({
         //   url: "php/nearbyCities.php?c=" + country[0].properties.iso_a2,
         //   type: "GET",
         //   dataType: "json",
         //   success: function (res) {
-        //     if (country[0].properties.iso_a2 == res) {
-        //       var markers = L.markerClusterGroup();
-        //       markers.addLayer(L.marker(res.cities.latitude.longitude(map)));
-        //       map.addLayer(markers);
-        //     }
         //     console.log("result ", res);
+        //     for (let i = 0; i < res.cities.length; i++) {
+        //       if (country[0].properties.iso_a2 == res.country_code) {
+        //         cityLatLng.push(res.cities[i].latitude.longitude);
+        //         if (cityLatLng != "") {
+        //           map.removeLayer(cityLatLng);
+        //         }
+        //         var markers = L.markerClusterGroup(res.cities[i], {
+        //           icon: nearbyCityIcon,
+        //         });
+        //         markers.addLayer(L.marker(cityLatLng(map)));
+        //         map.addLayer(markers);
+        //       }
+        //     }
         //   },
         // });
 
         $.ajax({
           url: "php/nature.php?c=",
-          type: "GET",
+          type: "POST",
           dataType: "json",
           success: function (res) {
             console.log(res);
+            var markers = L.markerClusterGroup();
+            markers.addLayer(
+              L.marker(getRandomLatLng, { icon: natureIcon }(map))
+            );
+            map.addLayer(markers);
           },
         });
       },
@@ -219,7 +233,9 @@ document.getElementById("weatherModalBtn").addEventListener("click", () => {
 
       jQuery("#weatherModal .modal-body").html(` <div class="card-body">
       <p class="card-text">General Weather: ${description}</p>
-  <img src="http://openweathermap.org/img/wn/${data.icon}@2x.png">
+  <img src="http://openweathermap.org/img/wn/${
+    data.icon
+  }@2x.png" alt="Weather Icon Photo">
   <table>
   <tr>
   <td>Temperature:</td>
@@ -259,20 +275,33 @@ document.getElementById("localNewsInfo").addEventListener("click", () => {
     type: "GET",
     dataType: "json",
     success: function (data) {
-      let title = data.data[0].title;
-      let url = data.data[0].link;
-      let photoURL = data.data[0].photo_url;
-      let published = data.data[0].published_datetime_utc;
+      let html = "";
+
+      if (data.status === "ERROR") {
+        html = "News not available for this country";
+
+        jQuery("#newsModal .modal-body").html(html);
+
+        return;
+      }
+      console.log(data);
+      data.data.forEach((item) => {
+        html += ` <div class="newsCard">
+        <img class="cardNewsImg" src="${item.photoURL}" alt="News Artcile Photo">
+        <div class="card-body">
+          <h5 class="card-title">${item.title}</h5>
+          <p class="card-text">${item.published}</p>
+          <a href="${item.url}" class="btn btn-primary">Article Link</a>
+        </div>
+      </div>`;
+      });
+      // let title = data.data[0].title;
+      // let url = data.data[0].link;
+      // let photoURL = data.data[0].photo_url;
+      // let published = data.data[0].published_datetime_utc;
       // console.log("news ", data);
 
-      jQuery("#newsModal .modal-body").html(` <div class="newsCard">
-      <img class="cardNewsImg" src="${photoURL}" alt="News Artcile Photo">
-      <div class="card-body">
-        <h5 class="card-title">${title}</h5>
-        <p class="card-text">${published}</p>
-        <a href="${url}" class="btn btn-primary">Article Link</a>
-      </div>
-    </div>`);
+      jQuery("#newsModal .modal-body").html(html);
     },
   });
 });
@@ -307,18 +336,17 @@ document.getElementById("nationalHolBtn2").addEventListener("click", () => {
     type: "GET",
     dataType: "json",
     success: function (res) {
-      console.log("holidays", res);
+      let html = "";
 
-      let i = 0;
-      let name = res[0].name;
-      let date = res[0].date;
-      let type = res[0].type;
+      for (let i = 0; i < res.length; i++) {
+        const item = res[i];
+        html += `<div class="card-body">
+        <h3 class="card-title"></h3>
+        <p class="card-text">Name: ${item.name}<br>Date: ${item.date}<br>Holiday Type: ${item.type}</p>
+      </div>`;
+      }
 
-      for (i < res.length; i++; ) {}
-      jQuery("#nationalHolModal .modal-body").html(`<div class="card-body">
-      <h3 class="card-title"></h3>
-      <p class="card-text">Name: ${name}<br>Date: ${date}<br>Holiday Type: ${type}</p>
-    </div>`);
+      jQuery("#nationalHolModal .modal-body").html(html);
     },
   });
 });

@@ -136,42 +136,42 @@ document.getElementById("country").addEventListener("change", function (event) {
           },
         });
 
-        // const cityLatLng = [];
-        // $.ajax({
-        //   url: "php/nearbyCities.php?c=" + country[0].properties.iso_a2,
-        //   type: "GET",
-        //   dataType: "json",
-        //   success: function (res) {
-        //     console.log("result ", res);
-        //     for (let i = 0; i < res.cities.length; i++) {
-        //       if (country[0].properties.iso_a2 == res.country_code) {
-        //         cityLatLng.push(res.cities[i].latitude.longitude);
-        //         if (cityLatLng != "") {
-        //           map.removeLayer(cityLatLng);
-        //         }
-        //         var markers = L.markerClusterGroup(res.cities[i], {
-        //           icon: nearbyCityIcon,
-        //         });
-        //         markers.addLayer(L.marker(cityLatLng(map)));
-        //         map.addLayer(markers);
-        //       }
-        //     }
-        //   },
-        // });
-
+        const cityLatLng = [];
         $.ajax({
-          url: "php/nature.php?c=",
-          type: "POST",
+          url: "php/nearbyCities.php?c=" + country[0].properties.iso_a2,
+          type: "GET",
           dataType: "json",
           success: function (res) {
-            console.log(res);
-            var markers = L.markerClusterGroup();
-            markers.addLayer(
-              L.marker(getRandomLatLng, { icon: natureIcon }(map))
-            );
-            map.addLayer(markers);
+            console.log("cities ", res);
+            // for (let i = 0; i < res.cities.length; i++) {
+            //   if (country[0].properties.iso_a2 == res.country_code[i]) {
+            //     cityLatLng.push(res.cities[i].latitude.longitude);
+            //     if (cityMarkers != "") {
+            //       map.removeLayer(cityLatLng);
+            //     }
+            //     var cityMarkers = L.markerClusterGroup(cityLatLng);
+            //     markers.addLayer(
+            //       L.marker(cityMarkers, { icon: nearbyCityIcon }(map))
+            //     );
+            //     map.addLayer(cityMarkers);
+            //   }
+            // }
           },
         });
+
+        // $.ajax({
+        //   url: "php/nature.php?c=",
+        //   type: "POST",
+        //   dataType: "json",
+        //   success: function (res) {
+        //     console.log(res);
+        //     var markers = L.markerClusterGroup();
+        //     markers.addLayer(
+        //       L.marker(getRandomLatLng, { icon: natureIcon }(map))
+        //     );
+        //     map.addLayer(markers);
+        //   },
+        // });
       },
     });
   }
@@ -192,22 +192,22 @@ document.getElementById("maginfyBtn").addEventListener("click", () => {
       jQuery("#exampleModal .modal-body")
         .html(`<table class="retrievedInfoTable">
   <tr>
-    <td>Country:</td>
+    <td><strong>Country:</strong></td>
     <td id="countryName">&nbsp;&nbsp;&nbsp;${countryName}</td>
   </tr>
   <tr>
-    <td>Capital:</td>
+    <td><strong>Capital:</strong></td>
     <td id="capitalName">&nbsp;&nbsp;&nbsp;${capital}</td>
   </tr>
 
   <tr>
-    <td>Population:</td>
+    <td><strong>Population:</strong></td>
     <td id="countryPopulation">&nbsp;&nbsp;&nbsp;${population}</td>
   </tr>
   <tr>
 
   <tr>
-    <td>Wikipedia Link:</td>
+    <td><strong>Wikipedia Link:</strong></td>
       <td id="wikiLinks"><a href="https://${wikipedia}">${wikipedia}</a></td>
   </tr>
 </table>`);
@@ -231,33 +231,33 @@ document.getElementById("weatherModalBtn").addEventListener("click", () => {
       let humidity = data.humidity;
 
       jQuery("#weatherModal .modal-body").html(` <div class="card-body">
-      <p class="card-text">General Weather: ${description}</p>
+      <p class="card-text"><strong>General Weather:</strong> ${description}</p>
   <img src="http://openweathermap.org/img/wn/${
     data.icon
   }@2x.png" alt="Weather Icon Photo">
   <table>
   <tr>
-  <td>Temperature:</td>
+  <td><strong>Temperature:</strong></td>
   <td>&nbsp;&nbsp;&nbsp;${Math.round(temp)}&#8451;</td>
   </tr>
 
   <tr>
-  <td>Temperature feels like:</td>
+  <td><strong>Temperature feels like:</strong></td>
   <td>&nbsp;&nbsp;&nbsp;${Math.round(feelsLike)}&#8451;</td>
   </tr>
 
   <tr>
-  <td>Max Temperature:</td>
+  <td><strong>Max Temperature:</strong></td>
   <td>&nbsp;&nbsp;&nbsp;${Math.round(tempMax)}&#8451;</td>
   </tr>
 
   <tr>
-  <td>Minimun Temperature:</td>
+  <td><strong>Minimun Temperature:</strong></td>
   <td>&nbsp;&nbsp;&nbsp;${Math.round(tempMin)}&#8451;</td>
   </tr>
 
   <tr>
-  <td>Humidity:</td>
+  <td><strong>Humidity:</strong></td>
   <td>&nbsp;&nbsp;&nbsp;${humidity}%</td>
   </tr>
   </table>
@@ -314,12 +314,13 @@ document.getElementById("mnyBtn").addEventListener("click", () => {
       let targetCountryAmount = res.new_amount;
 
       jQuery("#currencyModal .modal-body").html(` <div class="card-body">
-      <p class="card-text">Country Currency: ${countryCurrency}</p>
-      <p class="card-text">Conversion: ${baseAmount} USD = ${targetCountryAmount} ${countryCurrency} </p>
+      <p class="card-text"><strong>Country Currency:</strong> ${countryCurrency}</p>
+      <p class="card-text"><strong>Conversion:</strong> ${baseAmount} USD = ${targetCountryAmount} ${countryCurrency} </p>
     </div>`);
     },
   });
 });
+
 // National Holidays
 document.getElementById("nationalHolBtn2").addEventListener("click", () => {
   const countryCode = $("#country").val();
@@ -335,18 +336,18 @@ document.getElementById("nationalHolBtn2").addEventListener("click", () => {
         html += `<div class="card-body">
         <table>
         <tr>
-        <td>Holiday Name:</td>
-        <td>&nbsp;&nbsp;&nbsp;${item.name}</td>
+        <td><strong>Holiday Name:</strong></td>
+        <td>${item.name}</td>
         </tr>
       
         <tr>
-        <td>Data:</td>
-        <td>&nbsp;&nbsp;&nbsp;${item.date}</td>
+        <td><strong>Date:</strong></td>
+        <td>${item.date}</td>
         </tr>
       
         <tr>
-        <td>Holiday Type:</td>
-        <td>&nbsp;&nbsp;&nbsp;${item.type}</td>
+        <td><strong>Holiday Type:</strong></td>
+        <td>${item.type}</td>
         </tr>
       
         </table>

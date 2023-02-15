@@ -26,16 +26,3 @@ curl_setopt_array($curl, [
 
 $response = (curl_exec($curl));
 echo $response;
-// var_dump($response->status);
-// return $response->status;
-// // var_dump($response["status"]);
-// die();
-// $err = curl_error($curl);
-
-// curl_close($curl);
-
-// if ($err) {
-//     echo "News not available for this country" . $err;
-// } else {
-//     echo $response;
-// }

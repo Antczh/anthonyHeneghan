@@ -2,14 +2,14 @@
 
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
-$executionStartTime = microtime(true);
+// $executionStartTime = microtime(true);
 $countryCode = $_GET['c'];
-$url = './countryBorders.geo.json';
+// $url = './countryBorders.geo.json';
 
-$data = file_get_contents($url);
-$decode = json_decode($data, true);
+// $data = file_get_contents($url);
+// $decode = json_decode($data, true);
 // country code
-$url = 'http://api.geonames.org/countryInfoJSON?formatted=true&country=' . $countryCode . '&username=antch';
+// $url = 'http://api.geonames.org/countryInfoJSON?formatted=true&country=' . $countryCode . '&username=antch';
 
 
 $curl = curl_init();

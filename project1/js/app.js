@@ -187,7 +187,6 @@ document.getElementById("maginfyBtn").addEventListener("click", () => {
       let capital = res["data"][0].capital;
       let population = res["data"][0].population;
       let countryName = res["data"][0].countryName;
-      // let currency = res["data"][0].currencyCode;
       let wikipedia = res["data"][0].wiki;
 
       jQuery("#exampleModal .modal-body")
@@ -286,7 +285,7 @@ document.getElementById("localNewsInfo").addEventListener("click", () => {
       }
       console.log(data);
       data.data.forEach((item) => {
-        html += ` <div class="newsCard">
+        html += `<div class="newsCard">
         <img class="cardNewsImg" src="${item.photo_url}" alt="News Artcile Photo">
         <div class="card-body">
           <h5 class="card-title">${item.title}</h5>
@@ -308,9 +307,8 @@ document.getElementById("mnyBtn").addEventListener("click", () => {
     type: "GET",
     dataType: "json",
     success: function (res) {
-      console.log("money", res);
+      // console.log("money", res);
 
-      // let baseCurrency = res.old_currency;
       let baseAmount = res.old_amount;
       let countryCurrency = res.new_currency;
       let targetCountryAmount = res.new_amount;
@@ -335,16 +333,31 @@ document.getElementById("nationalHolBtn2").addEventListener("click", () => {
       for (let i = 0; i < res.length; i++) {
         const item = res[i];
         html += `<div class="card-body">
-        <h3 class="card-title"></h3>
-        <p class="card-text">Name: ${item.name}<br>Date: ${item.date}<br>Holiday Type: ${item.type}</p>
-      </div><br><br>`;
+        <table>
+        <tr>
+        <td>Holiday Name:</td>
+        <td>&nbsp;&nbsp;&nbsp;${item.name}</td>
+        </tr>
+      
+        <tr>
+        <td>Data:</td>
+        <td>&nbsp;&nbsp;&nbsp;${item.date}</td>
+        </tr>
+      
+        <tr>
+        <td>Holiday Type:</td>
+        <td>&nbsp;&nbsp;&nbsp;${item.type}</td>
+        </tr>
+      
+        </table>
+        </div><br><br>`;
       }
 
       jQuery("#nationalHolModal .modal-body").html(html);
     },
   });
 });
-// let = hi;
+
 // Map display
 const tileLayer = L.tileLayer(
   "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",

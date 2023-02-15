@@ -287,20 +287,14 @@ document.getElementById("localNewsInfo").addEventListener("click", () => {
       console.log(data);
       data.data.forEach((item) => {
         html += ` <div class="newsCard">
-        <img class="cardNewsImg" src="${item.photoURL}" alt="News Artcile Photo">
+        <img class="cardNewsImg" src="${item.photo_url}" alt="News Artcile Photo">
         <div class="card-body">
           <h5 class="card-title">${item.title}</h5>
-          <p class="card-text">${item.published}</p>
-          <a href="${item.url}" class="btn btn-primary">Article Link</a>
+          <p class="card-text">${item.published_datetime_utc}</p>
+          <a href="${item.link}" class="btn btn-primary">Article Link</a>
         </div>
-      </div>`;
+      </div><br>`;
       });
-      // let title = data.data[0].title;
-      // let url = data.data[0].link;
-      // let photoURL = data.data[0].photo_url;
-      // let published = data.data[0].published_datetime_utc;
-      // console.log("news ", data);
-
       jQuery("#newsModal .modal-body").html(html);
     },
   });
@@ -343,14 +337,14 @@ document.getElementById("nationalHolBtn2").addEventListener("click", () => {
         html += `<div class="card-body">
         <h3 class="card-title"></h3>
         <p class="card-text">Name: ${item.name}<br>Date: ${item.date}<br>Holiday Type: ${item.type}</p>
-      </div>`;
+      </div><br><br>`;
       }
 
       jQuery("#nationalHolModal .modal-body").html(html);
     },
   });
 });
-
+// let = hi;
 // Map display
 const tileLayer = L.tileLayer(
   "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",

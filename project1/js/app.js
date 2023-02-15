@@ -288,12 +288,17 @@ document.getElementById("localNewsInfo").addEventListener("click", () => {
         return;
       }
       console.log(data);
+
       data.data.forEach((item) => {
+        let date = item.published_datetime_utc;
+
         html += `<div class="newsCard">
-        <img class="cardNewsImg" src="${item.photo_url}" alt="News Artcile Photo">
+        <img class="cardNewsImg" src="${
+          item.photo_url
+        }" alt="News Artcile Photo">
         <div class="card-body">
           <h5 class="card-title">${item.title}</h5>
-          <p class="card-text">${item.published_datetime_utc}</p>
+          <p class="card-text">${new Date(date).toUTCString()}</p>
           <a href="${item.link}" class="btn btn-primary">Article Link</a>
         </div>
       </div><br>`;

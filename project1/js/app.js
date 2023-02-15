@@ -227,6 +227,7 @@ document.getElementById("weatherModalBtn").addEventListener("click", () => {
     dataType: "json",
     success: function ({ data }) {
       // console.log(data);
+
       let description = data.description;
       let temp = data.temp;
       let feelsLike = data.feels_like;
@@ -235,10 +236,12 @@ document.getElementById("weatherModalBtn").addEventListener("click", () => {
       let humidity = data.humidity;
 
       jQuery("#weatherModal .modal-body").html(` <div class="card-body">
-      <p class="card-text"><strong>General Weather:</strong> ${description}</p>
-  <img src="http://openweathermap.org/img/wn/${
-    data.icon
-  }@2x.png" alt="Weather Icon Photo">
+      <p class="card-text"><strong>General Weather:</strong> ${
+        description.charAt(0).toUpperCase() + description.slice(1)
+      }</p>
+    <img src="http://openweathermap.org/img/wn/${
+      data.icon
+    }@2x.png" alt="Weather Icon Photo">
   <table>
   <tr>
   <td><strong>Temperature:</strong></td>
@@ -246,7 +249,7 @@ document.getElementById("weatherModalBtn").addEventListener("click", () => {
   </tr>
 
   <tr>
-  <td><strong>Temperature feels like:</strong></td>
+  <td><strong>Temperature Feels Like:</strong></td>
   <td>&nbsp;&nbsp;&nbsp;${Math.round(feelsLike)}&#8451;</td>
   </tr>
 

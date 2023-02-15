@@ -130,6 +130,7 @@ document.getElementById("country").addEventListener("change", function (event) {
                 polygon.addTo(map);
 
                 map.fitBounds(polygon.getBounds());
+                // console.log(feature.properties.geometry);
                 break;
               }
             }

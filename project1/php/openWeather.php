@@ -4,14 +4,6 @@ ini_set('display_errors', 'On');
 error_reporting(E_ALL);
 $executionStartTime = microtime(true);
 $countryCode = $_GET['c'];
-$url = './countryBorders.geo.json';
-
-$data = file_get_contents($url);
-$decode = json_decode($data, true);
-// country code
-$url = 'http://api.geonames.org/countryInfoJSON?formatted=true&country=' . $countryCode . '&username=antch';
-
-
 
 // lat lng 
 $url = "https://restcountries.com/v3.1/alpha/" . $countryCode;

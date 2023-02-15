@@ -5,14 +5,6 @@ error_reporting(E_ALL);
 $executionStartTime = microtime(true);
 $countryCode = $_GET['c'];
 
-$url = './countryBorders.geo.json';
-$data = file_get_contents($url);
-$decode = json_decode($data, true);
-
-$url = 'http://api.geonames.org/countryInfoJSON?formatted=true&country=' . $countryCode . '&username=antch';
-
-
-
 
 $curl = curl_init();
 
@@ -31,13 +23,19 @@ curl_setopt_array($curl, [
     ],
 ]);
 
-$response = curl_exec($curl);
-$err = curl_error($curl);
 
-curl_close($curl);
+$response = (curl_exec($curl));
+echo $response;
+// var_dump($response->status);
+// return $response->status;
+// // var_dump($response["status"]);
+// die();
+// $err = curl_error($curl);
 
-if ($err) {
-    echo "Not available for this country" . $err;
-} else {
-    echo $response;
-}
+// curl_close($curl);
+
+// if ($err) {
+//     echo "News not available for this country" . $err;
+// } else {
+//     echo $response;
+// }

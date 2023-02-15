@@ -1,14 +1,7 @@
 <?php
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
-$executionStartTime = microtime(true);
 
-$countryCode = $_GET['c'];
-$url = './countryBorders.geo.json';
-$data = file_get_contents($url);
-$decode = json_decode($data, true);
-
-$executionStartTime = microtime(true);
 $countryCode = $_GET['c'];
 
 
@@ -35,7 +28,7 @@ $err = curl_error($curl);
 curl_close($curl);
 
 if ($err) {
-    echo "cURL Error #:" . $err;
+    echo "Information not available" . $err;
 } else {
     echo $response;
 }

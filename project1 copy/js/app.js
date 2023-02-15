@@ -136,17 +136,40 @@ document.getElementById("country").addEventListener("change", function (event) {
           },
         });
 
+        // const cityLatLng = [];
+        // $.ajax({
+        //   url: "php/nearbyCities.php?c=" + country[0].properties.iso_a2,
+        //   type: "GET",
+        //   dataType: "json",
+        //   success: function (res) {
+        //     console.log("result ", res);
+        //     for (let i = 0; i < res.cities.length; i++) {
+        //       if (country[0].properties.iso_a2 == res.country_code) {
+        //         cityLatLng.push(res.cities[i].latitude.longitude);
+        //         if (cityLatLng != "") {
+        //           map.removeLayer(cityLatLng);
+        //         }
+        //         var markers = L.markerClusterGroup(res.cities[i], {
+        //           icon: nearbyCityIcon,
+        //         });
+        //         markers.addLayer(L.marker(cityLatLng(map)));
+        //         map.addLayer(markers);
+        //       }
+        //     }
+        //   },
+        // });
+
         $.ajax({
-          url: "php/nearbyCities.php?c=" + country[0].properties.iso_a2,
-          type: "GET",
+          url: "php/nature.php?c=",
+          type: "POST",
           dataType: "json",
           success: function (res) {
-            if (country[0].properties.iso_a2 == res) {
-              var markers = L.markerClusterGroup();
-              markers.addLayer(L.marker(res.cities.latitude.longitude(map)));
-              map.addLayer(markers);
-            }
-            // console.log("result ", res);
+            console.log(res);
+            var markers = L.markerClusterGroup();
+            markers.addLayer(
+              L.marker(getRandomLatLng, { icon: natureIcon }(map))
+            );
+            map.addLayer(markers);
           },
         });
       },
@@ -164,29 +187,25 @@ document.getElementById("maginfyBtn").addEventListener("click", () => {
       let capital = res["data"][0].capital;
       let population = res["data"][0].population;
       let countryName = res["data"][0].countryName;
-      let currency = res["data"][0].currencyCode;
+      // let currency = res["data"][0].currencyCode;
       let wikipedia = res["data"][0].wiki;
 
       jQuery("#exampleModal .modal-body")
         .html(`<table class="retrievedInfoTable">
   <tr>
     <td>Country:</td>
-    <td id="countryName">${countryName}</td>
+    <td id="countryName">&nbsp;&nbsp;&nbsp;${countryName}</td>
   </tr>
-
   <tr>
     <td>Capital:</td>
-    <td id="capitalName">${capital}</td>
+    <td id="capitalName">&nbsp;&nbsp;&nbsp;${capital}</td>
   </tr>
 
   <tr>
     <td>Population:</td>
-    <td id="countryPopulation">${population}</td>
+    <td id="countryPopulation">&nbsp;&nbsp;&nbsp;${population}</td>
   </tr>
   <tr>
-    <td>Currency:</td>
-    <td id="countryPopulation">${currency}</td>
-  </tr>
 
   <tr>
     <td>Wikipedia Link:</td>
@@ -214,43 +233,81 @@ document.getElementById("weatherModalBtn").addEventListener("click", () => {
 
       jQuery("#weatherModal .modal-body").html(` <div class="card-body">
       <p class="card-text">General Weather: ${description}</p>
-  <img src="http://openweathermap.org/img/wn/${data.icon}@2x.png">
-  <p class="card-text">Temperature: ${Math.round(temp)}&#8451;</p>
-  <p class="card-text">Temperature feels like: ${Math.round(
-    feelsLike
-  )}&#8451;</p>
-  <p class="card-text">Max Temperature: ${Math.round(tempMax)}&#8451;</p>
-  <p class="card-text">Minimun Temperature: ${Math.round(tempMin)}&#8451;</p>
-  <p class="card-text">Humidity: ${humidity}%</p>
+  <img src="http://openweathermap.org/img/wn/${
+    data.icon
+  }@2x.png" alt="Weather Icon Photo">
+  <table>
+  <tr>
+  <td>Temperature:</td>
+  <td>&nbsp;&nbsp;&nbsp;${Math.round(temp)}&#8451;</td>
+  </tr>
+
+  <tr>
+  <td>Temperature feels like:</td>
+  <td>&nbsp;&nbsp;&nbsp;${Math.round(feelsLike)}&#8451;</td>
+  </tr>
+
+  <tr>
+  <td>Max Temperature:</td>
+  <td>&nbsp;&nbsp;&nbsp;${Math.round(tempMax)}&#8451;</td>
+  </tr>
+
+  <tr>
+  <td>Minimun Temperature:</td>
+  <td>&nbsp;&nbsp;&nbsp;${Math.round(tempMin)}&#8451;</td>
+  </tr>
+
+  <tr>
+  <td>Humidity:</td>
+  <td>&nbsp;&nbsp;&nbsp;${humidity}%</td>
+  </tr>
+  </table>
 </div>`);
     },
   });
 });
 
 // News Modal
-document.getElementById("newsModal").addEventListener("click", () => {
+document.getElementById("localNewsInfo").addEventListener("click", () => {
   const countryCode = $("#country").val();
   $.ajax({
     url: "php/topNews.php?c=" + countryCode,
     type: "GET",
     dataType: "json",
     success: function (data) {
-      let title = data.data[0].title;
-      let url = data.data[0].link;
-      let sourceName = data.data[0].source_url;
+      let html = "";
 
-      console.log("news ", data);
-      jQuery("#newsModal .modal-body").html(` <div class="card-body">
-      <p class="card-text">Title: ${title}<br></p>
-      <p class="card-text">Source: <a href="https://${sourceName}">${sourceName}</a></p>
-      <p class="card-text">Link: <a href="https://${url}">${url}</a></p>
-    </div>`);
+      if (data.status === "ERROR") {
+        html = "News not available for this country";
+
+        jQuery("#newsModal .modal-body").html(html);
+
+        return;
+      }
+      console.log(data);
+      data.data.forEach((item) => {
+        html += ` <div class="newsCard">
+        <img class="cardNewsImg" src="${item.photoURL}" alt="News Artcile Photo">
+        <div class="card-body">
+          <h5 class="card-title">${item.title}</h5>
+          <p class="card-text">${item.published}</p>
+          <a href="${item.url}" class="btn btn-primary">Article Link</a>
+        </div>
+      </div>`;
+      });
+      // let title = data.data[0].title;
+      // let url = data.data[0].link;
+      // let photoURL = data.data[0].photo_url;
+      // let published = data.data[0].published_datetime_utc;
+      // console.log("news ", data);
+
+      jQuery("#newsModal .modal-body").html(html);
     },
   });
 });
 
 // Currency Modal
-document.getElementById("currencyModal").addEventListener("click", () => {
+document.getElementById("mnyBtn").addEventListener("click", () => {
   const countryCode = $("#country").val();
   $.ajax({
     url: "php/currency.php?c=" + countryCode,
@@ -259,40 +316,37 @@ document.getElementById("currencyModal").addEventListener("click", () => {
     success: function (res) {
       console.log("money", res);
 
-      let baseCurrency = res.old_currency;
+      // let baseCurrency = res.old_currency;
       let baseAmount = res.old_amount;
       let countryCurrency = res.new_currency;
       let targetCountryAmount = res.new_amount;
 
       jQuery("#currencyModal .modal-body").html(` <div class="card-body">
-      <p class="card-text">Base Currency: ${baseCurrency}</p>
-      <p class="card-text">Base Amount: ${baseAmount} USD</p>
       <p class="card-text">Country Currency: ${countryCurrency}</p>
-      <p class="card-text">Converted Amount: ${targetCountryAmount} ${countryCurrency}</p>
-
+      <p class="card-text">Conversion: ${baseAmount} USD = ${targetCountryAmount} ${countryCurrency} </p>
     </div>`);
     },
   });
 });
 // National Holidays
-document.getElementById("nationalHolModal").addEventListener("click", () => {
+document.getElementById("nationalHolBtn2").addEventListener("click", () => {
   const countryCode = $("#country").val();
   $.ajax({
     url: "php/hols.php?c=" + countryCode,
     type: "GET",
     dataType: "json",
     success: function (res) {
-      // console.log("holidays", res);
-      let name = res[0].name;
-      let date = res[0].date;
-      let type = res[0].type;
+      let html = "";
 
-      jQuery("#nationalHolModal .modal-body").html(`<div class="card-body">
-      <h3 class="card-title"></h3>
-      <p class="card-text">Name: ${name}</p>
-      <p class="card-text">Date: ${date}</p>
-      <p class="card-text">Type of holiday: ${type} </p>
-    </div>`);
+      for (let i = 0; i < res.length; i++) {
+        const item = res[i];
+        html += `<div class="card-body">
+        <h3 class="card-title"></h3>
+        <p class="card-text">Name: ${item.name}<br>Date: ${item.date}<br>Holiday Type: ${item.type}</p>
+      </div>`;
+      }
+
+      jQuery("#nationalHolModal .modal-body").html(html);
     },
   });
 });

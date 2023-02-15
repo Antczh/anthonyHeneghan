@@ -17,9 +17,7 @@
     left: 0;
     z-index: 1000;
     min-height: 30px;
-    background-color: #0d6efd;;
     color: white;
-    padding: 0.5rem;
     border-radius: 30px;
     opacity: 0.8;
     margin-left: 50px;
@@ -29,7 +27,7 @@
   }
 
   .modal-content {
-    width: 300px;
+    width: fit-content;
   }
 
   #maginfyBtn{
@@ -119,4 +117,20 @@
 .cardNewsImg{
   height: 150px;
   width: 270px;
+}
+
+.holidayTitle{
+  text-align: left;
+}
+
+.holidayDate{
+  text-align: right;
+}
+
+.holidayNameAPI{
+  text-align: left;
+}
+
+.holidayDateAPI{
+  text-align: right;
 }

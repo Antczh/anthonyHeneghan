@@ -65,13 +65,11 @@ $.ajax({
   dataType: "json",
   success: function (data) {
     countryList = data.data.features;
-    // console.log("before sorting ", countryList);
     countryList = countryList.sort(function (firstElement, secondElement) {
       return firstElement.properties.name > secondElement.properties.name
         ? 1
         : -1;
     });
-    // console.log("after sorting ", countryList);
     countryList.forEach((item) => {
       $("#country").append(
         `<option id="countryId" value="${item.properties.iso_a2}">${item.properties.name}</option>`
@@ -347,24 +345,21 @@ document.getElementById("nationalHolBtn2").addEventListener("click", () => {
       for (let i = 0; i < res.length; i++) {
         const item = res[i];
         html += `<div class="card-body">
-        <table>
-        <tr>
-        <td><strong>Holiday Name:</strong></td>
-        <td>${item.name}</td>
-        </tr>
-      
-        <tr>
-        <td><strong>Date:</strong></td>
-        <td>${item.date}</td>
-        </tr>
-      
-        <tr>
-        <td><strong>Holiday Type:</strong></td>
-        <td>${item.type}</td>
-        </tr>
-      
-        </table>
-        </div><br><br>`;
+  <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th colspan="1" "scope="col" class="holidayTitle">Holiday Name</th>
+      <th colspan="2" "scope="col" class="holidayDate">Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="holidayNameAPI">${item.name}</td>
+      <td class="holidayDateAPI">${item.date}</td>
+    </tr>
+  </tbody>
+</table>
+</table>`;
       }
 
       jQuery("#nationalHolModal .modal-body").html(html);

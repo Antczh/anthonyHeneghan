@@ -135,42 +135,25 @@ document.getElementById("country").addEventListener("change", function (event) {
           },
         });
 
-        const cityLatLng = [];
         $.ajax({
           url: "php/nearbyCities.php?c=" + country[0].properties.iso_a2,
           type: "GET",
           dataType: "json",
           success: function (res) {
-            // console.log("cities ", res);
-            // for (let i = 0; i < res.cities.length; i++) {
-            //   if (country[0].properties.iso_a2 == res.country_code[i]) {
-            //     cityLatLng.push(res.cities[i].latitude.longitude);
-            //     if (cityMarkers != "") {
-            //       map.removeLayer(cityLatLng);
-            //     }
-            //     var cityMarkers = L.markerClusterGroup(cityLatLng);
-            //     markers.addLayer(
-            //       L.marker(cityMarkers, { icon: nearbyCityIcon }(map))
-            //     );
-            //     map.addLayer(cityMarkers);
-            //   }
-            // }
+            console.log("cities ", res);
+            let markers = L.markerClusterGroup();
+
+            for (let i = 0; i < res.cities.length; i++) {
+              const cityLatLng = [
+                res.cities[i].latitude,
+                res.cities[i].longitude,
+              ];
+
+              markers.addLayer(L.marker(cityLatLng), { nearbyCityIcon });
+            }
+            map.addLayer(markers);
           },
         });
-
-        // $.ajax({
-        //   url: "php/nature.php?c=",
-        //   type: "POST",
-        //   dataType: "json",
-        //   success: function (res) {
-        //     console.log(res);
-        //     var markers = L.markerClusterGroup();
-        //     markers.addLayer(
-        //       L.marker(getRandomLatLng, { icon: natureIcon }(map))
-        //     );
-        //     map.addLayer(markers);
-        //   },
-        // });
       },
     });
   }
@@ -346,7 +329,7 @@ document.getElementById("nationalHolBtn2").addEventListener("click", () => {
         const item = res[i];
         html += `<div class="card-body">
   <table class="table">
-  <thead class="thead-dark">
+  <thead class="thead-dark">  
     <tr>
       <th colspan="1" "scope="col" class="holidayTitle">Holiday Name</th>
       <th colspan="2" "scope="col" class="holidayDate">Date</th>

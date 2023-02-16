@@ -149,9 +149,9 @@ document.getElementById("country").addEventListener("change", function (event) {
                 res.cities[i].longitude,
               ];
 
-              markers.addLayer(L.marker(cityLatLng), { nearbyCityIcon });
+              markers.addLayer(L.marker(cityLatLng));
             }
-            map.addLayer(markers);
+            map.addLayer(markers, { nearbyCityIcon });
           },
         });
       },

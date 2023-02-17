@@ -65,6 +65,7 @@ $.ajax({
   dataType: "json",
   success: function (data) {
     countryList = data.data.features;
+
     countryList = countryList.sort(function (firstElement, secondElement) {
       return firstElement.properties.name > secondElement.properties.name
         ? 1
@@ -140,8 +141,14 @@ document.getElementById("country").addEventListener("change", function (event) {
           type: "GET",
           dataType: "json",
           success: function (res) {
-            console.log("cities ", res);
-            let markers = L.markerClusterGroup();
+            // console.log("cities ", res);
+            let markers = L.markerClusterGroup({
+              iconCreateFunction: function (cluster) {
+                return L.divIcon({
+                  html: "<b>" + cluster.getChildCount() + "</b>",
+                });
+              },
+            });
 
             for (let i = 0; i < res.cities.length; i++) {
               const cityLatLng = [
@@ -151,7 +158,7 @@ document.getElementById("country").addEventListener("change", function (event) {
 
               markers.addLayer(L.marker(cityLatLng));
             }
-            map.addLayer(markers, { nearbyCityIcon });
+            map.addLayer(markers);
           },
         });
       },

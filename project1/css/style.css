@@ -110,3 +110,9 @@
   margin-left: 15px;
 }
 
+.myCluster{
+  width: 32px;
+    height: 32px;
+    line-height: 32px;
+    background-image: src="fontawesome-free-6.2.1-web/svgs/icons/city-solid.svg";
+}

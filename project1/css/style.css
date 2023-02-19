@@ -133,3 +133,12 @@
 .holidayDateAPI{
   text-align: right;
 }
+
+.cardNewsImg{
+  height: 280;
+  width: 300px;
+}
+
+.newsCard{
+  width: 300px;
+}

@@ -26,9 +26,9 @@
   
   }
 
-  .modal-content {
+  /* .modal-content {
     width: fit-content;
-  }
+  } */
 
   #maginfyBtn{
     z-index: 1;
@@ -135,8 +135,8 @@
 }
 
 .cardNewsImg{
-  height: 280;
-  width: 300px;
+  height: 270px;
+  width: auto;
 }
 
 .newsCard{
@@ -146,4 +146,23 @@
 #iconWeather{
   display: flex;
   justify-content: center;
+}
+
+.cityIcons{
+  background-color: yellow;
+  border-radius: 5px;
+  padding: 2px;
+}
+
+.leaflet-marker-icon{
+  padding: 2px;
+}
+
+
+#currencyFirstP{
+  text-align: center;
+}
+
+#currencySecondP{
+  text-align: center;
 }

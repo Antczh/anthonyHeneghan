@@ -12,8 +12,9 @@ let mapIcon = L.icon({
 let nearbyCityIcon = L.icon({
   iconUrl: "./fontawesome-free-6.2.1-web/svgs/icons/city-solid.svg",
   iconSize: [28, 28], // size of the icon
-  iconAnchor: [24, 48], // point of the icon which will correspond to marker's location
-  popupAnchor: [0, -48], // point from which the popup should open relative to the iconAnchor
+  iconAnchor: [14, 28], // point of the icon which will correspond to marker's location
+  popupAnchor: [0, -30], // point from which the popup should open relative to the iconAnchor
+  className: "cityIcons",
 });
 
 const map = L.map("map").setView([0, 0], 2);
@@ -36,11 +37,6 @@ function error(err) {
   marker = L.marker([latitudeAfghanistan, lngAfghanistan], { icon: mapIcon });
   marker.addTo(map).bindPopup("We have placed you here!").openPopup();
   map.setView([latitudeAfghanistan, lngAfghanistan], 10);
-  // if (err.code === 1) {
-  //   alert("Please allow location access");
-  // } else {
-  //   alert("Cannot get location");
-  // }
 }
 
 window.addEventListener("load", (event) => {
@@ -306,8 +302,8 @@ document.getElementById("mnyBtn").addEventListener("click", () => {
       let targetCountryAmount = res.new_amount;
 
       jQuery("#currencyModal .modal-body").html(` <div class="card-body">
-      <p class="card-text"><strong>Country Currency:</strong> ${countryCurrency}</p>
-      <p class="card-text"><strong>Conversion:</strong> ${baseAmount} USD = ${targetCountryAmount} ${countryCurrency} </p>
+      <p class="card-text" id="currencyFirstP"><strong>Country Currency:</strong> ${countryCurrency}</p>
+      <p class="card-text" id="currencySecondP"><strong>Conversion:</strong> ${baseAmount} USD = ${targetCountryAmount} ${countryCurrency} </p>
     </div>`);
     },
   });

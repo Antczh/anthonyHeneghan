@@ -11,7 +11,7 @@ let mapIcon = L.icon({
 });
 let nearbyCityIcon = L.icon({
   iconUrl: "./fontawesome-free-6.2.1-web/svgs/icons/city-solid.svg",
-  iconSize: [38, 38], // size of the icon
+  iconSize: [28, 28], // size of the icon
   iconAnchor: [24, 48], // point of the icon which will correspond to marker's location
   popupAnchor: [0, -48], // point from which the popup should open relative to the iconAnchor
 });
@@ -219,9 +219,9 @@ document.getElementById("weatherModalBtn").addEventListener("click", () => {
       <p class="card-text"><strong>General Weather:</strong> ${
         description.charAt(0).toUpperCase() + description.slice(1)
       }</p>
-    <img src="http://openweathermap.org/img/wn/${
-      data.icon
-    }@2x.png" alt="Weather Icon Photo">
+   <div id="iconWeather"> <img src="http://openweathermap.org/img/wn/${
+     data.icon
+   }@2x.png" alt="Weather Icon Photo"></div>
   <table>
   <tr>
   <td><strong>Temperature:</strong></td>

@@ -142,3 +142,8 @@
 .newsCard{
   width: 300px;
 }
+
+#iconWeather{
+  display: flex;
+  justify-content: center;
+}

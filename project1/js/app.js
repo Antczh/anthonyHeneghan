@@ -11,14 +11,7 @@ let mapIcon = L.icon({
 });
 let nearbyCityIcon = L.icon({
   iconUrl: "./fontawesome-free-6.2.1-web/svgs/icons/city-solid.svg",
-  iconSize: [48, 48], // size of the icon
-  iconAnchor: [24, 48], // point of the icon which will correspond to marker's location
-  popupAnchor: [0, -48], // point from which the popup should open relative to the iconAnchor
-});
-
-let natureIcon = L.icon({
-  iconUrl: "./fontawesome-free-6.2.1-web/svgs/icons/tree-solid.svg",
-  iconSize: [48, 48], // size of the icon
+  iconSize: [38, 38], // size of the icon
   iconAnchor: [24, 48], // point of the icon which will correspond to marker's location
   popupAnchor: [0, -48], // point from which the popup should open relative to the iconAnchor
 });
@@ -141,14 +134,8 @@ document.getElementById("country").addEventListener("change", function (event) {
           type: "GET",
           dataType: "json",
           success: function (res) {
-            // console.log("cities ", res);
-            let markers = L.markerClusterGroup({
-              iconCreateFunction: function (cluster) {
-                return L.divIcon({
-                  html: "<b>" + cluster.getChildCount() + "</b>",
-                });
-              },
-            });
+            console.log("cities ", res);
+            let markers = L.markerClusterGroup();
 
             for (let i = 0; i < res.cities.length; i++) {
               const cityLatLng = [
@@ -156,7 +143,11 @@ document.getElementById("country").addEventListener("change", function (event) {
                 res.cities[i].longitude,
               ];
 
-              markers.addLayer(L.marker(cityLatLng));
+              markers.addLayer(L.marker(cityLatLng, { icon: nearbyCityIcon }));
+              markers
+                .addTo(map)
+                .bindPopup("This is ", res.cities[i].name)
+                .openPopup();
             }
             map.addLayer(markers);
           },

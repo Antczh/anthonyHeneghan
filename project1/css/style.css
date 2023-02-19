@@ -166,3 +166,13 @@
 #currencySecondP{
   text-align: center;
 }
+
+.wethaerText{
+  text-align: center;
+}
+
+#weatherTable{
+  display: flex;
+  justify-content: center;
+}
+

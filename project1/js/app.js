@@ -212,38 +212,40 @@ document.getElementById("weatherModalBtn").addEventListener("click", () => {
       let humidity = data.humidity;
 
       jQuery("#weatherModal .modal-body").html(` <div class="card-body">
-      <p class="card-text"><strong>General Weather:</strong> ${
+      <p class="wethaerText"><strong>General Weather:</strong> ${
         description.charAt(0).toUpperCase() + description.slice(1)
       }</p>
    <div id="iconWeather"> <img src="http://openweathermap.org/img/wn/${
      data.icon
    }@2x.png" alt="Weather Icon Photo"></div>
-  <table>
+   <div id="weatherTable">
+  <table id="weatherTableContents">
   <tr>
-  <td><strong>Temperature:</strong></td>
-  <td>&nbsp;&nbsp;&nbsp;${Math.round(temp)}&#8451;</td>
+  <td class="wethaerText"><strong>Temperature:</strong></td>
+  <td class="wethaerText">&nbsp;&nbsp;&nbsp;${Math.round(temp)}&#8451;</td>
   </tr>
 
   <tr>
-  <td><strong>Temperature Feels Like:</strong></td>
-  <td>&nbsp;&nbsp;&nbsp;${Math.round(feelsLike)}&#8451;</td>
+  <td class="wethaerText"><strong>Temperature Feels Like:</strong></td>
+  <td class="wethaerText">&nbsp;&nbsp;&nbsp;${Math.round(feelsLike)}&#8451;</td>
   </tr>
 
   <tr>
-  <td><strong>Max Temperature:</strong></td>
-  <td>&nbsp;&nbsp;&nbsp;${Math.round(tempMax)}&#8451;</td>
+  <td class="wethaerText"><strong>Max Temperature:</strong></td>
+  <td class="wethaerText">&nbsp;&nbsp;&nbsp;${Math.round(tempMax)}&#8451;</td>
   </tr>
 
   <tr>
-  <td><strong>Minimun Temperature:</strong></td>
-  <td>&nbsp;&nbsp;&nbsp;${Math.round(tempMin)}&#8451;</td>
+  <td class="wethaerText"><strong>Minimun Temperature:</strong></td>
+  <td class="wethaerText">&nbsp;&nbsp;&nbsp;${Math.round(tempMin)}&#8451;</td>
   </tr>
 
   <tr>
-  <td><strong>Humidity:</strong></td>
-  <td>&nbsp;&nbsp;&nbsp;${humidity}%</td>
+  <td class="wethaerText"><strong>Humidity:</strong></td>
+  <td class="wethaerText">&nbsp;&nbsp;&nbsp;${humidity}%</td>
   </tr>
   </table>
+  </div>
 </div>`);
     },
   });

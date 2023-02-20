@@ -9,13 +9,21 @@ let mapIcon = L.icon({
   iconAnchor: [24, 48], // point of the icon which will correspond to marker's location
   popupAnchor: [0, -48], // point from which the popup should open relative to the iconAnchor
 });
-let nearbyCityIcon = L.icon({
-  iconUrl: "./fontawesome-free-6.2.1-web/svgs/icons/city-solid.svg",
-  iconSize: [28, 28], // size of the icon
-  iconAnchor: [14, 28], // point of the icon which will correspond to marker's location
-  popupAnchor: [0, -30], // point from which the popup should open relative to the iconAnchor
-  className: "cityIcons",
+
+var cityIcon = L.divIcon({
+  className: "my-div-icon",
+  html: '<img src="fontawesome-free-6.2.1-web/svgs/icons/city-solid.svg">',
+  iconSize: [28, 28],
+  popupAnchor: [0, -30],
+  iconAnchor: [14, 28],
 });
+// let nearbyCityIcon = L.icon({
+//   iconUrl: "./fontawesome-free-6.2.1-web/svgs/icons/city-solid.svg",
+//   iconSize: [28, 28], // size of the icon
+//   iconAnchor: [14, 28], // point of the icon which will correspond to marker's location
+//   popupAnchor: [0, -30], // point from which the popup should open relative to the iconAnchor
+//   className: "cityIcons",
+// });
 
 const map = L.map("map").setView([0, 0], 2);
 
@@ -139,7 +147,7 @@ document.getElementById("country").addEventListener("change", function (event) {
                 res.cities[i].longitude,
               ];
 
-              markers.addLayer(L.marker(cityLatLng, { icon: nearbyCityIcon }));
+              markers.addLayer(L.marker(cityLatLng, { icon: cityIcon }));
               markers
                 .addTo(map)
                 .bindPopup("This is ", res.cities[i].name)

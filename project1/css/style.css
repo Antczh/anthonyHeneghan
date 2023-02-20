@@ -147,15 +147,18 @@
   display: flex;
   justify-content: center;
 }
-
+/* 
 .cityIcons{
   background-color: yellow;
   border-radius: 5px;
   padding: 2px;
-}
+} */
 
-.leaflet-marker-icon{
+.my-div-icon{
+  background-color: yellow;
+  border-radius: 5px;
   padding: 2px;
+
 }
 
 

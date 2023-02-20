@@ -26,9 +26,6 @@
   
   }
 
-  /* .modal-content {
-    width: fit-content;
-  } */
 
   #maginfyBtn{
     z-index: 1;
@@ -110,13 +107,6 @@
   margin-left: 15px;
 }
 
-.myCluster{
-  width: 32px;
-    height: 32px;
-    line-height: 32px;
-    background-image: src="fontawesome-free-6.2.1-web/svgs/icons/city-solid.svg";
-}
-
 
 .holidayTitle{
   text-align: left;
@@ -147,12 +137,7 @@
   display: flex;
   justify-content: center;
 }
-/* 
-.cityIcons{
-  background-color: yellow;
-  border-radius: 5px;
-  padding: 2px;
-} */
+
 
 .my-div-icon{
   background-color: yellow;

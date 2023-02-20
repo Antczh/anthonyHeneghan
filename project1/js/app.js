@@ -17,13 +17,6 @@ var cityIcon = L.divIcon({
   popupAnchor: [0, -30],
   iconAnchor: [14, 28],
 });
-// let nearbyCityIcon = L.icon({
-//   iconUrl: "./fontawesome-free-6.2.1-web/svgs/icons/city-solid.svg",
-//   iconSize: [28, 28], // size of the icon
-//   iconAnchor: [14, 28], // point of the icon which will correspond to marker's location
-//   popupAnchor: [0, -30], // point from which the popup should open relative to the iconAnchor
-//   className: "cityIcons",
-// });
 
 const map = L.map("map").setView([0, 0], 2);
 
@@ -61,16 +54,16 @@ $.ajax({
   url: "php/request.php",
   dataType: "json",
   success: function (data) {
-    countryList = data.data.features;
+    console.log(data);
+
+    countryList = data.countries;
 
     countryList = countryList.sort(function (firstElement, secondElement) {
-      return firstElement.properties.name > secondElement.properties.name
-        ? 1
-        : -1;
+      return firstElement.name > secondElement.name ? 1 : -1;
     });
     countryList.forEach((item) => {
       $("#country").append(
-        `<option id="countryId" value="${item.properties.iso_a2}">${item.properties.name}</option>`
+        `<option id="countryId" value="${item.code}">${item.name}</option>`
       );
     });
   },
@@ -84,11 +77,11 @@ document.getElementById("country").addEventListener("change", function (event) {
 
   if (event.target.value) {
     const country = countryList.filter(
-      (item) => item.properties.iso_a2 == event.target.value
+      (item) => item.code == event.target.value
     );
 
     $.ajax({
-      url: "php/getLatLng.php?c=" + country[0].properties.iso_a2,
+      url: "php/getLatLng.php?c=" + country[0].code,
       type: "GET",
       dataType: "json",
       success: function (res) {
@@ -102,15 +95,12 @@ document.getElementById("country").addEventListener("change", function (event) {
         const latlngs = [];
 
         $.ajax({
-          url: "php/polygon.php",
+          url: "php/polygon.php?c=" + country[0].code,
           type: "GET",
           dataType: "json",
           success: function (res) {
             for (let i = 0; i < res.features.length; i++) {
-              if (
-                country[0].properties.iso_a2 ==
-                res.features[i].properties.iso_a2
-              ) {
+              if (country[0].code == res.features[i].properties.iso_a2) {
                 latlngs.push(res.features[i].geometry.coordinates);
                 if (polygon != "") {
                   map.removeLayer(polygon);
@@ -134,7 +124,7 @@ document.getElementById("country").addEventListener("change", function (event) {
         });
 
         $.ajax({
-          url: "php/nearbyCities.php?c=" + country[0].properties.iso_a2,
+          url: "php/nearbyCities.php?c=" + country[0].code,
           type: "GET",
           dataType: "json",
           success: function (res) {
@@ -147,10 +137,13 @@ document.getElementById("country").addEventListener("change", function (event) {
                 res.cities[i].longitude,
               ];
 
+              let cityName = res.cities[i].name;
+              // console.log("city Name", cityName);
+
               markers.addLayer(L.marker(cityLatLng, { icon: cityIcon }));
               markers
                 .addTo(map)
-                .bindPopup("This is ", res.cities[i].name)
+                .bindPopup("This is ", { cityName })
                 .openPopup();
             }
             map.addLayer(markers);

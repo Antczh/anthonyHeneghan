@@ -93,33 +93,24 @@ document.getElementById("country").addEventListener("change", function (event) {
         markerCountry.addTo(map).bindPopup("You have arrived!").openPopup();
 
         const latlngs = [];
-
         $.ajax({
           url: "php/polygon.php?c=" + country[0].code,
           type: "GET",
           dataType: "json",
           success: function (res) {
-            for (let i = 0; i < res.features.length; i++) {
-              if (country[0].code == res.features[i].properties.iso_a2) {
-                latlngs.push(res.features[i].geometry.coordinates);
-                if (polygon != "") {
-                  map.removeLayer(polygon);
-                }
-                polygon = L.geoJSON(res.features[i], {
-                  style: function (feature) {
-                    return { color: "red" };
-                  },
-                }).bindPopup(function (layer) {
-                  return layer.feature.properties.geometry;
-                });
-
-                polygon.addTo(map);
-
-                map.fitBounds(polygon.getBounds());
-                // console.log(feature.properties.geometry);
-                break;
-              }
+            if (polygon != "") {
+              map.removeLayer(polygon);
             }
+            polygon = L.geoJSON(res, {
+              style: function (feature) {
+                return { color: "red" };
+              },
+            }).bindPopup(function (layer) {
+              return layer.feature.properties.geometry;
+            });
+            polygon.addTo(map);
+
+            map.fitBounds(polygon.getBounds());
           },
         });
 
@@ -138,13 +129,13 @@ document.getElementById("country").addEventListener("change", function (event) {
               ];
 
               let cityName = res.cities[i].name;
-              // console.log("city Name", cityName);
 
-              markers.addLayer(L.marker(cityLatLng, { icon: cityIcon }));
-              markers
-                .addTo(map)
-                .bindPopup("This is ", { cityName })
-                .openPopup();
+              // console.log("city Name", cityName);
+              let marker = L.marker(cityLatLng, { icon: cityIcon });
+              marker.bindPopup("This is " + cityName);
+
+              markers.addLayer(marker);
+              markers.addTo(map);
             }
             map.addLayer(markers);
           },

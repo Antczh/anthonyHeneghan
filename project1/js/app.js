@@ -54,7 +54,7 @@ $.ajax({
   url: "php/request.php",
   dataType: "json",
   success: function (data) {
-    console.log(data);
+    // console.log(data);
 
     countryList = data.countries;
 
@@ -119,7 +119,7 @@ document.getElementById("country").addEventListener("change", function (event) {
           type: "GET",
           dataType: "json",
           success: function (res) {
-            console.log("cities ", res);
+            // console.log("cities ", res);
             let markers = L.markerClusterGroup();
 
             for (let i = 0; i < res.cities.length; i++) {
@@ -153,6 +153,7 @@ document.getElementById("maginfyBtn").addEventListener("click", () => {
     type: "GET",
     dataType: "json",
     success: function (res) {
+      // console.log(res);
       let capital = res["data"][0].capital;
       let population = res["data"][0].population;
       let countryName = res["data"][0].countryName;
@@ -260,7 +261,7 @@ document.getElementById("localNewsInfo").addEventListener("click", () => {
 
         return;
       }
-      console.log(data);
+      // console.log(data);
 
       data.data.forEach((item) => {
         let date = item.published_datetime_utc;

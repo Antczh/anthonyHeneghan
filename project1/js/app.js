@@ -18,37 +18,6 @@ var cityIcon = L.divIcon({
   iconAnchor: [14, 28],
 });
 
-const map = L.map("map").setView([0, 0], 2);
-
-navigator.geolocation.getCurrentPosition(success, error);
-let marker;
-
-function success(pos) {
-  const lat = pos.coords.latitude;
-  const lng = pos.coords.longitude;
-
-  marker = L.marker([lat, lng], { icon: mapIcon });
-  marker.addTo(map).bindPopup("You are here!").openPopup();
-  map.setView([lat, lng], 10);
-}
-
-function error(err) {
-  latitudeAfghanistan = 33.9391;
-  lngAfghanistan = 67.71;
-  marker = L.marker([latitudeAfghanistan, lngAfghanistan], { icon: mapIcon });
-  marker.addTo(map).bindPopup("We have placed you here!").openPopup();
-  map.setView([latitudeAfghanistan, lngAfghanistan], 10);
-}
-
-window.addEventListener("load", (event) => {
-  navigator.permissions.query({ name: "geolocation" }).then((result) => {
-    if (result.state === "denied") {
-      document.getElementById("country").value = "AF";
-    }
-    // console.log(result.state);
-  });
-});
-
 $.ajax({
   type: "GET",
   url: "php/request.php",
@@ -71,6 +40,58 @@ $.ajax({
     alert(errorThrown + " " + jqXHR + " " + textStatus);
   },
 });
+
+const map = L.map("map").setView([0, 0], 2);
+
+// ----------------------------------my current onload locaiton----------------------------------------------------------------------
+
+navigator.geolocation.getCurrentPosition(success, error);
+let marker;
+
+function success(pos) {
+  const lat = pos.coords.latitude;
+  const lng = pos.coords.longitude;
+
+  marker = L.marker([lat, lng], { icon: mapIcon });
+  marker.addTo(map).bindPopup("You are here!").openPopup();
+  map.setView([lat, lng], 10);
+}
+
+function error(err) {
+  latBahamas = 25.0343;
+  lngBahamas = 77.3963;
+  marker = L.marker([latBahamas, lngBahamas], { icon: mapIcon });
+  marker.addTo(map).bindPopup("We have placed you here!").openPopup();
+  map.setView([latBahamas, lngBahamas], 5);
+}
+// ----------------------------------my current onload locaiton----------------------------------------------------------------------
+
+// $.ajax({
+//   url: "openCage.php?",
+//   type: "GET",
+//   dataType: "json",
+//   success: function (res) {
+//     navigator.geolocation.getCurrentPosition(success, error);
+//     let marker;
+
+//     function success(pos) {
+//       const lat = pos.coords.latitude;
+//       const lng = pos.coords.longitude;
+
+//       marker = L.marker([lat, lng], { icon: mapIcon });
+//       marker.addTo(map).bindPopup("You are here!").openPopup();
+//       map.setView([lat, lng], 10);
+//     }
+//     function error() {
+//       marker = L.marker([latitude, longitude], { icon: mapIcon });
+//       marker.addTo(map).bindPopup("We have placed you here!").openPopup();
+//       map.setView([latitude, longitude], 6);
+//     }
+//   },
+//   error: function (xhr, status, error) {
+//     console.log(error);
+//   },
+// });
 
 document.getElementById("country").addEventListener("change", function (event) {
   map.removeLayer(marker);

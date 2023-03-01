@@ -35,6 +35,8 @@ $.ajax({
         `<option id="countryId" value="${item.code}">${item.name}</option>`
       );
     });
+    console.log("requesting locaiton");
+    navigator.geolocation.getCurrentPosition(success, error);
   },
   error: function (jqXHR, textStatus, errorThrown) {
     alert(errorThrown + " " + jqXHR + " " + textStatus);
@@ -45,56 +47,50 @@ const map = L.map("map").setView([0, 0], 2);
 
 // ----------------------------------my current onload locaiton----------------------------------------------------------------------
 
-navigator.geolocation.getCurrentPosition(success, error);
-let marker;
+let marker = false;
+// --------------------------------------------work-in-progress-----------------------------------------------------------------
 
 function success(pos) {
-  const lat = pos.coords.latitude;
-  const lng = pos.coords.longitude;
+  function reverseGeocode(latitude, longitude) {
+    $.ajax({
+      url: "php/openCage.php",
+      method: "POST",
+      dataType: "json",
+      data: {
+        q: latitude + "," + longitude,
+      },
+      success: function (data) {
+        var geoCountryCode = data.results[0].components.country_code;
+        console.log(geoCountryCode);
+        $("#country").val(geoCountryCode).trigger("change");
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        // console.log(textStatus, errorThrown);
+      },
+    });
+  }
 
-  marker = L.marker([lat, lng], { icon: mapIcon });
-  marker.addTo(map).bindPopup("You are here!").openPopup();
-  map.setView([lat, lng], 10);
+  console.log("position coords", pos);
+  const latitude = pos.coords.latitude;
+  const longitude = pos.coords.longitude;
+
+  reverseGeocode(latitude, longitude);
 }
 
 function error(err) {
-  latBahamas = 25.0343;
-  lngBahamas = 77.3963;
-  marker = L.marker([latBahamas, lngBahamas], { icon: mapIcon });
-  marker.addTo(map).bindPopup("We have placed you here!").openPopup();
-  map.setView([latBahamas, lngBahamas], 5);
+  let errGeoCountry = "TH";
+  $("#country").val(errGeoCountry).trigger("change");
+  alert("Location denied, sending you to Thailand");
 }
+// --------------------------------------------work-in-progress-----------------------------------------------------------------
+
 // ----------------------------------my current onload locaiton----------------------------------------------------------------------
 
-// $.ajax({
-//   url: "openCage.php?",
-//   type: "GET",
-//   dataType: "json",
-//   success: function (res) {
-//     navigator.geolocation.getCurrentPosition(success, error);
-//     let marker;
-
-//     function success(pos) {
-//       const lat = pos.coords.latitude;
-//       const lng = pos.coords.longitude;
-
-//       marker = L.marker([lat, lng], { icon: mapIcon });
-//       marker.addTo(map).bindPopup("You are here!").openPopup();
-//       map.setView([lat, lng], 10);
-//     }
-//     function error() {
-//       marker = L.marker([latitude, longitude], { icon: mapIcon });
-//       marker.addTo(map).bindPopup("We have placed you here!").openPopup();
-//       map.setView([latitude, longitude], 6);
-//     }
-//   },
-//   error: function (xhr, status, error) {
-//     console.log(error);
-//   },
-// });
-
-document.getElementById("country").addEventListener("change", function (event) {
-  map.removeLayer(marker);
+$("#country").on("change", function (event) {
+  if (marker != false) {
+    // map.removeLayer(marker);
+  }
+  console.log("dropdown changed");
 
   if (event.target.value) {
     const country = countryList.filter(
@@ -106,6 +102,7 @@ document.getElementById("country").addEventListener("change", function (event) {
       type: "GET",
       dataType: "json",
       success: function (res) {
+        // console.log(res[0].latlng);
         map.setView(res[0].latlng, 6);
         if (markerCountry != "") {
           map.removeLayer(markerCountry);
@@ -113,7 +110,6 @@ document.getElementById("country").addEventListener("change", function (event) {
         markerCountry = L.marker(res[0].latlng, { icon: mapIcon });
         markerCountry.addTo(map).bindPopup("You have arrived!").openPopup();
 
-        const latlngs = [];
         $.ajax({
           url: "php/polygon.php?c=" + country[0].code,
           type: "GET",
@@ -152,10 +148,10 @@ document.getElementById("country").addEventListener("change", function (event) {
               let cityName = res.cities[i].name;
 
               // console.log("city Name", cityName);
-              let marker = L.marker(cityLatLng, { icon: cityIcon });
-              marker.bindPopup("This is " + cityName);
+              let nearbyCitiesMarker = L.marker(cityLatLng, { icon: cityIcon });
+              nearbyCitiesMarker.bindPopup("This is " + cityName);
 
-              markers.addLayer(marker);
+              markers.addLayer(nearbyCitiesMarker);
               markers.addTo(map);
             }
             map.addLayer(markers);

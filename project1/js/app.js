@@ -35,7 +35,7 @@ $.ajax({
         `<option id="countryId" value="${item.code}">${item.name}</option>`
       );
     });
-    console.log("requesting locaiton");
+    // console.log("requesting locaiton");
     navigator.geolocation.getCurrentPosition(success, error);
   },
   error: function (jqXHR, textStatus, errorThrown) {
@@ -45,10 +45,8 @@ $.ajax({
 
 const map = L.map("map").setView([0, 0], 2);
 
-// ----------------------------------my current onload locaiton----------------------------------------------------------------------
-
 let marker = false;
-// --------------------------------------------work-in-progress-----------------------------------------------------------------
+// ------------------------------------reverse geocode inner function------------------------------------------------------------
 
 function success(pos) {
   function reverseGeocode(latitude, longitude) {
@@ -57,11 +55,14 @@ function success(pos) {
       method: "POST",
       dataType: "json",
       data: {
-        q: latitude + "," + longitude,
+        latitude: pos.coords.latitude,
+        longitude: pos.coords.longitude,
       },
       success: function (data) {
-        var geoCountryCode = data.results[0].components.country_code;
-        console.log(geoCountryCode);
+        // console.log("position", data);
+
+        var geoCountryCode = data.results[0].components["ISO_3166-1_alpha-2"];
+        // console.log(geoCountryCode);
         $("#country").val(geoCountryCode).trigger("change");
       },
       error: function (jqXHR, textStatus, errorThrown) {
@@ -69,28 +70,25 @@ function success(pos) {
       },
     });
   }
+  // console.log(pos);
 
-  console.log("position coords", pos);
-  const latitude = pos.coords.latitude;
-  const longitude = pos.coords.longitude;
+  const geoLatitude = pos.coords.latitude;
+  const geoLongitude = pos.coords.longitude;
 
-  reverseGeocode(latitude, longitude);
+  reverseGeocode(geoLatitude, geoLongitude);
 }
-
+// ------------------------------------reverse geocode inner function------------------------------------------------------------
 function error(err) {
   let errGeoCountry = "TH";
   $("#country").val(errGeoCountry).trigger("change");
   alert("Location denied, sending you to Thailand");
 }
-// --------------------------------------------work-in-progress-----------------------------------------------------------------
-
-// ----------------------------------my current onload locaiton----------------------------------------------------------------------
 
 $("#country").on("change", function (event) {
   if (marker != false) {
     // map.removeLayer(marker);
   }
-  console.log("dropdown changed");
+  // console.log("dropdown changed");
 
   if (event.target.value) {
     const country = countryList.filter(

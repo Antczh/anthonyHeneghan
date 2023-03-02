@@ -1,13 +1,29 @@
 <?php
-// Set the OpenCage API key
+
+// if (isset($_POST['latitude']) && isset($_POST['longitude'])) {
+//     $latitude = $_POST['latitude'];
+//     $longitude = $_POST['longitude'];
+// } else {
+//     echo json_encode(['error' => 'Latitude and/or longitude missing']);
+//     exit();
+// }
+
 $apiKey = '4ab907fcf8584274bc630ff7769a2037';
 
-// Set the latitude and longitude coordinates
+
+
 $latitude = $_POST['latitude'];
 $longitude = $_POST['longitude'];
 
-// Set the API endpoint URL
-$url = "https://api.opencagedata.com/geocode/v1/json?q=" . $latitude . "," . $longitude . "&key=" . $apiKey . "&language=en&no_annotations=1&limit=1";
+// if (isset($latitude[$_POST['latitude']])) {
+//     return $latitude = $_POST['latitude'];
+// } elseif (isset($latitude[$_POST['longitude']])) {
+//     $latitude = $_POST['longitude'];
+// } else {
+//     return;
+// }
+
+$url = "https://api.opencagedata.com/geocode/v1/json?q=" . $latitude . "+" . $longitude . "&key=" . $apiKey;
 
 $ch = curl_init();
 
@@ -24,3 +40,5 @@ if (curl_error($ch)) {
 curl_close($ch);
 
 $data = json_decode($response, true);
+
+echo json_encode($data);

@@ -49,7 +49,7 @@ let marker = false;
 // ------------------------------------reverse geocode inner function------------------------------------------------------------
 
 function success(pos) {
-  function reverseGeocode(latitude, longitude) {
+  function reverseGeocode() {
     $.ajax({
       url: "php/openCage.php",
       method: "POST",
@@ -94,6 +94,26 @@ $("#country").on("change", function (event) {
     const country = countryList.filter(
       (item) => item.code == event.target.value
     );
+    $.ajax({
+      url: "php/polygon.php?c=" + country[0].code,
+      type: "GET",
+      dataType: "json",
+      success: function (res) {
+        if (polygon != "") {
+          map.removeLayer(polygon);
+        }
+        polygon = L.geoJSON(res, {
+          style: function (feature) {
+            return { color: "blue" };
+          },
+        }).bindPopup(function (layer) {
+          return layer.feature.properties.geometry;
+        });
+        polygon.addTo(map);
+
+        map.fitBounds(polygon.getBounds());
+      },
+    });
 
     $.ajax({
       url: "php/getLatLng.php?c=" + country[0].code,
@@ -105,8 +125,6 @@ $("#country").on("change", function (event) {
         if (markerCountry != "") {
           map.removeLayer(markerCountry);
         }
-        markerCountry = L.marker(res[0].latlng, { icon: mapIcon });
-        markerCountry.addTo(map).bindPopup("You have arrived!").openPopup();
 
         $.ajax({
           url: "php/polygon.php?c=" + country[0].code,
@@ -118,7 +136,7 @@ $("#country").on("change", function (event) {
             }
             polygon = L.geoJSON(res, {
               style: function (feature) {
-                return { color: "red" };
+                return { color: "blue" };
               },
             }).bindPopup(function (layer) {
               return layer.feature.properties.geometry;

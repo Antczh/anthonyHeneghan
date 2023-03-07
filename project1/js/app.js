@@ -3,6 +3,7 @@ let geometry = [];
 let coords = [];
 let polygon = "";
 let markerCountry = "";
+let countryGeneralInfo = "";
 let mapIcon = L.icon({
   iconUrl: "./fontawesome-free-6.2.1-web/svgs/icons/map-pin-solid.svg",
   iconSize: [48, 48], // size of the icon
@@ -16,6 +17,46 @@ var cityIcon = L.divIcon({
   iconSize: [28, 28],
   popupAnchor: [0, -30],
   iconAnchor: [14, 28],
+});
+
+function getNearbyCities() {
+  const countryCode = $("#country").val();
+
+  $.ajax({
+    url: "php/nearbyCities.php?c=" + countryCode,
+    type: "GET",
+    dataType: "json",
+    success: function (res) {
+      // console.log("cities ", res);
+      let markers = L.markerClusterGroup();
+
+      for (let i = 0; i < res.cities.length; i++) {
+        const cityLatLng = [res.cities[i].latitude, res.cities[i].longitude];
+
+        let cityName = res.cities[i].name;
+
+        // console.log("city Name", cityName);
+        let nearbyCitiesMarker = L.marker(cityLatLng, {
+          icon: cityIcon,
+        });
+        nearbyCitiesMarker.bindPopup(cityName);
+
+        markers.addLayer(nearbyCitiesMarker);
+        markers.addTo(map);
+      }
+      map.addLayer(markers);
+    },
+  });
+}
+
+$(window).on("load", function () {
+  if ($("#preloader").length) {
+    $("#preloader")
+      .delay(1000)
+      .fadeOut("slow", function () {
+        $(this).remove();
+      });
+  }
 });
 
 $.ajax({
@@ -85,35 +126,15 @@ function error(err) {
 }
 
 $("#country").on("change", function (event) {
-  if (marker != false) {
-    // map.removeLayer(marker);
-  }
+  // if (marker != false) {
+  //   // map.removeLayer(marker);
+  // }
   // console.log("dropdown changed");
 
   if (event.target.value) {
     const country = countryList.filter(
       (item) => item.code == event.target.value
     );
-    $.ajax({
-      url: "php/polygon.php?c=" + country[0].code,
-      type: "GET",
-      dataType: "json",
-      success: function (res) {
-        if (polygon != "") {
-          map.removeLayer(polygon);
-        }
-        polygon = L.geoJSON(res, {
-          style: function (feature) {
-            return { color: "blue" };
-          },
-        }).bindPopup(function (layer) {
-          return layer.feature.properties.geometry;
-        });
-        polygon.addTo(map);
-
-        map.fitBounds(polygon.getBounds());
-      },
-    });
 
     $.ajax({
       url: "php/getLatLng.php?c=" + country[0].code,
@@ -125,6 +146,8 @@ $("#country").on("change", function (event) {
         if (markerCountry != "") {
           map.removeLayer(markerCountry);
         }
+        // markerCountry = L.marker(res[0].latlng, { icon: mapIcon });
+        // markerCountry.addTo(map).bindPopup("You have arrived!").openPopup();
 
         $.ajax({
           url: "php/polygon.php?c=" + country[0].code,
@@ -144,33 +167,14 @@ $("#country").on("change", function (event) {
             polygon.addTo(map);
 
             map.fitBounds(polygon.getBounds());
-          },
-        });
 
-        $.ajax({
-          url: "php/nearbyCities.php?c=" + country[0].code,
-          type: "GET",
-          dataType: "json",
-          success: function (res) {
-            // console.log("cities ", res);
-            let markers = L.markerClusterGroup();
-
-            for (let i = 0; i < res.cities.length; i++) {
-              const cityLatLng = [
-                res.cities[i].latitude,
-                res.cities[i].longitude,
-              ];
-
-              let cityName = res.cities[i].name;
-
-              // console.log("city Name", cityName);
-              let nearbyCitiesMarker = L.marker(cityLatLng, { icon: cityIcon });
-              nearbyCitiesMarker.bindPopup("This is " + cityName);
-
-              markers.addLayer(nearbyCitiesMarker);
-              markers.addTo(map);
-            }
-            map.addLayer(markers);
+            getNearbyCities();
+            generalCountryInfo();
+            weatherForecast();
+            newsInfo();
+            currencyConverter();
+            nationalHols();
+            // call functoins
           },
         });
       },
@@ -179,7 +183,7 @@ $("#country").on("change", function (event) {
 });
 
 // General Info
-document.getElementById("maginfyBtn").addEventListener("click", () => {
+function generalCountryInfo() {
   const countryCode = $("#country").val();
   $.ajax({
     url: "php/server.php?c=" + countryCode,
@@ -192,36 +196,39 @@ document.getElementById("maginfyBtn").addEventListener("click", () => {
       let countryName = res["data"][0].countryName;
       let wikipedia = res["data"][0].wiki;
 
-      jQuery("#exampleModal .modal-body")
-        .html(`<table class="retrievedInfoTable">
-  <tr>
-    <td><strong>Country:</strong></td>
-    <td id="countryName">&nbsp;&nbsp;&nbsp;${countryName}</td>
-  </tr>
-  <tr>
-    <td><strong>Capital:</strong></td>
-    <td id="capitalName">&nbsp;&nbsp;&nbsp;${capital}</td>
-  </tr>
-
-  <tr>
-    <td><strong>Population:</strong></td>
-    <td id="countryPopulation">&nbsp;&nbsp;&nbsp;${new Intl.NumberFormat(
-      "en-IN"
-    ).format(population)}</td>
-  </tr>
-  <tr>
-
-  <tr>
-    <td><strong>Wikipedia Link:</strong></td>
-      <td id="wikiLinks"><a href="https://${wikipedia}">${wikipedia}</a></td>
-  </tr>
-</table>`);
+      countryGeneralInfo = `<table class="retrievedInfoTable">
+      <tr>
+        <td><strong>Country:</strong></td>
+        <td id="countryName">&nbsp;&nbsp;&nbsp;${countryName}</td>
+      </tr>
+      <tr>
+        <td><strong>Capital:</strong></td>
+        <td id="capitalName">&nbsp;&nbsp;&nbsp;${capital}</td>
+      </tr>
+    
+      <tr>
+        <td><strong>Population:</strong></td>
+        <td id="countryPopulation">&nbsp;&nbsp;&nbsp;${new Intl.NumberFormat(
+          "en-IN"
+        ).format(population)}</td>
+      </tr>
+      <tr>
+    
+      <tr>
+        <td><strong>Wikipedia Link:</strong></td>
+          <td id="wikiLinks"><a href="https://${wikipedia}">${wikipedia}</a></td>
+      </tr>
+    </table>`;
+      jQuery("#maginfyBtn").removeAttr("disabled");
     },
   });
+}
+document.getElementById("maginfyBtn").addEventListener("click", () => {
+  jQuery("#exampleModal .modal-body").html(countryGeneralInfo);
 });
 
 // Weather
-document.getElementById("weatherModalBtn").addEventListener("click", () => {
+function weatherForecast() {
   const countryCode = $("#country").val();
   $.ajax({
     url: "php/openWeather.php?c=" + countryCode,
@@ -237,7 +244,7 @@ document.getElementById("weatherModalBtn").addEventListener("click", () => {
       let tempMin = data.temp_min;
       let humidity = data.humidity;
 
-      jQuery("#weatherModal .modal-body").html(` <div class="card-body">
+      weatherInfo = `<div class="card-body">
       <p class="wethaerText"><strong>General Weather:</strong> ${
         description.charAt(0).toUpperCase() + description.slice(1)
       }</p>
@@ -272,25 +279,27 @@ document.getElementById("weatherModalBtn").addEventListener("click", () => {
   </tr>
   </table>
   </div>
-</div>`);
+</div>`;
+      jQuery("#weatherModalBtn").removeAttr("disabled");
     },
   });
+}
+document.getElementById("weatherModalBtn").addEventListener("click", () => {
+  jQuery("#weatherModal .modal-body").html(weatherInfo);
 });
 
 // News Modal
-document.getElementById("localNewsInfo").addEventListener("click", () => {
+function newsInfo() {
   const countryCode = $("#country").val();
   $.ajax({
     url: "php/topNews.php?c=" + countryCode,
     type: "GET",
     dataType: "json",
     success: function (data) {
-      let html = "";
+      let newsData = "";
 
       if (data.status === "ERROR") {
-        html = "News not available for this country";
-
-        jQuery("#newsModal .modal-body").html(html);
+        newsData = "News not available for this country";
 
         return;
       }
@@ -299,7 +308,7 @@ document.getElementById("localNewsInfo").addEventListener("click", () => {
       data.data.forEach((item) => {
         let date = item.published_datetime_utc;
 
-        html += `<div class="newsCard">
+        newsData += `<div class="newsCard">
         <img class="cardNewsImg" src="${
           item.photo_url
         }" alt="News Artcile Photo">
@@ -310,13 +319,16 @@ document.getElementById("localNewsInfo").addEventListener("click", () => {
         </div>
       </div><br>`;
       });
-      jQuery("#newsModal .modal-body").html(html);
+      jQuery("#newsModal .modal-body").html(newsData);
     },
   });
+}
+document.getElementById("localNewsInfo").addEventListener("click", () => {
+  jQuery("#newsModal .modal-body").html(newsData);
 });
 
 // Currency Modal
-document.getElementById("mnyBtn").addEventListener("click", () => {
+function currencyConverter() {
   const countryCode = $("#country").val();
   $.ajax({
     url: "php/currency.php?c=" + countryCode,
@@ -329,27 +341,31 @@ document.getElementById("mnyBtn").addEventListener("click", () => {
       let countryCurrency = res.new_currency;
       let targetCountryAmount = res.new_amount;
 
-      jQuery("#currencyModal .modal-body").html(` <div class="card-body">
+      currencyInfo = `<div class="card-body">
       <p class="card-text" id="currencyFirstP"><strong>Country Currency:</strong> ${countryCurrency}</p>
       <p class="card-text" id="currencySecondP"><strong>Conversion:</strong> ${baseAmount} USD = ${targetCountryAmount} ${countryCurrency} </p>
-    </div>`);
+    </div>`;
+      jQuery("#currencyModal").removeAttr("disabled");
     },
   });
+}
+document.getElementById("mnyBtn").addEventListener("click", () => {
+  jQuery("#currencyModal .modal-body").html(currencyInfo);
 });
 
 // National Holidays modal
-document.getElementById("nationalHolBtn2").addEventListener("click", () => {
+function nationalHols() {
   const countryCode = $("#country").val();
   $.ajax({
     url: "php/hols.php?c=" + countryCode,
     type: "GET",
     dataType: "json",
     success: function (res) {
-      let html = "";
+      let holsInfo = "";
 
       for (let i = 0; i < res.length; i++) {
         const item = res[i];
-        html += `<div class="card-body">
+        holsInfo += `<div class="card-body">
   <table class="table">
   <thead class="thead-dark">  
     <tr>
@@ -366,10 +382,12 @@ document.getElementById("nationalHolBtn2").addEventListener("click", () => {
 </table>
 </table>`;
       }
-
-      jQuery("#nationalHolModal .modal-body").html(html);
+      jQuery("#nationalHolModal .modal-body").html(holsInfo);
     },
   });
+}
+document.getElementById("nationalHolBtn2").addEventListener("click", () => {
+  jQuery("#nationalHolModal .modal-body").html(holsInfo);
 });
 
 // Map display

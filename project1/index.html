@@ -45,6 +45,9 @@
     <title>Gazetteer</title>
   </head>
   <body>
+
+<div id="preloader"></div>
+
     <!-- <h1>Map</h1> -->
     <nav class="navBar">
       <div class="controls">
@@ -57,7 +60,7 @@
         </nav>
 
 <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="maginfyBtn">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="maginfyBtn" disabled>
       <img src="./fontawesome-free-6.2.1-web/svgs/icons/magnifying-glass-solid.svg" id="discoverIcon">
     </button>
 <!-- Modal -->
@@ -81,7 +84,7 @@
   <!-- Weather trigger -->
 
 
-  <button type="button" class="btn btn-primary" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#weatherModal" id="weatherModalBtn"><img src="./fontawesome-free-6.2.1-web/svgs/icons/cloud-sun-solid.svg" id="weatherID2"></button> 
+  <button type="button" class="btn btn-primary" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#weatherModal" id="weatherModalBtn" disabled><img src="./fontawesome-free-6.2.1-web/svgs/icons/cloud-sun-solid.svg" id="weatherID2"></button> 
 <!-- Weather Modal -->
 <div class="modal fade" id="weatherModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable">
@@ -102,7 +105,7 @@
   </div>
 
   <!-- News Trigger -->
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newsModal" id="localNewsInfo"><img src="./fontawesome-free-6.2.1-web/svgs/icons/newspaper-solid.svg" id="newspaperIcon2"></button>
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newsModal" id="localNewsInfo"><img src="./fontawesome-free-6.2.1-web/svgs/icons/newspaper-solid.svg" id="newspaperIcon2" disabled></button>
 <!-- News Modal -->
 <div class="modal fade" id="newsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable">
@@ -122,7 +125,7 @@
   </div>
 
   <!-- Currency Trigger -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#currencyModal" id="mnyBtn"><img src="./fontawesome-free-6.2.1-web/svgs/icons/sack-dollar-solid.svg" id="moneyIcon2"></button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#currencyModal" id="mnyBtn"><img src="./fontawesome-free-6.2.1-web/svgs/icons/sack-dollar-solid.svg" id="moneyIcon2" disabled></button>
 
 <!-- Currency Modal -->
 <div class="modal fade" id="currencyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

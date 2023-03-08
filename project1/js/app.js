@@ -21,10 +21,9 @@ let mapIcon = L.icon({
 
 var cityIcons = L.ExtraMarkers.icon({
   icon: "fa-city",
-  markerColor: "green",
+  markerColor: "blue",
   shape: "square",
   prefix: "fa",
-  svg: "true",
 });
 
 var airportIcon = L.ExtraMarkers.icon({
@@ -52,7 +51,7 @@ function getnearbyMajorCitties() {
     type: "GET",
     dataType: "json",
     success: function (res) {
-      console.log(res);
+      // console.log(res);
       let markers = L.markerClusterGroup({
         polygonOptions: {
           fillColor: "black",
@@ -115,7 +114,7 @@ function getAirports() {
 
         // console.log("city Name", cityName);
         let nearbyAirportMarker = L.marker(cityAirportLatLng, {
-          icon: cityIcons,
+          icon: airportIcon,
         });
         nearbyAirportMarker.bindPopup(cityAirportName);
 
@@ -154,7 +153,7 @@ $.ajax({
 
 const map = L.map("map").setView([0, 0], 2);
 
-let marker = false;
+// let marker = false;
 // ------------------------------------reverse geocode inner function------------------------------------------------------------
 
 function success(pos) {
@@ -239,11 +238,11 @@ $("#country").on("change", function (event) {
 
             getnearbyMajorCitties();
             getAirports();
-            generalCountryInfo();
-            weatherForecast();
-            newsInfo();
-            currencyConverter();
-            nationalHols();
+            // generalCountryInfo();
+            // weatherForecast();
+            // newsInfo();
+            // currencyConverter();
+            // nationalHols();
           },
         });
       },

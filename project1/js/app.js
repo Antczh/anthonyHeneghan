@@ -11,33 +11,66 @@ let mapIcon = L.icon({
   popupAnchor: [0, -48], // point from which the popup should open relative to the iconAnchor
 });
 
-var cityIcon = L.divIcon({
-  className: "my-div-icon",
-  html: '<img src="fontawesome-free-6.2.1-web/svgs/icons/city-solid.svg">',
-  iconSize: [28, 28],
-  popupAnchor: [0, -30],
-  iconAnchor: [14, 28],
+// var cityIcon = L.divIcon({
+//   className: "my-div-icon",
+//   html: '<img src="fontawesome-free-6.2.1-web/svgs/icons/city-solid.svg">',
+//   iconSize: [28, 28],
+//   popupAnchor: [0, -30],
+//   iconAnchor: [14, 28],
+// });
+
+var cityIcons = L.ExtraMarkers.icon({
+  icon: "fa-city",
+  markerColor: "green",
+  shape: "square",
+  prefix: "fa",
+  svg: "true",
 });
 
-function getNearbyCities() {
-  const countryCode = $("#country").val();
+var airportIcon = L.ExtraMarkers.icon({
+  icon: "fa-plane",
+  iconColor: "black",
+  markerColor: "white",
+  shape: "square",
+  prefix: "fa",
+});
 
+$(window).on("load", function () {
+  if ($("#preloader").length) {
+    $("#preloader")
+      .delay(2000)
+      .fadeOut("slow", function () {
+        $(this).remove();
+      });
+  }
+});
+
+function getnearbyMajorCitties() {
+  const countryCode = $("#country").val();
   $.ajax({
-    url: "php/nearbyCities.php?c=" + countryCode,
+    url: "php/countryMajorCities.php?c=" + countryCode,
     type: "GET",
     dataType: "json",
     success: function (res) {
-      // console.log("cities ", res);
-      let markers = L.markerClusterGroup();
+      console.log(res);
+      let markers = L.markerClusterGroup({
+        polygonOptions: {
+          fillColor: "white",
+          color: "#000",
+          weight: 2,
+          opacity: 1,
+          fillOpacity: 0.5,
+        },
+      }).addTo(map);
 
-      for (let i = 0; i < res.cities.length; i++) {
-        const cityLatLng = [res.cities[i].latitude, res.cities[i].longitude];
+      for (let i = 0; i < res.data.length; i++) {
+        const cityLatLng = [res.data[i].lat, res.data[i].lng];
 
-        let cityName = res.cities[i].name;
+        let cityName = res.data[i].name;
 
         // console.log("city Name", cityName);
         let nearbyCitiesMarker = L.marker(cityLatLng, {
-          icon: cityIcon,
+          icon: cityIcons,
         });
         nearbyCitiesMarker.bindPopup(cityName);
 
@@ -49,15 +82,43 @@ function getNearbyCities() {
   });
 }
 
-$(window).on("load", function () {
-  if ($("#preloader").length) {
-    $("#preloader")
-      .delay(1000)
-      .fadeOut("slow", function () {
-        $(this).remove();
-      });
-  }
-});
+function getAirports() {
+  const countryCode = $("#country").val();
+
+  $.ajax({
+    url: "php/countryAirports.php?c=" + countryCode,
+    type: "GET",
+    dataType: "json",
+    success: function (res) {
+      console.log(res);
+
+      let markers = L.markerClusterGroup({
+        polygonOptions: {
+          fillColor: "white",
+          color: "#000",
+          weight: 2,
+          opacity: 1,
+          fillOpacity: 0.5,
+        },
+      }).addTo(map);
+      for (let i = 0; i < res.data.length; i++) {
+        const cityAirportLatLng = [res.data[i].lat, res.data[i].lng];
+
+        let cityAirportName = res.data[i].name;
+
+        // console.log("city Name", cityName);
+        let nearbyAirportMarker = L.marker(cityAirportLatLng, {
+          icon: cityIcons,
+        });
+        nearbyAirportMarker.bindPopup(cityAirportName);
+
+        markers.addLayer(nearbyAirportMarker);
+        markers.addTo(map);
+      }
+      map.addLayer(markers);
+    },
+  });
+}
 
 $.ajax({
   type: "GET",
@@ -167,14 +228,15 @@ $("#country").on("change", function (event) {
             polygon.addTo(map);
 
             map.fitBounds(polygon.getBounds());
-
-            getNearbyCities();
-            generalCountryInfo();
-            weatherForecast();
-            newsInfo();
-            currencyConverter();
-            nationalHols();
             // call functoins
+
+            getnearbyMajorCitties();
+            getAirports();
+            // generalCountryInfo();
+            // weatherForecast();
+            // newsInfo();
+            // currencyConverter();
+            // nationalHols();
           },
         });
       },

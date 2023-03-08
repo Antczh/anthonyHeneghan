@@ -19,8 +19,9 @@ $executionStartTime = microtime(true);
 // $_REQUEST is used initially because it accepts parameters passed as both $_POST and $_GET
 // (for when the routine is called directly from the browser as per the example above).
 // Replace with $_POST once you are sure that the routine is stable.
+$countryCode = $_GET['c'];
 
-$url = 'http://api.geonames.org/searchJSON?q=airport&country=' . $_REQUEST['iso'] . '&maxRows=30&lang=en&username=antch&style=full';
+$url = 'http://api.geonames.org/searchJSON?q=airport&country=' . $countryCode . '&maxRows=30&lang=en&username=antch';
 
 $ch = curl_init();
 
@@ -77,7 +78,7 @@ if ($cURLERROR) {
 
             foreach ($airports['geonames'] as $item) {
 
-                $temp['name'] = $item['asciiName'];
+                $temp['name'] = $item['name'];
                 $temp['lat'] = $item['lat'];
                 $temp['lng'] = $item['lng'];
 

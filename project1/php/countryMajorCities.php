@@ -80,6 +80,7 @@ if ($cURLERROR) {
                 $temp['name'] = $item['asciiName'];
                 $temp['lat'] = $item['lat'];
                 $temp['lng'] = $item['lng'];
+                $temp['population'] = $item['population'];
 
                 array_push($finalResult, $temp);
             }

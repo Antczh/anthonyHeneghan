@@ -55,7 +55,7 @@ function getnearbyMajorCitties() {
       console.log(res);
       let markers = L.markerClusterGroup({
         polygonOptions: {
-          fillColor: "white",
+          fillColor: "black",
           color: "#000",
           weight: 2,
           opacity: 1,
@@ -67,12 +67,18 @@ function getnearbyMajorCitties() {
         const cityLatLng = [res.data[i].lat, res.data[i].lng];
 
         let cityName = res.data[i].name;
-
+        let population = res.data[i].population;
         // console.log("city Name", cityName);
         let nearbyCitiesMarker = L.marker(cityLatLng, {
           icon: cityIcons,
         });
-        nearbyCitiesMarker.bindPopup(cityName);
+        nearbyCitiesMarker.bindPopup(
+          "<strong>" +
+            cityName +
+            "</strong>" +
+            "<br><strong>Population:&nbsp;</strong>" +
+            population
+        );
 
         markers.addLayer(nearbyCitiesMarker);
         markers.addTo(map);
@@ -81,6 +87,7 @@ function getnearbyMajorCitties() {
     },
   });
 }
+// ${new Intl.NumberFormat("en-IN").format(population)};
 
 function getAirports() {
   const countryCode = $("#country").val();
@@ -90,7 +97,7 @@ function getAirports() {
     type: "GET",
     dataType: "json",
     success: function (res) {
-      console.log(res);
+      // console.log(res);
 
       let markers = L.markerClusterGroup({
         polygonOptions: {
@@ -232,11 +239,11 @@ $("#country").on("change", function (event) {
 
             getnearbyMajorCitties();
             getAirports();
-            // generalCountryInfo();
-            // weatherForecast();
-            // newsInfo();
-            // currencyConverter();
-            // nationalHols();
+            generalCountryInfo();
+            weatherForecast();
+            newsInfo();
+            currencyConverter();
+            nationalHols();
           },
         });
       },
@@ -351,6 +358,7 @@ document.getElementById("weatherModalBtn").addEventListener("click", () => {
 });
 
 // News Modal
+
 function newsInfo() {
   const countryCode = $("#country").val();
   $.ajax({
@@ -362,7 +370,7 @@ function newsInfo() {
 
       if (data.status === "ERROR") {
         newsData = "News not available for this country";
-
+        jQuery("#newsModal .modal-body").html(newsData);
         return;
       }
       // console.log(data);
@@ -381,13 +389,15 @@ function newsInfo() {
         </div>
       </div><br>`;
       });
+      jQuery("#localNewsInfo").removeAttr("disabled");
       jQuery("#newsModal .modal-body").html(newsData);
+
+      document.getElementById("localNewsInfo").addEventListener("click", () => {
+        jQuery("#newsModal .modal-body").html(newsData);
+      });
     },
   });
 }
-document.getElementById("localNewsInfo").addEventListener("click", () => {
-  jQuery("#newsModal .modal-body").html(newsData);
-});
 
 // Currency Modal
 function currencyConverter() {
@@ -407,7 +417,7 @@ function currencyConverter() {
       <p class="card-text" id="currencyFirstP"><strong>Country Currency:</strong> ${countryCurrency}</p>
       <p class="card-text" id="currencySecondP"><strong>Conversion:</strong> ${baseAmount} USD = ${targetCountryAmount} ${countryCurrency} </p>
     </div>`;
-      jQuery("#currencyModal").removeAttr("disabled");
+      jQuery("#mnyBtn").removeAttr("disabled");
     },
   });
 }
@@ -415,7 +425,6 @@ document.getElementById("mnyBtn").addEventListener("click", () => {
   jQuery("#currencyModal .modal-body").html(currencyInfo);
 });
 
-// National Holidays modal
 function nationalHols() {
   const countryCode = $("#country").val();
   $.ajax({
@@ -428,29 +437,27 @@ function nationalHols() {
       for (let i = 0; i < res.length; i++) {
         const item = res[i];
         holsInfo += `<div class="card-body">
-  <table class="table">
-  <thead class="thead-dark">  
-    <tr>
-      <th colspan="1" "scope="col" class="holidayTitle">Holiday Name</th>
-      <th colspan="2" "scope="col" class="holidayDate">Date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="holidayNameAPI">${item.name}</td>
-      <td class="holidayDateAPI">${item.date}</td>
-    </tr>
-  </tbody>
-</table>
-</table>`;
+          <table class="table">
+            <thead class="thead-dark">  
+              <tr>
+                <th colspan="1" "scope="col" class="holidayTitle">${item.name}</th>
+                <th colspan="2" "scope="col" class="holidayDate">${item.date}</th>
+              </tr>
+            </thead>
+          </table>
+        </div>`;
       }
+      jQuery("#nationalHolBtn2").removeAttr("disabled");
       jQuery("#nationalHolModal .modal-body").html(holsInfo);
+
+      document
+        .getElementById("nationalHolBtn2")
+        .addEventListener("click", () => {
+          jQuery("#nationalHolModal .modal-body").html(holsInfo);
+        });
     },
   });
 }
-document.getElementById("nationalHolBtn2").addEventListener("click", () => {
-  jQuery("#nationalHolModal .modal-body").html(holsInfo);
-});
 
 // Map display
 const tileLayer = L.tileLayer(

@@ -238,11 +238,11 @@ $("#country").on("change", function (event) {
 
             getnearbyMajorCitties();
             getAirports();
-            // generalCountryInfo();
-            // weatherForecast();
-            // newsInfo();
-            // currencyConverter();
-            // nationalHols();
+            generalCountryInfo();
+            weatherForecast();
+            newsInfo();
+            currencyConverter();
+            nationalHols();
           },
         });
       },

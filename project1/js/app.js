@@ -11,14 +11,6 @@ let mapIcon = L.icon({
   popupAnchor: [0, -48], // point from which the popup should open relative to the iconAnchor
 });
 
-// var cityIcon = L.divIcon({
-//   className: "my-div-icon",
-//   html: '<img src="fontawesome-free-6.2.1-web/svgs/icons/city-solid.svg">',
-//   iconSize: [28, 28],
-//   popupAnchor: [0, -30],
-//   iconAnchor: [14, 28],
-// });
-
 var cityIcons = L.ExtraMarkers.icon({
   icon: "fa-city",
   markerColor: "blue",
@@ -153,7 +145,6 @@ $.ajax({
 
 const map = L.map("map").setView([0, 0], 2);
 
-// let marker = false;
 // ------------------------------------reverse geocode inner function------------------------------------------------------------
 
 function success(pos) {
@@ -173,9 +164,7 @@ function success(pos) {
         // console.log(geoCountryCode);
         $("#country").val(geoCountryCode).trigger("change");
       },
-      error: function (jqXHR, textStatus, errorThrown) {
-        // console.log(textStatus, errorThrown);
-      },
+      error: function (jqXHR, textStatus, errorThrown) {},
     });
   }
   // console.log(pos);
@@ -193,11 +182,6 @@ function error(err) {
 }
 
 $("#country").on("change", function (event) {
-  // if (marker != false) {
-  //   // map.removeLayer(marker);
-  // }
-  // console.log("dropdown changed");
-
   if (event.target.value) {
     const country = countryList.filter(
       (item) => item.code == event.target.value
@@ -213,8 +197,6 @@ $("#country").on("change", function (event) {
         if (markerCountry != "") {
           map.removeLayer(markerCountry);
         }
-        // markerCountry = L.marker(res[0].latlng, { icon: mapIcon });
-        // markerCountry.addTo(map).bindPopup("You have arrived!").openPopup();
 
         $.ajax({
           url: "php/polygon.php?c=" + country[0].code,
@@ -365,11 +347,12 @@ function newsInfo() {
     type: "GET",
     dataType: "json",
     success: function (data) {
+      console.log(data);
       let newsData = "";
 
       if (data.status === "ERROR") {
-        newsData = "News not available for this country";
-        jQuery("#newsModal .modal-body").html(newsData);
+        newsDataErr = "News not available for this country";
+        jQuery("#newsModal .modal-body").html(newsDataErr);
         return;
       }
       // console.log(data);
@@ -467,3 +450,10 @@ const tileLayer = L.tileLayer(
       'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
   }
 ).addTo(map);
+
+// var overlays = {
+//   Airports: airports,
+//   Cities: cities,
+// };
+
+// var layerControl = L.control.layers(overlays).addTo(map);

@@ -194,3 +194,12 @@
   justify-content: center;
 }
 
+#mapMarkerLayers{
+  display: flex;
+  justify-content: center;
+}
+
+.layerIcon{
+  position: fixed;
+  z-index: 1;
+}

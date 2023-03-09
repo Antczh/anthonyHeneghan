@@ -63,7 +63,7 @@ function getnearbyMajorCitties() {
             cityName +
             "</strong>" +
             "<br><strong>Population:&nbsp;</strong>" +
-            population
+            population.toLocaleString()
         );
 
         markers.addLayer(nearbyCitiesMarker);
@@ -219,11 +219,11 @@ $("#country").on("change", function (event) {
 
             getnearbyMajorCitties();
             getAirports();
-            // generalCountryInfo();
-            // weatherForecast();
-            // newsInfo();
-            // currencyConverter();
-            // nationalHols();
+            generalCountryInfo();
+            weatherForecast();
+            newsInfo();
+            currencyConverter();
+            nationalHols();
           },
         });
       },
@@ -461,4 +461,34 @@ var overlays = {
 
 var layerControl = L.control.layers(null, overlays).addTo(map);
 
+// Add the Cities and Airports overlays to the map
+cityGroup.addTo(map);
+airportGroup.addTo(map);
+
+// Set the Cities and Airports overlays to be initially selected
+Object.keys(layerControl._layers).forEach(function (key) {
+  var layer = layerControl._layers[key].layer;
+  if (layer === cityGroup || layer === airportGroup) {
+    layerControl._map.addLayer(layer);
+  }
+});
+
+// Update the visibility of the city and airport layers when the layer control is changed
+layerControl.on("add", function (event) {
+  var layer = event.layer;
+  if (layer === cityGroup || layer === airportGroup) {
+    layer.eachLayer(function (marker) {
+      marker.setStyle({ opacity: 1 });
+    });
+  }
+});
+
+layerControl.on("remove", function (event) {
+  var layer = event.layer;
+  if (layer === cityGroup || layer === airportGroup) {
+    layer.eachLayer(function (marker) {
+      marker.setStyle({ opacity: 0 });
+    });
+  }
+});
 // -------------------------------------------layer controls----------------------------------------------

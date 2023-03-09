@@ -4,16 +4,11 @@ let coords = [];
 let polygon = "";
 let markerCountry = "";
 let countryGeneralInfo = "";
-let mapIcon = L.icon({
-  iconUrl: "./fontawesome-free-6.2.1-web/svgs/icons/map-pin-solid.svg",
-  iconSize: [48, 48], // size of the icon
-  iconAnchor: [24, 48], // point of the icon which will correspond to marker's location
-  popupAnchor: [0, -48], // point from which the popup should open relative to the iconAnchor
-});
+let newsDataErr = "";
 
 var cityIcons = L.ExtraMarkers.icon({
   icon: "fa-city",
-  markerColor: "blue",
+  markerColor: "black",
   shape: "square",
   prefix: "fa",
 });
@@ -72,6 +67,8 @@ function getnearbyMajorCitties() {
         );
 
         markers.addLayer(nearbyCitiesMarker);
+        cityGroup.addLayer(markers);
+
         markers.addTo(map);
       }
       map.addLayer(markers);
@@ -111,6 +108,8 @@ function getAirports() {
         nearbyAirportMarker.bindPopup(cityAirportName);
 
         markers.addLayer(nearbyAirportMarker);
+        airportGroup.addLayer(markers);
+
         markers.addTo(map);
       }
       map.addLayer(markers);
@@ -220,11 +219,11 @@ $("#country").on("change", function (event) {
 
             getnearbyMajorCitties();
             getAirports();
-            generalCountryInfo();
-            weatherForecast();
-            newsInfo();
-            currencyConverter();
-            nationalHols();
+            // generalCountryInfo();
+            // weatherForecast();
+            // newsInfo();
+            // currencyConverter();
+            // nationalHols();
           },
         });
       },
@@ -451,9 +450,15 @@ const tileLayer = L.tileLayer(
   }
 ).addTo(map);
 
-// var overlays = {
-//   Airports: airports,
-//   Cities: cities,
-// };
+// -------------------------------------------layer controls----------------------------------------------
+let cityGroup = L.layerGroup();
+let airportGroup = L.layerGroup();
 
-// var layerControl = L.control.layers(overlays).addTo(map);
+var overlays = {
+  Cities: cityGroup,
+  Airports: airportGroup,
+};
+
+var layerControl = L.control.layers(null, overlays).addTo(map);
+
+// -------------------------------------------layer controls----------------------------------------------

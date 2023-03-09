@@ -185,7 +185,12 @@ $("#country").on("change", function (event) {
     const country = countryList.filter(
       (item) => item.code == event.target.value
     );
-
+    if (cityGroup) {
+      cityGroup.clearLayers();
+    }
+    if (airportGroup) {
+      airportGroup.clearLayers();
+    }
     $.ajax({
       url: "php/getLatLng.php?c=" + country[0].code,
       type: "GET",

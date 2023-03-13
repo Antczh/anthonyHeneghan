@@ -38,7 +38,6 @@ function getnearbyMajorCitties() {
     type: "GET",
     dataType: "json",
     success: function (res) {
-      // console.log(res);
       let markers = L.markerClusterGroup({
         polygonOptions: {
           fillColor: "black",
@@ -54,7 +53,6 @@ function getnearbyMajorCitties() {
 
         let cityName = res.data[i].name;
         let population = res.data[i].population;
-        // console.log("city Name", cityName);
         let nearbyCitiesMarker = L.marker(cityLatLng, {
           icon: cityIcons,
         });
@@ -75,7 +73,6 @@ function getnearbyMajorCitties() {
     },
   });
 }
-// ${new Intl.NumberFormat("en-IN").format(population)};
 
 function getAirports() {
   const countryCode = $("#country").val();
@@ -85,8 +82,6 @@ function getAirports() {
     type: "GET",
     dataType: "json",
     success: function (res) {
-      // console.log(res);
-
       let markers = L.markerClusterGroup({
         polygonOptions: {
           fillColor: "white",
@@ -101,7 +96,6 @@ function getAirports() {
 
         let cityAirportName = res.data[i].name;
 
-        // console.log("city Name", cityName);
         let nearbyAirportMarker = L.marker(cityAirportLatLng, {
           icon: airportIcon,
         });
@@ -122,8 +116,6 @@ $.ajax({
   url: "php/request.php",
   dataType: "json",
   success: function (data) {
-    // console.log(data);
-
     countryList = data.countries;
 
     countryList = countryList.sort(function (firstElement, secondElement) {
@@ -134,7 +126,6 @@ $.ajax({
         `<option id="countryId" value="${item.code}">${item.name}</option>`
       );
     });
-    // console.log("requesting locaiton");
     navigator.geolocation.getCurrentPosition(success, error);
   },
   error: function (jqXHR, textStatus, errorThrown) {
@@ -157,16 +148,12 @@ function success(pos) {
         longitude: pos.coords.longitude,
       },
       success: function (data) {
-        // console.log("position", data);
-
         var geoCountryCode = data.results[0].components["ISO_3166-1_alpha-2"];
-        // console.log(geoCountryCode);
         $("#country").val(geoCountryCode).trigger("change");
       },
       error: function (jqXHR, textStatus, errorThrown) {},
     });
   }
-  // console.log(pos);
 
   const geoLatitude = pos.coords.latitude;
   const geoLongitude = pos.coords.longitude;
@@ -175,9 +162,9 @@ function success(pos) {
 }
 // ------------------------------------reverse geocode inner function------------------------------------------------------------
 function error(err) {
-  let errGeoCountry = "TH";
+  let errGeoCountry = "GB";
   $("#country").val(errGeoCountry).trigger("change");
-  alert("Location denied, sending you to Thailand");
+  alert("Location denied, sending you to The UK");
 }
 
 $("#country").on("change", function (event) {
@@ -196,7 +183,6 @@ $("#country").on("change", function (event) {
       type: "GET",
       dataType: "json",
       success: function (res) {
-        // console.log(res[0].latlng);
         map.setView(res[0].latlng, 6);
         if (markerCountry != "") {
           map.removeLayer(markerCountry);
@@ -220,13 +206,12 @@ $("#country").on("change", function (event) {
             polygon.addTo(map);
 
             map.fitBounds(polygon.getBounds());
-            // call functoins
 
             getnearbyMajorCitties();
             getAirports();
             generalCountryInfo();
             weatherForecast();
-            newsInfo();
+            // newsInfo();
             currencyConverter();
             nationalHols();
           },
@@ -244,7 +229,6 @@ function generalCountryInfo() {
     type: "GET",
     dataType: "json",
     success: function (res) {
-      // console.log(res);
       let capital = res["data"][0].capital;
       let population = res["data"][0].population;
       let countryName = res["data"][0].countryName;
@@ -289,8 +273,6 @@ function weatherForecast() {
     type: "GET",
     dataType: "json",
     success: function ({ data }) {
-      // console.log(data);
-
       let description = data.description;
       let temp = data.temp;
       let feelsLike = data.feels_like;
@@ -356,10 +338,11 @@ function newsInfo() {
 
       if (data.status === "ERROR") {
         newsDataErr = "News not available for this country";
+        console.log(newsDataErr);
+        // jQuery("#localNewsInfo").removeAttr("disabled");
         jQuery("#newsModal .modal-body").html(newsDataErr);
         return;
       }
-      // console.log(data);
 
       data.data.forEach((item) => {
         let date = item.published_datetime_utc;
@@ -375,12 +358,25 @@ function newsInfo() {
         </div>
       </div><br>`;
       });
+
       jQuery("#localNewsInfo").removeAttr("disabled");
       jQuery("#newsModal .modal-body").html(newsData);
 
       document.getElementById("localNewsInfo").addEventListener("click", () => {
         jQuery("#newsModal .modal-body").html(newsData);
       });
+    },
+    error: function (xhr, status, error) {
+      console.log(xhr);
+      console.log(status);
+      console.log(error);
+      newsDataErr = "Error loading news data";
+      jQuery("#localNewsInfo").removeAttr("disabled");
+      jQuery("#newsModal .modal-body").html(newsDataErr);
+    },
+    complete: function (xhr, status) {
+      console.log(xhr);
+      console.log(status);
     },
   });
 }
@@ -393,8 +389,6 @@ function currencyConverter() {
     type: "GET",
     dataType: "json",
     success: function (res) {
-      // console.log("money", res);
-
       let baseAmount = res.old_amount;
       let countryCurrency = res.new_currency;
       let targetCountryAmount = res.new_amount;
@@ -466,11 +460,9 @@ var overlays = {
 
 var layerControl = L.control.layers(null, overlays).addTo(map);
 
-// Add the Cities and Airports overlays to the map
 cityGroup.addTo(map);
 airportGroup.addTo(map);
 
-// Set the Cities and Airports overlays to be initially selected
 Object.keys(layerControl._layers).forEach(function (key) {
   var layer = layerControl._layers[key].layer;
   if (layer === cityGroup || layer === airportGroup) {
@@ -478,7 +470,6 @@ Object.keys(layerControl._layers).forEach(function (key) {
   }
 });
 
-// Update the visibility of the city and airport layers when the layer control is changed
 layerControl.on("add", function (event) {
   var layer = event.layer;
   if (layer === cityGroup || layer === airportGroup) {

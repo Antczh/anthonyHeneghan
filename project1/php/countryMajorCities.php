@@ -1,23 +1,14 @@
 <?php
-// the first two lines provide error reporting when the routine is called from a browser, eg:
-
-// http://api.geonames.org/searchJSON?formatted=true&q=city&country=GB&cities=cities15000&maxRows=30&lang=es&username=antch&style=full
-
-// remove or comment them out once you are sure that the routine is stable.
 
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
 
-// set the return header
 
 header('Content-Type: application/json; charset=UTF-8');
 header('Access-Control-Allow-Origin: *');
 
 $executionStartTime = microtime(true);
 
-// $_REQUEST is used initially because it accepts parameters passed as both $_POST and $_GET
-// (for when the routine is called directly from the browser as per the example above).
-// Replace with $_POST once you are sure that the routine is stable.
 $countryCode = $_GET['c'];
 
 $url = 'http://api.geonames.org/searchJSON?&country=' . $countryCode . '&cities=cities15000&maxRows=30&lang=en&username=antch&style=full';
@@ -57,7 +48,6 @@ if ($cURLERROR) {
         $output['data'] = null;
     } else {
 
-        // has the api returned an error?
 
         if (isset($cities['status'])) {
 
@@ -68,10 +58,6 @@ if ($cURLERROR) {
             $output['data'] = null;
         } else {
 
-            // create array containing only the required properties
-
-            // the API supports HTTPS and so the icon URLs are amended
-            // to ensure that there are no CROSS ORIGIN errors in the client
 
             $finalResult = [];
 

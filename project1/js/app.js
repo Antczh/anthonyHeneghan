@@ -211,7 +211,7 @@ $("#country").on("change", function (event) {
             getAirports();
             generalCountryInfo();
             weatherForecast();
-            // newsInfo();
+            newsInfo();
             currencyConverter();
             nationalHols();
           },
@@ -339,12 +339,17 @@ function newsInfo() {
       if (data.status === "ERROR") {
         newsDataErr = "News not available for this country";
         console.log(newsDataErr);
-        // jQuery("#localNewsInfo").removeAttr("disabled");
-        jQuery("#newsModal .modal-body").html(newsDataErr);
+        document
+          .getElementById("localNewsInfo")
+          .addEventListener("click", () => {
+            jQuery("#newsModal .modal-body").html(newsDataErr);
+          });
+
         return;
       }
-
       data.data.forEach((item) => {
+        console.log("testing");
+
         let date = item.published_datetime_utc;
 
         newsData += `<div class="newsCard">
@@ -366,18 +371,6 @@ function newsInfo() {
         jQuery("#newsModal .modal-body").html(newsData);
       });
     },
-    error: function (xhr, status, error) {
-      console.log(xhr);
-      console.log(status);
-      console.log(error);
-      newsDataErr = "Error loading news data";
-      jQuery("#localNewsInfo").removeAttr("disabled");
-      jQuery("#newsModal .modal-body").html(newsDataErr);
-    },
-    complete: function (xhr, status) {
-      console.log(xhr);
-      console.log(status);
-    },
   });
 }
 
@@ -389,6 +382,7 @@ function currencyConverter() {
     type: "GET",
     dataType: "json",
     success: function (res) {
+      console.log(res);
       let baseAmount = res.old_amount;
       let countryCurrency = res.new_currency;
       let targetCountryAmount = res.new_amount;

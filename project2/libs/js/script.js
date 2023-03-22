@@ -49,6 +49,9 @@ function loadEmployeeInfo() {
     },
   });
 }
+$(document).ready(function () {
+  loadEmployeeInfo();
+});
 
 $("#homeBtn").click(function () {
   console.log("home button clicked...");

@@ -26,87 +26,123 @@
     />
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#" role="button" id="homeBtn">Home</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Department
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Human Resources</a></li>
-                    <li><a class="dropdown-item" href="#">Sales</a></li>
-                    <li><a class="dropdown-item" href="#">Marketing</a></li>
-                    <li><a class="dropdown-item" href="#">Legal</a></li>
-                    <li><a class="dropdown-item" href="#">Services</a></li>
-                    <li><a class="dropdown-item" href="#">Research and Development</a></li>
-                    <li><a class="dropdown-item" href="#">Product Management</a></li>
-                    <li><a class="dropdown-item" href="#">Training</a></li>
-                    <li><a class="dropdown-item" href="#">Support</a></li>
-                    <li><a class="dropdown-item" href="#">Engineering</a></li>
-                    <li><a class="dropdown-item" href="#">Accounting</a></li>
-                    <li><a class="dropdown-item" href="#">Business Development</a></li>                
-                </ul>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Location
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">London</a></li>
-                  <li><a class="dropdown-item" href="#">New York</a></li>
-                  <li><a class="dropdown-item" href="#">Paris</a></li>
-                  <li><a class="dropdown-item" href="#">Munich</a></li>
-                  <li><a class="dropdown-item" href="#">Rome</a></li>
-                </ul>
-              </li>
-            </ul>
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#" role="button" id="homeBtn">Home</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Department
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Human Resources</a></li>
+                <li><a class="dropdown-item" href="#">Sales</a></li>
+                <li><a class="dropdown-item" href="#">Marketing</a></li>
+                <li><a class="dropdown-item" href="#">Legal</a></li>
+                <li><a class="dropdown-item" href="#">Services</a></li>
+                <li>
+                  <a class="dropdown-item" href="#">Research and Development</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">Product Management</a>
+                </li>
+                <li><a class="dropdown-item" href="#">Training</a></li>
+                <li><a class="dropdown-item" href="#">Support</a></li>
+                <li><a class="dropdown-item" href="#">Engineering</a></li>
+                <li><a class="dropdown-item" href="#">Accounting</a></li>
+                <li>
+                  <a class="dropdown-item" href="#">Business Development</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Location
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">London</a></li>
+                <li><a class="dropdown-item" href="#">New York</a></li>
+                <li><a class="dropdown-item" href="#">Paris</a></li>
+                <li><a class="dropdown-item" href="#">Munich</a></li>
+                <li><a class="dropdown-item" href="#">Rome</a></li>
+              </ul>
+            </li>
+          </ul>
 
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-              <button type="button" class="btn btn-success" id="addBtn"><img src="./fontawesome-free-6.3.0-web/svgs/solid/plus-solid.svg" alt="add sign" id="addSign"></button>
-            </form>
-          </div>
+          <form class="d-flex" role="search">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success" type="submit">
+              Search
+            </button>
+            <button type="button" class="btn btn-success" id="addBtn">
+              <img
+                src="./fontawesome-free-6.3.0-web/svgs/solid/plus-solid.svg"
+                alt="add sign"
+                id="addSign"
+              />
+            </button>
+          </form>
         </div>
-      </nav>    
-      <br />
+      </div>
+    </nav>
+    <br />
   </head>
   <body>
-    <div class="card mb-3" style="max-width: 540px">
+    <div class="employeeCard card mb-3" id="personnelCard">
       <div class="row g-0">
         <div class="col-md-4">
           <img
-            src="./fontawesome-free-6.3.0-web/svgs/solid/id-badge-regular.svg"
+            src="./fontawesome-free-6.3.0-web/svgs/solid/id-badge-solid.svg"
             class="img-fluid rounded-start"
-            alt="Perssonel Image"
+            alt="Personnel Profile Photo"
           />
         </div>
-        <div class="col-md-8">
+        <!-- <div class="col-md-8">
           <div class="card-body">
-            <h5 class="card-title">Name</h5>
-            <p class="cardEmail">Email:</p>
-            <p class="cardDepartment">Dapartment:</p>
-            <p class="cardLocation">Location:</p>
-              <small class="text-muted">Last updated 3 mins ago</small>
-            </p>
-          </div>
-        </div>
-      </div>
+            <h3 class="card-title" id="personnelName">Name:</h3>
+            <h5 id="personnelEmail">Email:</h5>
+            <h5 id="personnelDepartment">Department:</h5>
+            <h5 id="personnelLocation">Location:</h5>
+          </div> -->
+        <!-- </div>
+      </div> -->
     </div>
+
     <script src="./jQuery-3.6.3.js"></script>
 
     <script src="./bootstrap-5.3.0-alpha1-dist/js/bootstrap.js"></script>
     <script src="./bootstrap-5.3.0-alpha1-dist/js/bootstrap.bundle.min.js"></script>
 
-
     <script src="./fontawesome-free-6.3.0-web/js/fontawesome.js"></script>
     <script src="./fontawesome-free-6.3.0-web/js/all.min.js"></script>
-
 
     <script type="application/javascript" src="./libs/js/script.js"></script>
   </body>

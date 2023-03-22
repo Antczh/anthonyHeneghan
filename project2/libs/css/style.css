@@ -7,3 +7,12 @@
     margin-left: 7px;
 
 }
+
+.card-body{
+    text-align: center;
+}
+
+.employeeCard{
+    border-color: black !important;
+    max-width: 450px;
+}

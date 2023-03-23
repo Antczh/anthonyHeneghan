@@ -1,55 +1,3 @@
-// function loadEmployeeInfo() {
-//   $.ajax({
-//     url: "libs/php/getAll.php",
-//     type: "GET",
-//     dataType: "json",
-//     success: function (res) {
-//       console.log(res);
-
-//       const personnelCard = $("#personnelCard");
-
-//       personnelCard.empty(); // Clear any existing cards before appending new ones
-
-//       for (let i = 0; i < res.data.length; i++) {
-//         const item = res.data[i];
-//         const employeeFirstName = item.firstName;
-//         const employeeLastName = item.lastName;
-//         const employeeEmail = item.email;
-//         const employeeDepartment = item.department;
-//         const employeeLocation = item.location;
-
-//         const employeeCardHTML = `
-//           <div class="col-sm-4 mb-3">
-//             <div class="card">
-//               <div class="card-body">
-//               <img src="./fontawesome-free-6.3.0-web/svgs/solid/id-badge-solid.svg" class="img-fluid rounded-start" alt="Personnel Profile Photo" style="width: 100px; height: 140px;" />
-
-//                 <h5 class="card-title">${employeeFirstName} ${employeeLastName}</h5>
-//                 <p class="card-text">${employeeEmail}</p>
-//                 <p class="card-text"> ${employeeDepartment}</p>
-//                 <p class="card-text"> ${employeeLocation}</p>
-//                 <a href="#" class="btn btn-warning">Edit</a> <a href="#" class="btn btn-danger">Delete</a>
-
-//               </div>
-//             </div>
-//           </div>
-//         `;
-
-//         personnelCard.append(employeeCardHTML);
-//       }
-//     },
-//   });
-// }
-
-// $(document).ready(function () {
-//   loadEmployeeInfo();
-// });
-
-// $("#homeBtn").click(function () {
-//   console.log("home button clicked...");
-//   loadEmployeeInfo();
-// });
-
 function loadEmployeeInfo(filter = "") {
   $.ajax({
     url: "libs/php/getAll.php",
@@ -62,7 +10,7 @@ function loadEmployeeInfo(filter = "") {
       personnelCard.empty(); // Clear any existing cards before appending new ones
 
       const filteredData = res.data.filter((item) =>
-        `${item.firstName} ${item.lastName}`
+        `${item.firstName} ${item.lastName} ${item.email} ${item.department} ${item.location}`
           .toLowerCase()
           .includes(filter.toLowerCase())
       );
@@ -106,17 +54,6 @@ $(document).ready(function () {
     loadEmployeeInfo(searchStr);
   });
 });
-
-const dropdownItems = document.querySelectorAll(".dropdown-item");
-
-// dropdownItems.forEach((item) => {
-//   item.addEventListener("click", () => {
-//     const selectedOption = item.textContent;
-//     console.log(`Selected option: ${selectedOption}`);
-//     // Do something with the selected option
-//     // showAllDepartments();
-//   });
-// });
 
 function showAllDepartments() {
   $.ajax({

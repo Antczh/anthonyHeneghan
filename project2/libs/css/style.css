@@ -13,10 +13,12 @@
 }
 
 .employeeCard{
-    border-color: black !important;
-    max-width: 450px;
+    /* border-color: black !important; */
+    max-width: 490px;
 }
 
-/* #employeeCards{
-    display: flex;
-} */
+
+#employeeProfilePic{
+    height: 20px !important;
+    width: 20px !important;
+}

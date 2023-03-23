@@ -52,23 +52,23 @@
                 Department
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Human Resources</a></li>
-                <li><a class="dropdown-item" href="#">Sales</a></li>
-                <li><a class="dropdown-item" href="#">Marketing</a></li>
-                <li><a class="dropdown-item" href="#">Legal</a></li>
-                <li><a class="dropdown-item" href="#">Services</a></li>
-                <li>
-                  <a class="dropdown-item" href="#">Research and Development</a>
+                <li class="dropdown-item" id="allDepartmentsOpt">
+                  All Departments
                 </li>
+                <li class="dropdown-item">Human Resources</li>
+                <li class="dropdown-item">Sales</li>
+                <li class="dropdown-item">Marketing</li>
+                <li class="dropdown-item">Legal</li>
+                <li class="dropdown-item">Services</li>
+                <li class="dropdown-item">Research and Development</li>
+                <li class="dropdown-item">Product Management</li>
+                <li class="dropdown-item">Training</li>
+                <li class="dropdown-item">Support</li>
+                <li class="dropdown-item">Engineering</li>
+                <li class="dropdown-item">Accounting</li>
+                <li class="dropdown-item">Business Development</li>
                 <li>
-                  <a class="dropdown-item" href="#">Product Management</a>
-                </li>
-                <li><a class="dropdown-item" href="#">Training</a></li>
-                <li><a class="dropdown-item" href="#">Support</a></li>
-                <li><a class="dropdown-item" href="#">Engineering</a></li>
-                <li><a class="dropdown-item" href="#">Accounting</a></li>
-                <li>
-                  <a class="dropdown-item" href="#">Business Development</a>
+                  <a class="dropdown-item">Business Development</a>
                 </li>
               </ul>
             </li>
@@ -83,11 +83,11 @@
                 Location
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">London</a></li>
-                <li><a class="dropdown-item" href="#">New York</a></li>
-                <li><a class="dropdown-item" href="#">Paris</a></li>
-                <li><a class="dropdown-item" href="#">Munich</a></li>
-                <li><a class="dropdown-item" href="#">Rome</a></li>
+                <li class="dropdown-item">London</li>
+                <li class="dropdown-item">New York</li>
+                <li class="dropdown-item">Paris</li>
+                <li class="dropdown-item">Munich</li>
+                <li class="dropdown-item">Rome</li>
               </ul>
             </li>
           </ul>
@@ -116,27 +116,49 @@
     <br />
   </head>
   <body>
-    <section id="employeeCards">
-      <div class="employeeCard card mb-3" id="personnelCard">
-        <!-- <div class="row g-0">
-        <div class="col-md-4">
-          <img
-            src="./fontawesome-free-6.3.0-web/svgs/solid/id-badge-solid.svg"
-            class="img-fluid rounded-start"
-            alt="Personnel Profile Photo"
-          />
-        </div> -->
-        <!-- <div class="col-md-8">
+    <div class="row" id="personnelCard">
+      <div class="col-sm-4 mb-3 mb-sm-0">
+        <div class="card">
           <div class="card-body">
-            <h3 class="card-title" id="personnelName">Name:</h3>
-            <h5 id="personnelEmail">Email:</h5>
-            <h5 id="personnelDepartment">Department:</h5>
-            <h5 id="personnelLocation">Location:</h5>
-          </div> -->
-        <!-- </div>
-      </div> -->
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">
+              With supporting text below as a natural lead-in to additional
+              content.
+            </p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
       </div>
-    </section>
+      <div class="col-sm-4 mb-3 mb-sm-0">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">
+              With supporting text below as a natural lead-in to additional
+              content.
+            </p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 mb-3 mb-sm-0">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">
+              With supporting text below as a natural lead-in to additional
+              content.
+            </p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="grid-container" id="employeeCards">
+      <div class="employeeCard card mb-3" id="personnelCard"></div>
+    </div> -->
+
     <script src="./jQuery-3.6.3.js"></script>
 
     <script src="./bootstrap-5.3.0-alpha1-dist/js/bootstrap.js"></script>

@@ -10,12 +10,10 @@
 
 .card-body{
     text-align: center;
+    border: solid;
 }
 
-.employeeCard{
-    /* border-color: black !important; */
-    max-width: 490px;
-}
+
 
 
 #employeeProfilePic{

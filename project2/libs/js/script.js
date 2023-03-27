@@ -62,7 +62,6 @@ function showAllDepartments() {
   const selectValue = $("#departmentSelect").val(); // get the value of the select list
 
   if (selectValue === "1") {
-    // check if the select list value is "all"
     $.ajax({
       url: "libs/php/getAllDepartments.php",
       type: "GET",
@@ -102,15 +101,11 @@ function showAllDepartments() {
 }
 
 $("#searchBtn").click(function () {
-  $(".card").hide(); // hide all cards with class "card"
+  $(".card").hide();
   showAllDepartments();
   showAllHR();
+  showAllSales();
 });
-
-// $("#searchBtn").click(function () {
-//   showAllDepartments();
-//   showAllHR();
-// });
 
 function showAllHR() {
   const selectValue = $("#departmentSelect").val(); // get the value of the select list
@@ -135,6 +130,7 @@ function showAllHR() {
           const employeeFirstName = item.firstName;
           const employeeLastName = item.lastName;
           const employeeEmail = item.email;
+          // const employeeDepartment = item.departmentID;
           const employeeLocation = item.location_name;
 
           const HRInfo = `
@@ -153,6 +149,57 @@ function showAllHR() {
             </div>
           `;
           HRCard.append(HRInfo);
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error fetching departments:", error);
+      },
+    });
+  }
+}
+
+function showAllSales() {
+  const selectValue = $("#departmentSelect").val(); // get the value of the select list
+
+  if (selectValue === "3") {
+    // check if the select list value is "all"
+    $.ajax({
+      url: "libs/php/getAllSales.php",
+      type: "GET",
+      dataType: "json",
+      success: function (res) {
+        const personnelCard = $("#personnelCard");
+        const salesCard = $("#salesCard");
+
+        personnelCard.hide();
+
+        salesCard.empty();
+
+        for (let i = 0; i < res.data.length; i++) {
+          console.log(res);
+          item = res.data[i];
+          const employeeFirstName = item.firstName;
+          const employeeLastName = item.lastName;
+          const employeeEmail = item.email;
+          // const employeeDepartment = item.departmentID;
+          const employeeLocation = item.location_name;
+
+          const salesInfo = `
+            <div class="col-sm-4 mb-3">
+              <div class="card">
+                <div class="card-body">
+                <img src="./fontawesome-free-6.3.0-web/svgs/solid/id-badge-solid.svg" class="img-fluid rounded-start" alt="Personnel Profile Photo" style="width: 100px; height: 140px;" />
+
+                  <h5 class="card-title">${employeeFirstName} ${employeeLastName}</h5>
+                  <p class="card-text">${employeeEmail}</p>
+                  <p class="card-text"> ${employeeLocation}</p>
+                  <a href="#" class="btn btn-warning">Edit</a> <a href="#" class="btn btn-danger">Delete</a>
+
+                </div>
+              </div>
+            </div>
+          `;
+          salesCard.append(salesInfo);
         }
       },
       error: function (xhr, status, error) {

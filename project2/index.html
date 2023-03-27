@@ -48,7 +48,9 @@
                 id="departmentSelect"
               >
                 <option selected disabled>Departments</option>
-                <option value="1" id="allDepartments">All Departments</option>
+                <option slected value="1" id="allDepartments">
+                  All Departments
+                </option>
                 <option value="2">Human Resources</option>
                 <option value="3">Sales</option>
                 <option value="4">Marketing</option>
@@ -64,13 +66,13 @@
             </li>
             <li class="nav-item">
               <select class="form-select" aria-label="Default select example">
-                <option selected>Location</option>
-                <option value="1">All Locations</option>
-                <option value="1">London</option>
-                <option value="2">New York</option>
-                <option value="3">Paris</option>
-                <option value="4">Munich</option>
-                <option value="5">Rome</option>
+                <option selected disabled>Locations</option>
+                <option value="b">All Locations</option>
+                <option value="c">London</option>
+                <option value="d">New York</option>
+                <option value="e">Paris</option>
+                <option value="f">Munich</option>
+                <option value="g">Rome</option>
               </select>
             </li>
             <li class="nav-item dropdown" hidden>
@@ -177,6 +179,7 @@
     <div class="row" id="personnelCard"></div>
     <div class="row" id="departmentCard"></div>
     <div class="row" id="HRCard"></div>
+    <div class="row" id="salesCard"></div>
 
     <div
       class="modal fade"
@@ -214,8 +217,8 @@
               Department:
               <select
                 name="location"
-                class="personnelInputField"
                 id="departmentSelect"
+                class="personnelInputField"
               >
                 <option value="">Select a Department</option>
                 <option value="2">Human Resources</option>
@@ -236,15 +239,15 @@
               Location:
               <select
                 name="location"
-                class="personnelInputField"
                 id="locationSelect"
+                class="personnelInputField"
               >
                 <option value="">Select a location</option>
-                <option value="1">London</option>
-                <option value="2">New York</option>
-                <option value="3">Paris</option>
-                <option value="4">Munich</option>
-                <option value="5">Rome</option>
+                <option value="a">London</option>
+                <option value="b">New York</option>
+                <option value="c">Paris</option>
+                <option value="d">Munich</option>
+                <option value="e">Rome</option>
               </select>
             </h5>
           </div>

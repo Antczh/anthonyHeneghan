@@ -59,43 +59,90 @@ $("#homeBtn").click(function () {
 });
 
 function showAllDepartments() {
-  $.ajax({
-    url: "libs/php/getAllDepartments.php",
-    type: "GET",
-    dataType: "json",
-    success: function (res) {
-      const personnelCard = $("#personnelCard");
-      const departmentCard = $("#departmentCard");
+  const selectValue = $("#departmentSelect").val(); // get the value of the select list
 
-      personnelCard.hide();
+  if (selectValue === "1") {
+    // check if the select list value is "all"
+    $.ajax({
+      url: "libs/php/getAllDepartments.php",
+      type: "GET",
+      dataType: "json",
+      success: function (res) {
+        const personnelCard = $("#personnelCard");
+        const departmentCard = $("#departmentCard");
 
-      departmentCard.empty();
+        personnelCard.hide();
 
-      for (let i = 0; i < res.data.length; i++) {
-        const item = res.data[i];
-        const departmentName = item.name;
+        departmentCard.empty();
 
-        const departmentinfo = `<div class="col-sm-4 mb-3">
-        <div class="card">
-          <div class="card-body">
+        for (let i = 0; i < res.data.length; i++) {
+          const item = res.data[i];
+          const departmentName = item.name;
 
-            <h5 class="card-title">${departmentName}</h5>
-            <a href="#" class="btn btn-warning">Edit</a> <a href="#" class="btn btn-danger">Delete</a>
+          const departmentinfo = `<div class="col-sm-4 mb-3">
+            <div class="card">
+              <div class="card-body">
 
+                <h5 class="card-title">${departmentName}</h5>
+                <a href="#" class="btn btn-warning">Edit</a> <a href="#" class="btn btn-danger">Delete</a>
+
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    `;
+        `;
 
-        departmentCard.append(departmentinfo);
-      }
-    },
-    error: function (xhr, status, error) {
-      console.error("Error fetching departments:", error);
-    },
-  });
+          departmentCard.append(departmentinfo);
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error fetching departments:", error);
+      },
+    });
+  }
 }
 
 $("#searchBtn").click(function () {
   showAllDepartments();
 });
+
+// function showAllDepartments() {
+//   $.ajax({
+//     url: "libs/php/getAllDepartments.php",
+//     type: "GET",
+//     dataType: "json",
+//     success: function (res) {
+//       const personnelCard = $("#personnelCard");
+//       const departmentCard = $("#departmentCard");
+
+//       personnelCard.hide();
+
+//       departmentCard.empty();
+
+//       for (let i = 0; i < res.data.length; i++) {
+//         const item = res.data[i];
+//         const departmentName = item.name;
+
+//         const departmentinfo = `<div class="col-sm-4 mb-3">
+//         <div class="card">
+//           <div class="card-body">
+
+//             <h5 class="card-title">${departmentName}</h5>
+//             <a href="#" class="btn btn-warning">Edit</a> <a href="#" class="btn btn-danger">Delete</a>
+
+//           </div>
+//         </div>
+//       </div>
+//     `;
+
+//         departmentCard.append(departmentinfo);
+//       }
+//     },
+//     error: function (xhr, status, error) {
+//       console.error("Error fetching departments:", error);
+//     },
+//   });
+// }
+
+// $("#searchBtn").click(function () {
+//   showAllDepartments();
+// });

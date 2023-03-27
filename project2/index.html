@@ -104,20 +104,50 @@
               aria-label="Search"
               id="searchBar"
             />
-            <button
-              class="btn btn-outline-success"
-              type="submit"
-              id="searchButton"
-            >
-              Search
-            </button>
-            <button type="button" class="btn btn-success" id="addBtn">
-              <img
-                src="./fontawesome-free-6.3.0-web/svgs/solid/plus-solid.svg"
-                alt="add sign"
-                id="addSign"
-              />
-            </button>
+
+            <!-- -------------------------------------------------------------------------------------- -->
+            <div class="btn-group">
+              <button
+                type="button"
+                class="btn btn-success dropdown-toggle"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <img
+                  src="./fontawesome-free-6.3.0-web/svgs/solid/plus-solid.svg"
+                  alt="add sign"
+                  id="addSign"
+                />
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <button
+                    class="dropdown-item"
+                    type="button"
+                    id="addPersonnel"
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#personnelModal"
+                  >
+                    Personnel
+                  </button>
+                </li>
+                <li>
+                  <button
+                    class="dropdown-item"
+                    type="button"
+                    id="addDepartment"
+                  >
+                    Department
+                  </button>
+                </li>
+                <li>
+                  <button class="dropdown-item" type="button" id="addLocation">
+                    Location
+                  </button>
+                </li>
+              </ul>
+            </div>
           </form>
         </div>
       </div>
@@ -128,6 +158,80 @@
   <body>
     <div class="row" id="personnelCard"></div>
     <div class="row" id="departmentCard"></div>
+
+    <div
+      class="modal fade"
+      id="personnelModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <h5>
+              First Name:
+              <input type="text" name="firstName" class="personnelInputField" />
+            </h5>
+            <br />
+
+            <h5>
+              Last Name:
+              <input type="text" name="lastName" class="personnelInputField" />
+            </h5>
+            <br />
+            <h5>
+              Department:
+              <select name="location" class="personnelInputField">
+                <option value="">Select a Department</option>
+                <option value="2">Human Resources</option>
+                <option value="3">Sales</option>
+                <option value="4">Marketing</option>
+                <option value="5">Services</option>
+                <option value="6">Research & Development</option>
+                <option value="7">Product Management</option>
+                <option value="8">Training</option>
+                <option value="9">Support</option>
+                <option value="10">Engineering</option>
+                <option value="11">Accounting</option>
+                <option value="12">Business Development</option>
+              </select>
+            </h5>
+            <br />
+            <h5>
+              Location:
+              <select name="location" class="personnelInputField">
+                <option value="">Select a location</option>
+                <option value="1">London</option>
+                <option value="2">New York</option>
+                <option value="3">Paris</option>
+                <option value="4">Munich</option>
+                <option value="5">Rome</option>
+              </select>
+            </h5>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script src="./jQuery-3.6.3.js"></script>
 

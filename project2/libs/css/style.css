@@ -21,3 +21,8 @@
     width: 20px !important;
 }
 
+.personnelInputField{
+    float: right;
+    width: 50%;
+    box-sizing: border-box;
+}

@@ -42,7 +42,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <select class="form-select" aria-label="Default select example">
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                id="departmentSelect"
+              >
                 <option selected disabled>Departments</option>
                 <option value="1">All Departments</option>
                 <option value="2">Human Resources</option>
@@ -61,6 +65,7 @@
             <li class="nav-item">
               <select class="form-select" aria-label="Default select example">
                 <option selected>Location</option>
+                <option value="1">All Locations</option>
                 <option value="1">London</option>
                 <option value="2">New York</option>
                 <option value="3">Paris</option>
@@ -122,6 +127,7 @@
   </head>
   <body>
     <div class="row" id="personnelCard"></div>
+    <div class="row" id="departmentCard"></div>
 
     <script src="./jQuery-3.6.3.js"></script>
 

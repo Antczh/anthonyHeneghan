@@ -4,10 +4,10 @@ function loadEmployeeInfo(filter = "") {
     type: "GET",
     dataType: "json",
     success: function (res) {
-      console.log(res);
+      // console.log(res);
 
       const personnelCard = $("#personnelCard");
-      personnelCard.empty(); // Clear any existing cards before appending new ones
+      personnelCard.empty();
 
       const filteredData = res.data.filter((item) =>
         `${item.firstName} ${item.lastName} ${item.email} ${item.department} ${item.location}`
@@ -46,13 +46,16 @@ function loadEmployeeInfo(filter = "") {
 }
 
 $(document).ready(function () {
-  loadEmployeeInfo(); // Load all employee cards on page load
+  loadEmployeeInfo();
 
-  // Listen for changes to the search bar and filter the results accordingly
   $("#searchBar").on("input", function () {
     const searchStr = $(this).val();
     loadEmployeeInfo(searchStr);
   });
+});
+
+$("#homeBtn").click(function () {
+  location.reload();
 });
 
 function showAllDepartments() {
@@ -61,22 +64,24 @@ function showAllDepartments() {
     type: "GET",
     dataType: "json",
     success: function (res) {
-      console.log(res);
+      const personnelCard = $("#personnelCard");
       const departmentCard = $("#departmentCard");
 
-      departmentCard.empty(); // Clear any existing cards before appending new ones
+      personnelCard.hide();
+
+      departmentCard.empty();
 
       for (let i = 0; i < res.data.length; i++) {
         const item = res.data[i];
         const departmentName = item.name;
 
-        const departmentinfo = `<div class="employeeCard card mb-3">
-        <div class="row g-0">
-          <div class="col-md-4">
-          <div class="col-md-8">
-            <div class="card-body">
-              <h3 class="card-title">${departmentName}</h3>
-            </div>
+        const departmentinfo = `<div class="col-sm-4 mb-3">
+        <div class="card">
+          <div class="card-body">
+
+            <h5 class="card-title">${departmentName}</h5>
+            <a href="#" class="btn btn-warning">Edit</a> <a href="#" class="btn btn-danger">Delete</a>
+
           </div>
         </div>
       </div>
@@ -85,9 +90,12 @@ function showAllDepartments() {
         departmentCard.append(departmentinfo);
       }
     },
+    error: function (xhr, status, error) {
+      console.error("Error fetching departments:", error);
+    },
   });
 }
-$("#allDepartmentsOpt").click(function () {
-  console.log("Departments option clicked...");
+
+$("#searchButton").click(function () {
   showAllDepartments();
 });

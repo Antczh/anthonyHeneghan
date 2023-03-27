@@ -137,12 +137,22 @@
                     class="dropdown-item"
                     type="button"
                     id="addDepartment"
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#departmentModal"
                   >
                     Department
                   </button>
                 </li>
                 <li>
-                  <button class="dropdown-item" type="button" id="addLocation">
+                  <button
+                    class="dropdown-item"
+                    type="button"
+                    id="addLocation"
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#locationModal"
+                  >
                     Location
                   </button>
                 </li>
@@ -169,7 +179,9 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Add New Personnel
+            </h1>
             <button
               type="button"
               class="btn-close"
@@ -217,6 +229,86 @@
                 <option value="4">Munich</option>
                 <option value="5">Rome</option>
               </select>
+            </h5>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="departmentModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Add New Department
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <h5>
+              Department:
+              <input type="text" Department="" class="departmentInputField" />
+            </h5>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="locationModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Add New Location
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <h5>
+              Location:
+              <input type="text" location="" class="locationInputField" />
             </h5>
           </div>
           <div class="modal-footer">

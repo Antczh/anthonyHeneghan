@@ -96,6 +96,6 @@ function showAllDepartments() {
   });
 }
 
-$("#searchButton").click(function () {
+$("#searchBtn").click(function () {
   showAllDepartments();
 });

@@ -41,7 +41,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
+            <li class="nav-item" id="departmentSelectList">
               <select
                 class="form-select"
                 aria-label="Default select example"
@@ -104,6 +104,13 @@
               aria-label="Search"
               id="searchBar"
             />
+            <button
+              class="btn btn-outline-success"
+              type="submit"
+              id="searchBtn"
+            >
+              Search
+            </button>
 
             <!-- -------------------------------------------------------------------------------------- -->
             <div class="btn-group">
@@ -112,6 +119,7 @@
                 class="btn btn-success dropdown-toggle"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
+                id="addBtn"
               >
                 <img
                   src="./fontawesome-free-6.3.0-web/svgs/solid/plus-solid.svg"
@@ -203,7 +211,11 @@
             <br />
             <h5>
               Department:
-              <select name="location" class="personnelInputField">
+              <select
+                name="location"
+                class="personnelInputField"
+                id="departmentSelect"
+              >
                 <option value="">Select a Department</option>
                 <option value="2">Human Resources</option>
                 <option value="3">Sales</option>
@@ -221,7 +233,11 @@
             <br />
             <h5>
               Location:
-              <select name="location" class="personnelInputField">
+              <select
+                name="location"
+                class="personnelInputField"
+                id="locationSelect"
+              >
                 <option value="">Select a location</option>
                 <option value="1">London</option>
                 <option value="2">New York</option>

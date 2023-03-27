@@ -26,3 +26,12 @@
     width: 50%;
     box-sizing: border-box;
 }
+
+#departmentSelectList{
+margin-right: 7px;
+}
+
+/* #locationSelect{
+    margin-left: 3.5px;
+
+} */

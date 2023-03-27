@@ -35,7 +35,9 @@ if (mysqli_connect_errno()) {
 
 // SQL does not accept parameters and so is not prepared
 
-$query = 'SELECT p.* FROM personnel p JOIN department d ON p.departmentID = d.id WHERE d.name = "Human Resources"';
+// $query = 'SELECT p.* FROM personnel p JOIN department d ON p.departmentID = d.id WHERE d.name = "Human Resources"';
+$query = 'SELECT p.*, l.name AS location_name FROM personnel p JOIN department d ON p.departmentID = d.id JOIN location l ON d.locationID = l.id WHERE d.name = "Human Resources"';
+
 
 $result = $conn->query($query);
 

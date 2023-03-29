@@ -44,11 +44,16 @@ function loadEmployeeInfo(filter = "") {
     },
   });
 }
+$("#personnelTab").click(function () {
+  $(".card").hide();
 
+  loadEmployeeInfo();
+});
 $(document).ready(function () {
   loadEmployeeInfo();
 
   $("#searchBar").on("input", function () {
+    $(".card").hide();
     const searchStr = $(this).val();
     loadEmployeeInfo(searchStr);
   });
@@ -58,31 +63,45 @@ $("#homeBtn").click(function () {
   location.reload();
 });
 
-function showAllDepartments() {
-  const selectValue = $("#departmentSelect").val(); // get the value of the select list
+let departmentId = "";
+let locationId = "";
+function filterOptions() {
+  $.ajax({
+    url: "libs/php/getFiltered.php?",
+    type: "GET",
+    data: { department_id: departmentId, location_id: locationId },
+    dataType: "json",
+    success: function (res) {
+      console.log(res);
 
-  if (selectValue === "1") {
-    $.ajax({
-      url: "libs/php/getAllDepartments.php",
-      type: "GET",
-      dataType: "json",
-      success: function (res) {
-        const personnelCard = $("#personnelCard");
-        const departmentCard = $("#departmentCard");
+      const filteredCard = $("#filteredCard");
+      const personnelCard = $("#personnelCard");
 
-        personnelCard.hide();
+      filteredCard.empty();
+      personnelCard.empty();
 
-        departmentCard.empty();
+      const filteredData = res.data.filter(
+        (item) =>
+          `${item.firstName} ${item.lastName} ${item.email} ${item.department} ${item.location}`
+      );
 
-        for (let i = 0; i < res.data.length; i++) {
-          const item = res.data[i];
-          const departmentName = item.name;
+      filteredData.forEach((item) => {
+        const employeeFirstName = item.firstName;
+        const employeeLastName = item.lastName;
+        const employeeEmail = item.email;
+        const employeeDepartment = item.department;
+        const employeeLocation = item.location;
 
-          const departmentinfo = `<div class="col-sm-4 mb-3">
+        const employeeCard = `
+          <div class="col-sm-4 mb-3">
             <div class="card">
               <div class="card-body">
+              <img src="./fontawesome-free-6.3.0-web/svgs/solid/id-badge-solid.svg" class="img-fluid rounded-start" alt="Personnel Profile Photo" style="width: 100px; height: 140px;" />
 
-                <h5 class="card-title">${departmentName}</h5>
+                <h5 class="card-title">${employeeFirstName} ${employeeLastName}</h5>
+                <p class="card-text">${employeeEmail}</p>
+                <p class="card-text"> ${employeeDepartment}</p>
+                <p class="card-text"> ${employeeLocation}</p>
                 <a href="#" class="btn btn-warning">Edit</a> <a href="#" class="btn btn-danger">Delete</a>
 
               </div>
@@ -90,121 +109,124 @@ function showAllDepartments() {
           </div>
         `;
 
-          departmentCard.append(departmentinfo);
-        }
-      },
-      error: function (xhr, status, error) {
-        console.error("Error fetching departments:", error);
-      },
-    });
-  }
+        filteredCard.append(employeeCard);
+      });
+    },
+    error: function (xhr, status, error) {
+      console.log(error);
+    },
+  });
 }
 
 $("#searchBtn").click(function () {
   $(".card").hide();
-  showAllDepartments();
-  showAllHR();
-  showAllSales();
+  filterOptions();
+  // showAllDepartments();
 });
 
-function showAllHR() {
-  const selectValue = $("#departmentSelect").val(); // get the value of the select list
+$("#depTab").click(function () {
+  // console.log(departmentTab);
+  $.ajax({
+    url: "libs/php/getAllDepartments.php",
+    type: "GET",
+    dataType: "json",
+    success: function (res) {
+      $(".card").hide();
+      const personnelCard = $("#personnelCard");
+      personnelCard.empty();
 
-  if (selectValue === "2") {
-    // check if the select list value is "all"
-    $.ajax({
-      url: "libs/php/getAllHR.php",
-      type: "GET",
-      dataType: "json",
-      success: function (res) {
-        const personnelCard = $("#personnelCard");
-        const HRCard = $("#HRCard");
+      console.log(res);
 
-        personnelCard.hide();
+      const departmentCard = $("#departmentCard");
+      // departmentCard.empty();
 
-        HRCard.empty();
+      for (let i = 0; i < res.data.length; i++) {
+        const item = res.data[i];
+        const departmentName = item.name;
 
-        for (let i = 0; i < res.data.length; i++) {
-          console.log(res);
-          item = res.data[i];
-          const employeeFirstName = item.firstName;
-          const employeeLastName = item.lastName;
-          const employeeEmail = item.email;
-          // const employeeDepartment = item.departmentID;
-          const employeeLocation = item.location_name;
-
-          const HRInfo = `
-            <div class="col-sm-4 mb-3">
-              <div class="card">
-                <div class="card-body">
-                <img src="./fontawesome-free-6.3.0-web/svgs/solid/id-badge-solid.svg" class="img-fluid rounded-start" alt="Personnel Profile Photo" style="width: 100px; height: 140px;" />
-  
-                  <h5 class="card-title">${employeeFirstName} ${employeeLastName}</h5>
-                  <p class="card-text">${employeeEmail}</p>
-                  <p class="card-text"> ${employeeLocation}</p>
-                  <a href="#" class="btn btn-warning">Edit</a> <a href="#" class="btn btn-danger">Delete</a>
-  
-                </div>
+        const departmentinfo = `<div class="col-sm-4 mb-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">${departmentName}</h5>
+                <a href="#" class="btn btn-warning">Edit</a> <a href="#" class="btn btn-danger">Delete</a>
               </div>
             </div>
-          `;
-          HRCard.append(HRInfo);
-        }
-      },
-      error: function (xhr, status, error) {
-        console.error("Error fetching departments:", error);
-      },
-    });
-  }
-}
+          </div>
+        `;
 
-function showAllSales() {
-  const selectValue = $("#departmentSelect").val(); // get the value of the select list
+        departmentCard.append(departmentinfo);
+      }
+    },
+    error: function (xhr, status, error) {
+      console.error("Error fetching departments:", error);
+    },
+  });
+});
 
-  if (selectValue === "3") {
-    // check if the select list value is "all"
-    $.ajax({
-      url: "libs/php/getAllSales.php",
-      type: "GET",
-      dataType: "json",
-      success: function (res) {
-        const personnelCard = $("#personnelCard");
-        const salesCard = $("#salesCard");
+// $("#locationTab").click(function () {
+//   $.ajax({
+//     url: "libs/php/getAllDepartments.php",
+//     type: "GET",
+//     dataType: "json",
+//     success: function (res) {
+//       const departmentCard = $("#departmentCard");
+//       departmentCard.empty();
 
-        personnelCard.hide();
+//       for (let i = 0; i < res.data.length; i++) {
+//         const item = res.data[i];
+//         const departmentName = item.name;
 
-        salesCard.empty();
+//         const departmentinfo = `<div class="col-sm-4 mb-3">
+//             <div class="card">
+//               <div class="card-body">
+//                 <h5 class="card-title">${departmentName}</h5>
+//                 <a href="#" class="btn btn-warning">Edit</a> <a href="#" class="btn btn-danger">Delete</a>
+//               </div>
+//             </div>
+//           </div>
+//         `;
 
-        for (let i = 0; i < res.data.length; i++) {
-          console.log(res);
-          item = res.data[i];
-          const employeeFirstName = item.firstName;
-          const employeeLastName = item.lastName;
-          const employeeEmail = item.email;
-          // const employeeDepartment = item.departmentID;
-          const employeeLocation = item.location_name;
+//         departmentCard.append(departmentinfo);
+//       }
+//     },
+//     error: function (xhr, status, error) {
+//       console.error("Error fetching departments:", error);
+//     },
+//   });
+// });
+// $("#departmentTab").ready("click", function showAllDepartments() {
+//   $.ajax({
+//     url: "libs/php/getAllDepartments.php",
+//     type: "GET",
+//     dataType: "json",
+//     success: function (res) {
+//       // const personnelCard = $("#personnelCard");
+//       const departmentCard = $("#departmentCard");
 
-          const salesInfo = `
-            <div class="col-sm-4 mb-3">
-              <div class="card">
-                <div class="card-body">
-                <img src="./fontawesome-free-6.3.0-web/svgs/solid/id-badge-solid.svg" class="img-fluid rounded-start" alt="Personnel Profile Photo" style="width: 100px; height: 140px;" />
+//       // personnelCard.hide();
+//       departmentCard.empty();
 
-                  <h5 class="card-title">${employeeFirstName} ${employeeLastName}</h5>
-                  <p class="card-text">${employeeEmail}</p>
-                  <p class="card-text"> ${employeeLocation}</p>
-                  <a href="#" class="btn btn-warning">Edit</a> <a href="#" class="btn btn-danger">Delete</a>
+//       for (let i = 0; i < res.data.length; i++) {
+//         const item = res.data[i];
+//         const departmentName = item.name;
 
-                </div>
-              </div>
-            </div>
-          `;
-          salesCard.append(salesInfo);
-        }
-      },
-      error: function (xhr, status, error) {
-        console.error("Error fetching departments:", error);
-      },
-    });
-  }
-}
+//         const departmentinfo = `<div class="col-sm-4 mb-3">
+//             <div class="card">
+//               <div class="card-body">
+//                 <h5 class="card-title">${departmentName}</h5>
+//                 <a href="#" class="btn btn-warning">Edit</a> <a href="#" class="btn btn-danger">Delete</a>
+//               </div>
+//             </div>
+//           </div>
+//         `;
+
+//         departmentCard.append(departmentinfo);
+//       }
+//     },
+//     error: function (xhr, status, error) {
+//       console.error("Error fetching departments:", error);
+//     },
+//   });
+// });
+
+// function addNewDepartment() {}

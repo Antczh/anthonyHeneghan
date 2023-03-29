@@ -1,11 +1,9 @@
-
-
 <?php
 
 // example use from browser
-// http://localhost/companydirectory/libs/php/getAll.php
+// http://localhost/companydirectory/libs/php/getAllDepartments.php
 
-// remove next two lines for production
+// remove next two lines for production	
 
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
@@ -35,11 +33,10 @@ if (mysqli_connect_errno()) {
 
 // SQL does not accept parameters and so is not prepared
 
-$query = 'SELECT p.*, l.name AS location_name FROM personnel p JOIN department d ON p.departmentID = d.id JOIN location l ON d.locationID = l.id WHERE d.name = "Sales"';
+$query = 'SELECT * FROM location';
 
 
 $result = $conn->query($query);
-
 
 if (!$result) {
 
@@ -71,5 +68,3 @@ $output['data'] = $data;
 mysqli_close($conn);
 
 echo json_encode($output);
-
-?>

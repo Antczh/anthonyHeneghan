@@ -48,31 +48,27 @@
                 id="departmentSelect"
               >
                 <option selected disabled>Departments</option>
-                <option slected value="1" id="allDepartments">
-                  All Departments
-                </option>
-                <option value="2">Human Resources</option>
-                <option value="3">Sales</option>
-                <option value="4">Marketing</option>
-                <option value="5">Services</option>
-                <option value="6">Research & Development</option>
-                <option value="7">Product Management</option>
-                <option value="8">Training</option>
-                <option value="9">Support</option>
-                <option value="10">Engineering</option>
-                <option value="11">Accounting</option>
-                <option value="12">Business Development</option>
+                <option>Human Resources</option>
+                <option>Sales</option>
+                <option>Marketing</option>
+                <option>Services</option>
+                <option>Research & Development</option>
+                <option>Product Management</option>
+                <option>Training</option>
+                <option>Support</option>
+                <option>Engineering</option>
+                <option>Accounting</option>
+                <option>Business Development</option>
               </select>
             </li>
             <li class="nav-item">
               <select class="form-select" aria-label="Default select example">
                 <option selected disabled>Locations</option>
-                <option value="b">All Locations</option>
-                <option value="c">London</option>
-                <option value="d">New York</option>
-                <option value="e">Paris</option>
-                <option value="f">Munich</option>
-                <option value="g">Rome</option>
+                <option>London</option>
+                <option>New York</option>
+                <option>Paris</option>
+                <option>Munich</option>
+                <option>Rome</option>
               </select>
             </li>
             <li class="nav-item dropdown" hidden>
@@ -172,14 +168,43 @@
         </div>
       </div>
     </nav>
+    <ul class="nav nav-tabs">
+      <li class="tab-nav-item">
+        <a
+          class="nav-link active"
+          aria-current="page"
+          data-bs-toggle="tab"
+          data-bs-target="#personnelTab"
+          id="personnelTab"
+          >All Personnel</a
+        >
+      </li>
+      <li class="tab-nav-item">
+        <a
+          class="nav-link"
+          data-bs-toggle="tab"
+          data-bs-target="#departmentTab"
+          id="depTab"
+          >Departments</a
+        >
+      </li>
+      <li class="tab-nav-item">
+        <a
+          class="nav-link"
+          href="#"
+          data-bs-toggle="tab"
+          data-bs-target="#locationTab"
+          >Locations</a
+        >
+      </li>
+    </ul>
 
     <br />
   </head>
   <body>
-    <div class="row" id="personnelCard"></div>
-    <div class="row" id="departmentCard"></div>
-    <div class="row" id="HRCard"></div>
-    <div class="row" id="salesCard"></div>
+    <div class="row" class="card" id="personnelCard"></div>
+    <div class="row" class="card" id="filteredCard"></div>
+    <div class="row" class="card" id="departmentCard"></div>
 
     <div
       class="modal fade"
@@ -220,18 +245,18 @@
                 id="departmentSelect"
                 class="personnelInputField"
               >
-                <option value="">Select a Department</option>
-                <option value="2">Human Resources</option>
-                <option value="3">Sales</option>
-                <option value="4">Marketing</option>
-                <option value="5">Services</option>
-                <option value="6">Research & Development</option>
-                <option value="7">Product Management</option>
-                <option value="8">Training</option>
-                <option value="9">Support</option>
-                <option value="10">Engineering</option>
-                <option value="11">Accounting</option>
-                <option value="12">Business Development</option>
+                <option>Select a Department</option>
+                <option>Human Resources</option>
+                <option>Sales</option>
+                <option>Marketing</option>
+                <option>Services</option>
+                <option>Research & Development</option>
+                <option>Product Management</option>
+                <option>Training</option>
+                <option>Support</option>
+                <option>Engineering</option>
+                <option>Accounting</option>
+                <option>Business Development</option>
               </select>
             </h5>
             <br />
@@ -242,12 +267,12 @@
                 id="locationSelect"
                 class="personnelInputField"
               >
-                <option value="">Select a location</option>
-                <option value="a">London</option>
-                <option value="b">New York</option>
-                <option value="c">Paris</option>
-                <option value="d">Munich</option>
-                <option value="e">Rome</option>
+                <option>Select a location</option>
+                <option>London</option>
+                <option>New York</option>
+                <option>Paris</option>
+                <option>Munich</option>
+                <option>Rome</option>
               </select>
             </h5>
           </div>

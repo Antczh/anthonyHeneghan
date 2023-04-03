@@ -34,7 +34,7 @@ if (mysqli_connect_errno()) {
 // SQL does not accept parameters and so is not prepared
 
 $query = 'SELECT * FROM location';
-
+// $query = 'SELECT id, name, locationID FROM department';
 
 $result = $conn->query($query);
 

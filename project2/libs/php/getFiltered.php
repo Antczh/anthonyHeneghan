@@ -42,6 +42,27 @@ if (isset($_REQUEST["department_id"]) && isset($_REQUEST["location_id"])) {
 	$query_string .= "WHERE l.id = ? ";
 }
 
+// WHERE something = ?
+// WHERE name LIKE "%?%"
+/*
+$args = [];
+if(isset($_REQUEST['department_id'])) {
+	$args = "d.id = ?";
+}
+if(isset($_REQUEST['location_id'])) {
+	$args = "l.id = ?";
+}
+if(isset($_REQUEST['keywords'])) {
+	$args = "(p.firstName LIKE '%?%' OR p.lastName LIKE '%?%')";
+}
+$query_string .= " WHERE " . implode(' AND ', $args);
+*/
+// WHERE d.id = ? AND keywords LIKE '%?%'
+
+// $fruits = ['banana', 'orange', 'apple']
+// implode(' & ', $fruits)
+// 'banana & orange & apple'
+
 $query_string .= "ORDER BY p.lastName, p.firstName, d.name, l.name";
 
 $query = $conn->prepare($query_string);

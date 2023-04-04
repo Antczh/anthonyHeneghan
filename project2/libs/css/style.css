@@ -31,7 +31,12 @@
 margin-right: 7px;
 }
 
-/* #locationSelect{
-    margin-left: 3.5px;
+#depsPage{
+    text-decoration: none;
+    color: black;
+}
 
-} */
+#locationPage{
+    text-decoration: none;
+    color: black;
+}

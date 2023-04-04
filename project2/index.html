@@ -45,30 +45,35 @@
               <select
                 class="form-select"
                 aria-label="Default select example"
-                id="departmentSelect"
+                id="depSelect"
               >
                 <option selected disabled>Departments</option>
-                <option>Human Resources</option>
-                <option>Sales</option>
-                <option>Marketing</option>
-                <option>Services</option>
-                <option>Research & Development</option>
-                <option>Product Management</option>
-                <option>Training</option>
-                <option>Support</option>
-                <option>Engineering</option>
-                <option>Accounting</option>
-                <option>Business Development</option>
+                <option value="1">Human Resources</option>
+                <option value="2">Sales</option>
+                <option value="3">Marketing</option>
+                <option value="4">Legal</option>
+                <option value="5">Services</option>
+                <option value="6">Research & Development</option>
+                <option value="7">Product Management</option>
+                <option value="8">Training</option>
+                <option value="9">Support</option>
+                <option value="10">Engineering</option>
+                <option value="11">Accounting</option>
+                <option value="12">Business Development</option>
               </select>
             </li>
             <li class="nav-item">
-              <select class="form-select" aria-label="Default select example">
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                id="locationSelect"
+              >
                 <option selected disabled>Locations</option>
-                <option>London</option>
-                <option>New York</option>
-                <option>Paris</option>
-                <option>Munich</option>
-                <option>Rome</option>
+                <option value="1">London</option>
+                <option value="2">New York</option>
+                <option value="3">Paris</option>
+                <option value="4">Munich</option>
+                <option value="5">Rome</option>
               </select>
             </li>
             <li class="nav-item dropdown" hidden>
@@ -102,11 +107,7 @@
               aria-label="Search"
               id="searchBar"
             />
-            <button
-              class="btn btn-outline-success"
-              type="submit"
-              id="searchBtn"
-            >
+            <button class="btn btn-outline-success" id="searchBtn">
               Search
             </button>
 
@@ -168,36 +169,18 @@
         </div>
       </div>
     </nav>
-    <ul class="nav nav-tabs">
-      <li class="tab-nav-item">
-        <a
-          class="nav-link active"
-          aria-current="page"
-          data-bs-toggle="tab"
-          data-bs-target="#personnelTab"
-          id="personnelTab"
-          >All Personnel</a
-        >
-      </li>
-      <li class="tab-nav-item">
-        <a
-          class="nav-link"
-          data-bs-toggle="tab"
-          data-bs-target="#departmentTab"
-          id="depTab"
-          >Departments</a
-        >
-      </li>
-      <li class="tab-nav-item">
-        <a
-          class="nav-link"
-          href="#"
-          data-bs-toggle="tab"
-          data-bs-target="#locationTab"
-          >Locations</a
-        >
-      </li>
-    </ul>
+    <nav>
+      <nav class="navbar bg-body-tertiary">
+        <form class="container-fluid justify-content-start">
+          <button class="btn btn-outline-success me-2" type="button">
+            <a href="deps.html" id="depsPage">Departments</a>
+          </button>
+          <button class="btn btn-outline-success me-2" type="button">
+            <a href="locations.html" id="locationPage">Locations</a>
+          </button>
+        </form>
+      </nav>
+    </nav>
 
     <br />
   </head>
@@ -237,6 +220,11 @@
             <h5>
               Last Name:
               <input type="text" name="lastName" class="personnelInputField" />
+            </h5>
+            <br />
+            <h5>
+              Email:
+              <input type="text" email="email" class="personnelInputField" />
             </h5>
             <br />
             <h5>

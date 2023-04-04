@@ -2,26 +2,6 @@ const personnelCard = $("#personnelCard");
 const departmentCard = $("#departmentCard");
 const locationCard = $("#locationCard");
 
-$(document).ready(function () {
-  $("#personnelTab")
-    .click(function () {
-      loadEmployeeInfo();
-      loadAllDepartments();
-      loadAllLocations();
-
-      $("#depTab").click(loadAllDepartments);
-      $("#locationTab").click(loadAllLocations);
-    })
-    .click(); // simulate a click on personnelTab
-
-  // Call loadEmployeeInfo on page load as well
-  loadEmployeeInfo();
-});
-
-$("#homeBtn").click(function () {
-  location.reload();
-});
-
 function loadEmployeeInfo(filter = "") {
   $.ajax({
     url: "libs/php/getAll.php",
@@ -30,7 +10,7 @@ function loadEmployeeInfo(filter = "") {
     success: function (res) {
       console.log("all personnel", res);
       personnelCard.empty();
-
+      locationCard.empty();
       const filteredData = res.data.filter((item) =>
         `${item.firstName} ${item.lastName} ${item.email} ${item.department} ${item.location}`
           .toLowerCase()
@@ -70,6 +50,14 @@ function loadEmployeeInfo(filter = "") {
   });
 }
 
+$(document).ready(function () {
+  loadEmployeeInfo();
+});
+
+$("#homeBtn").click(function () {
+  location.reload();
+});
+
 $("#searchBar").on("input", function () {
   $(".card").hide();
   const searchStr = $(this).val();
@@ -105,14 +93,14 @@ function loadAllDepartments() {
 
         departmentCard.append(departmentinfo);
       }
-      departmentCard.html(departmentCard.html());
+      departmentCard.append(departmentCard.append());
     },
     error: function (xhr, status, error) {
       console.log(error);
     },
   });
 }
-
+// --------------------------------------------------------------------------------------------------------------
 function loadAllLocations() {
   $.ajax({
     url: "libs/php/getAllLocations.php",
@@ -126,6 +114,7 @@ function loadAllLocations() {
 
       const locationCard = $("#locationCard");
       locationCard.empty();
+
       for (let i = 0; i < res.data.length; i++) {
         const item = res.data[i];
         const locationName = item.name;
@@ -142,14 +131,15 @@ function loadAllLocations() {
 
         locationCard.append(locationInfo);
       }
-      locationCard.html(locationCard.html());
+      locationCard.append(locationCard.append());
     },
   });
 }
 
-let departmentId = 1;
-let locationId = 1;
 function filterOptions() {
+  let departmentId = document.getElementById("depSelect").value;
+  let locationId = document.getElementById("locationSelect").value;
+
   $.ajax({
     url: "libs/php/getFiltered.php?",
     type: "GET",
@@ -201,7 +191,8 @@ function filterOptions() {
   });
 }
 
-$("#searchBtn").click(function () {
+$("#searchBtn").click(function (event) {
+  event.preventDefault(); // prevent the default form submission behavior
   $(".card").hide();
   filterOptions();
 });
@@ -209,10 +200,13 @@ $("#searchBtn").click(function () {
 function insertNewDep() {
   $.ajax({
     url: "libs/php/insertDepartment.php",
-    type: "GET",
+    type: "POST",
     data: "json",
     success: function (res) {
       console.log(res);
     },
   });
 }
+
+// move dep and location to their own pages new html doc
+//

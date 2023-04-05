@@ -170,7 +170,7 @@ $("#cardDelete").click(function (event) {
   deletePersonnel();
 });
 
-function insertNewDep() {
+function addNewDep() {
   $.ajax({
     url: "libs/php/addDepartment.php",
     type: "GET",
@@ -187,7 +187,24 @@ function insertNewDep() {
 }
 $("#addDepSave").click(function (event) {
   console.log("addDepSave clicked", addDepSave);
-  insertNewDep();
+  addNewDep();
 });
-// move dep and location to their own pages new html doc
-//
+
+function addLocation() {
+  $.ajax({
+    url: "libs/php/addLocation.php",
+    type: "GET",
+    dataType: "json",
+    data: {
+      name: $("#addNewLocationName").val(),
+    },
+    success: function (res) {
+      location.reload();
+      console.log(res);
+    },
+  });
+}
+$("#addLocationSave").click(function (event) {
+  console.log("addLocationSave clicked", addLocationSave);
+  addLocation();
+});

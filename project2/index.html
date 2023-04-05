@@ -210,57 +210,68 @@
           <div class="modal-body">
             <h5>
               First Name:
-              <input type="text" name="firstName" class="personnelInputField" />
+              <input
+                type="text"
+                name="firstName"
+                class="personnelInputField"
+                id="addFirstName"
+              />
             </h5>
             <br />
 
             <h5>
               Last Name:
-              <input type="text" name="lastName" class="personnelInputField" />
+              <input
+                type="text"
+                name="lastName"
+                class="personnelInputField"
+                id="addLastName"
+              />
             </h5>
             <br />
             <h5>
               Email:
-              <input type="text" email="email" class="personnelInputField" />
+              <input
+                type="text"
+                email="email"
+                class="personnelInputField"
+                id="addEmail"
+              />
+            </h5>
+            <br />
+            <h5>
+              Job Title:
+              <input
+                type="text"
+                email="email"
+                class="personnelInputField"
+                id="addJobTitle"
+              />
             </h5>
             <br />
             <h5>
               Department:
               <select
                 name="location"
-                id="departmentSelect"
+                id="addDepSelect"
                 class="personnelInputField"
               >
                 <option>Select a Department</option>
-                <option>Human Resources</option>
-                <option>Sales</option>
-                <option>Marketing</option>
-                <option>Services</option>
-                <option>Research & Development</option>
-                <option>Product Management</option>
-                <option>Training</option>
-                <option>Support</option>
-                <option>Engineering</option>
-                <option>Accounting</option>
-                <option>Business Development</option>
+                <option value="1">Human Resources</option>
+                <option value="2">Sales</option>
+                <option value="3">Marketing</option>
+                <option value="4">Legal</option>
+                <option value="5">Services</option>
+                <option value="6">Research & Development</option>
+                <option value="7">Product Management</option>
+                <option value="8">Training</option>
+                <option value="9">Support</option>
+                <option value="10">Engineering</option>
+                <option value="11">Accounting</option>
+                <option value="12">Business Development</option>
               </select>
             </h5>
             <br />
-            <h5>
-              Location:
-              <select
-                name="location"
-                id="locationSelect"
-                class="personnelInputField"
-              >
-                <option>Select a location</option>
-                <option>London</option>
-                <option>New York</option>
-                <option>Paris</option>
-                <option>Munich</option>
-                <option>Rome</option>
-              </select>
-            </h5>
           </div>
           <div class="modal-footer">
             <button
@@ -270,11 +281,20 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-primary" id="addPersonnelSave">
+              Save changes
+            </button>
           </div>
         </div>
       </div>
     </div>
+
+    <!---------------------------------- Success Alert -------------------------------->
+    <!-- Success Alert -->
+    <!-- <div class="alert alert-success" role="alert">
+      A simple success alert—check it out!
+    </div> -->
+    <!---------------------------------- Success Alert -------------------------------->
 
     <div
       class="modal fade"

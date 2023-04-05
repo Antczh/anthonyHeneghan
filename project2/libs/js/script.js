@@ -42,7 +42,7 @@ function loadEmployeeInfo(filter = "") {
                 <p class="card-text">${employeeEmail}</p>
                 <p class="card-text"> ${employeeDepartment}</p>
                 <p class="card-text"> ${employeeLocation}</p>
-                <a href="#" class="btn btn-warning">Edit</a> <a href="#" class="btn btn-danger">Delete</a>
+                <a class="btn btn-warning">Edit</a> <a class="btn btn-danger" id="personnelDelete">Delete</a>
 
               </div>
             </div>
@@ -103,8 +103,9 @@ function filterOptions() {
                 <p class="card-text">${employeeEmail}</p>
                 <p class="card-text"> ${employeeDepartment}</p>
                 <p class="card-text"> ${employeeLocation}</p>
-                <a href="#" class="btn btn-warning">Edit</a> <a href="#" class="btn btn-danger">Delete</a>
-
+                <button class="btn btn-warning" id="cardEdit">Edit</button>
+                <button class="btn btn-danger" id="cardDelete">Delete</button>
+                
               </div>
             </div>
           </div>
@@ -125,16 +126,62 @@ $("#searchBtn").click(function (event) {
   filterOptions();
 });
 
+function addPersonal() {
+  $.ajax({
+    url: "libs/php/addPersonnel.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      firstName: $("#addFirstName").val(),
+      lastName: $("#addLastName").val(),
+      email: $("#addEmail").val(),
+      jobTitle: $("#addJobTitle").val(),
+      departmentID: $("#addDepSelect").val(),
+    },
+    success: function (res) {
+      console.log("added personnel", res);
+
+      location.reload();
+    },
+  });
+}
+$("#addPersonnelSave").click(function (event) {
+  addPersonal();
+});
+
+function deletePersonnel() {
+  var userID = $("#user_id").val();
+  $.ajax({
+    url: "libs/php/deletePersonnel.php",
+    type: "GET",
+    dataType: "json",
+    data: {
+      id: userID,
+    },
+    success: function (res) {
+      console.log("deleted personnel", res);
+      location.reload();
+    },
+  });
+}
+$("#cardDelete").click(function (event) {
+  console.log("delete clicked", personnelDelete);
+  deletePersonnel();
+});
+
 function insertNewDep() {
   $.ajax({
-    url: "libs/php/insertDepartment.php",
-    type: "POST",
+    url: "libs/php/addDepartment.php",
+    type: "GET",
     data: "json",
     success: function (res) {
       console.log(res);
     },
   });
 }
-
+$("#").click(function (event) {
+  console.log("delete clicked", personnelDelete);
+  deletePersonnel();
+});
 // move dep and location to their own pages new html doc
 //

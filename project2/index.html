@@ -319,8 +319,24 @@
           <div class="modal-body">
             <h5>
               Department:
-              <input type="text" Department="" class="departmentInputField" />
+              <input type="text" Department="" id="addDepName" />
             </h5>
+            <!-- <br /> -->
+            <li class="nav-item">
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                id="addlocationSelect"
+                class="departmentInputField"
+              >
+                <option selected disabled>Locations</option>
+                <option value="1">London</option>
+                <option value="2">New York</option>
+                <option value="3">Paris</option>
+                <option value="4">Munich</option>
+                <option value="5">Rome</option>
+              </select>
+            </li>
           </div>
           <div class="modal-footer">
             <button
@@ -330,7 +346,9 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-primary" id="addDepSave">
+              Save changes
+            </button>
           </div>
         </div>
       </div>

@@ -42,7 +42,8 @@ function loadEmployeeInfo(filter = "") {
                 <p class="card-text">${employeeEmail}</p>
                 <p class="card-text"> ${employeeDepartment}</p>
                 <p class="card-text"> ${employeeLocation}</p>
-                <a class="btn btn-warning">Edit</a> <a class="btn btn-danger" id="personnelDelete">Delete</a>
+                <button class="btn btn-warning" id="cardEdit">Edit</button>
+                <button class="btn btn-danger" id="cardDelete">Delete</button>
 
               </div>
             </div>
@@ -173,15 +174,20 @@ function insertNewDep() {
   $.ajax({
     url: "libs/php/addDepartment.php",
     type: "GET",
-    data: "json",
+    dataType: "json",
+    data: {
+      name: $("#addDepName").val(),
+      locationID: $("#addlocationSelect").val(),
+    },
     success: function (res) {
+      location.reload();
       console.log(res);
     },
   });
 }
-$("#").click(function (event) {
-  console.log("delete clicked", personnelDelete);
-  deletePersonnel();
+$("#addDepSave").click(function (event) {
+  console.log("addDepSave clicked", addDepSave);
+  insertNewDep();
 });
 // move dep and location to their own pages new html doc
 //

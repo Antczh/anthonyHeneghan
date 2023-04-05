@@ -40,3 +40,7 @@ margin-right: 7px;
     text-decoration: none;
     color: black;
 }
+
+#addlocationSelect{
+    width: 50%;
+}

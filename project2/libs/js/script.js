@@ -33,22 +33,20 @@ function loadEmployeeInfo(filter = "") {
         const employeeLocation = item.location;
 
         const employeeCardHTML = `
-          <div class="col-sm-4 mb-3">
-            <div class="card">
-              <div class="card-body">
-              <img src="./fontawesome-free-6.3.0-web/svgs/solid/id-badge-solid.svg" class="img-fluid rounded-start" alt="Personnel Profile Photo" style="width: 100px; height: 140px;" />
-
-                <h5 class="card-title">${employeeFirstName} ${employeeLastName}</h5>
-                <p class="card-text">${employeeEmail}</p>
-                <p class="card-text"> ${employeeDepartment}</p>
-                <p class="card-text"> ${employeeLocation}</p>
-                <button class="btn btn-warning" id="cardEdit">Edit</button>
-                <button class="btn btn-danger" id="cardDelete">Delete</button>
-
-              </div>
-            </div>
-          </div>
-        `;
+  <div class="col-sm-4 mb-3">
+    <div class="card">
+      <div class="card-body">
+        <img src="./fontawesome-free-6.3.0-web/svgs/solid/id-badge-solid.svg" class="img-fluid rounded-start" alt="Personnel Profile Photo" style="width: 100px; height: 140px;" />
+        <h5 class="card-title">${employeeFirstName} ${employeeLastName}</h5>
+        <p class="card-text">${employeeEmail}</p>
+        <p class="card-text"> ${employeeDepartment}</p>
+        <p class="card-text"> ${employeeLocation}</p>
+        <button class="btn btn-warning cardEdit" ype="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editPersonnelModal" data-id="${item.id}">Edit</button>
+        <button class="btn btn-danger cardDelete" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal"data-id="${item.id}">Delete</button>
+      </div>
+    </div>
+  </div>
+`;
 
         personnelCard.append(employeeCardHTML);
       });
@@ -104,8 +102,8 @@ function filterOptions() {
                 <p class="card-text">${employeeEmail}</p>
                 <p class="card-text"> ${employeeDepartment}</p>
                 <p class="card-text"> ${employeeLocation}</p>
-                <button class="btn btn-warning" id="cardEdit">Edit</button>
-                <button class="btn btn-danger" id="cardDelete">Delete</button>
+                <button class="btn btn-warning" id="filteredCardEdit" t>Edit</button>
+                <button class="btn btn-danger" id="filteredCardDelete">Delete</button>
                 
               </div>
             </div>
@@ -150,26 +148,6 @@ $("#addPersonnelSave").click(function (event) {
   addPersonal();
 });
 
-function deletePersonnel() {
-  var userID = $("#user_id").val();
-  $.ajax({
-    url: "libs/php/deletePersonnel.php",
-    type: "GET",
-    dataType: "json",
-    data: {
-      id: userID,
-    },
-    success: function (res) {
-      console.log("deleted personnel", res);
-      location.reload();
-    },
-  });
-}
-$("#cardDelete").click(function (event) {
-  console.log("delete clicked", personnelDelete);
-  deletePersonnel();
-});
-
 function addNewDep() {
   $.ajax({
     url: "libs/php/addDepartment.php",
@@ -208,3 +186,36 @@ $("#addLocationSave").click(function (event) {
   console.log("addLocationSave clicked", addLocationSave);
   addLocation();
 });
+// -------------------------------------------------------------------------------------------
+function deletePersonnel(id) {
+  // var userID = $("#user_id").val();
+  $.ajax({
+    url: "libs/php/deletePersonnel.php",
+    type: "GET",
+    dataType: "json",
+    data: {
+      id: id,
+    },
+    success: function (res) {
+      console.log("deleted personnel", res);
+      location.reload();
+    },
+  });
+}
+
+// -------------------------------------------------------------------------------------------
+
+function editPersonnel() {
+  $.ajax({
+    url: "libs/php/deletePersonnel.",
+    type: "GET",
+    dataType: "json",
+    data: {},
+    success: function (res) {
+      console.log("edited personnel", res);
+      // location.reload();
+    },
+  });
+}
+
+// $("#editPersonnelModal").click(function (event) {});

@@ -21,8 +21,8 @@ function loadAllLocations() {
                 <div class="card">
                   <div class="card-body">
                     <h5 class="card-title">${locationName}</h5>
-                    <a href="#" class="btn btn-warning">Edit</a> <a href="#" class="btn btn-danger">Delete</a>
-                  </div>
+                    <button class="btn btn-warning cardEdit" ype="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editLocationModal" data-id="${item.id}">Edit</button>
+                    <button class="btn btn-danger cardDelete" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteLocationModal"data-id="${item.id}">Delete</button>                  </div>
                 </div>
               </div>
             `;

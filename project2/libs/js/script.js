@@ -187,30 +187,42 @@ $("#addLocationSave").click(function (event) {
   addLocation();
 });
 // -------------------------------------------------------------------------------------------
-function deletePersonnel(id) {
-  // var userID = $("#user_id").val();
+function deletePersonnel(userId) {
   $.ajax({
     url: "libs/php/deletePersonnel.php",
     type: "GET",
     dataType: "json",
     data: {
-      id: id,
+      id: userId,
     },
     success: function (res) {
       console.log("deleted personnel", res);
-      location.reload();
+      location.reload(); // reload the page after personnel has been deleted
     },
   });
 }
+
+$("#deleteYes").click(function (event) {
+  console.log("deleted personnel");
+
+  var userId = $("#id").val();
+  deletePersonnel(userId);
+});
 
 // -------------------------------------------------------------------------------------------
 
 function editPersonnel() {
   $.ajax({
-    url: "libs/php/deletePersonnel.",
+    url: "libs/php/editedPersonnel.php",
     type: "GET",
     dataType: "json",
-    data: {},
+    data: {
+      firstName: $("#editFirstName").val(),
+      lastName: $("#editLastName").val(),
+      email: $("#editEmail").val(),
+      jobTitle: $("#editJobTitle").val(),
+      departmentID: $("#editDepSelect").val(),
+    },
     success: function (res) {
       console.log("edited personnel", res);
       // location.reload();

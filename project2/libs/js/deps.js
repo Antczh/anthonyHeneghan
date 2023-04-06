@@ -21,8 +21,9 @@ function loadAllDepartments() {
                 <div class="card">
                   <div class="card-body">
                     <h5 class="card-title">${departmentName}</h5>
-                    <a href="#" class="btn btn-warning">Edit</a> <a href="#" class="btn btn-danger">Delete</a>
-                  </div>
+                    <button class="btn btn-warning cardEdit" ype="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editDepModal" data-id="${item.id}">Edit</button>
+                    <button class="btn btn-danger cardDelete" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteDepModal"data-id="${item.id}">Delete</button>
+                              </div>
                 </div>
               </div>
             `;
@@ -33,6 +34,18 @@ function loadAllDepartments() {
     },
     error: function (xhr, status, error) {
       console.log(error);
+    },
+  });
+}
+
+function deleteDep() {
+  $.ajax({
+    url: "libs/php/deleteDepartmentByID.php",
+    type: "GET",
+    dataType: "json",
+    data: {},
+    success: function (res) {
+      console.log("deleted dep", res);
     },
   });
 }

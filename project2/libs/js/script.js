@@ -102,9 +102,9 @@ function filterOptions() {
                 <p class="card-text">${employeeEmail}</p>
                 <p class="card-text"> ${employeeDepartment}</p>
                 <p class="card-text"> ${employeeLocation}</p>
-                <button class="btn btn-warning" id="filteredCardEdit" t>Edit</button>
-                <button class="btn btn-danger" id="filteredCardDelete">Delete</button>
-                
+                <button class="btn btn-warning cardEdit" ype="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filteredEditModal" data-id="${item.id}">Edit</button>
+                <button class="btn btn-danger cardDelete" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filteredDeleteModal"data-id="${item.id}">Delete</button>
+                        
               </div>
             </div>
           </div>
@@ -187,26 +187,26 @@ $("#addLocationSave").click(function (event) {
   addLocation();
 });
 // -------------------------------------------------------------------------------------------
-function deletePersonnel(userId) {
+function deletePersonnel(id) {
   $.ajax({
     url: "libs/php/deletePersonnel.php",
-    type: "GET",
+    type: "DELETE",
     dataType: "json",
     data: {
-      id: userId,
+      id: id,
     },
     success: function (res) {
       console.log("deleted personnel", res);
-      location.reload(); // reload the page after personnel has been deleted
+      location.reload();
     },
   });
 }
 
 $("#deleteYes").click(function (event) {
-  console.log("deleted personnel");
-
-  var userId = $("#id").val();
-  deletePersonnel(userId);
+  // const userId = res.data[i].id;
+  var id = $("#id").val();
+  console.log("ID value:", id);
+  deletePersonnel(id);
 });
 
 // -------------------------------------------------------------------------------------------
@@ -225,9 +225,14 @@ function editPersonnel() {
     },
     success: function (res) {
       console.log("edited personnel", res);
-      // location.reload();
+      location.reload();
     },
   });
 }
 
+$("#editPersonnelSave").click(function (event) {
+  // const userId = res.data[i].id;
+  // console.log(editPersonnel);
+  editPersonnel();
+});
 // $("#editPersonnelModal").click(function (event) {});

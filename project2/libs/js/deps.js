@@ -21,9 +21,10 @@ function loadAllDepartments() {
                 <div class="card">
                   <div class="card-body">
                     <h5 class="card-title">${departmentName}</h5>
-                    <button class="btn btn-warning cardEdit" ype="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editDepModal" data-id="${item.id}">Edit</button>
-                    <button class="btn btn-danger cardDelete" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteDepModal"data-id="${item.id}">Delete</button>
-                              </div>
+                    <button class="btn btn-warning cardEdit" type="button" data-bs-toggle="modal" data-bs-target="#editDepModal" data-id="${item.id}">Edit</button>
+                    
+                    <button class="btn btn-danger cardDelete" type="button" data-bs-toggle="modal" data-bs-target="#deleteDepModal"data-id="${item.id}" onclick="document.getElementById('deleteDepModal').setAttribute('data-id','${item.id}')">Delete</button>
+                  </div>
                 </div>
               </div>
             `;
@@ -38,14 +39,43 @@ function loadAllDepartments() {
   });
 }
 
-function deleteDep() {
+function deleteDep(deleteDepartmentId) {
   $.ajax({
-    url: "libs/php/deleteDepartmentByID.php",
-    type: "GET",
+    url: "libs/php/deleteDepartmentByID.php?Id=" + deleteDepartmentId,
+    type: "DELETE",
     dataType: "json",
-    data: {},
     success: function (res) {
       console.log("deleted dep", res);
+      location.reload();
     },
   });
 }
+
+$("#deleteDepYes").click(function (event) {
+  const deleteDepartmentId = document
+    .getElementById("deleteDepModal")
+    .getAttribute("data-id");
+  // console.log("ID value:", departmentId);
+  deleteDep(deleteDepartmentId);
+});
+
+// -----------------------------------------------------------------------------------------------------------
+// function deletePersonnel(deletePersonnelId) {
+//   $.ajax({
+//     url: "libs/php/deletePersonnel.php?id=" + deletePersonnelId,
+//     type: "DELETE",
+//     dataType: "json",
+//     success: function (res) {
+//       console.log("deleted personnel", res);
+//       location.reload();
+//     },
+//   });
+// }
+
+// $("#deleteYes").click(function (event) {
+//   const deletePersonnelId = document
+//     .getElementById("deleteModal")
+//     .getAttribute("data-id");
+//   console.log("ID value:", deletePersonnelId);
+//   deletePersonnel(deletePersonnelId);
+// });

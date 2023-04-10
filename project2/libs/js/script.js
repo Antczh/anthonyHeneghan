@@ -41,8 +41,24 @@ function loadEmployeeInfo(filter = "") {
         <p class="card-text">${employeeEmail}</p>
         <p class="card-text"> ${employeeDepartment}</p>
         <p class="card-text"> ${employeeLocation}</p>
-        <button class="btn btn-warning cardEdit" ype="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editPersonnelModal" data-id="${item.id}">Edit</button>
-        <button class="btn btn-danger cardDelete" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal"data-id="${item.id}">Delete</button>
+
+       <button class="btn btn-warning cardEdit btn-primary"
+  type="button"
+  data-bs-toggle="modal"
+  data-bs-target="#editPersonnelModal"
+  data-id="${item.id}"
+  onclick="populateEdit({
+    'editPersonnelId': '${item.id}',
+    'editFirstName': '${item.firstName}',
+    'editLastName': '${item.lastName}',
+    'editEmail': '${item.email}',
+    'editJobTitle': '${item.jobTitle}',
+    'editDepSelect': '${item.departmentId}'
+  });">
+  Edit
+</button>
+
+        <button class="btn btn-danger cardDelete" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal"data-id="${item.id}" onclick="document.getElementById('deleteModal').setAttribute('data-id','${item.id}')">Delete</button>
       </div>
     </div>
   </div>
@@ -187,14 +203,11 @@ $("#addLocationSave").click(function (event) {
   addLocation();
 });
 // -------------------------------------------------------------------------------------------
-function deletePersonnel(id) {
+function deletePersonnel(deletePersonnelId) {
   $.ajax({
-    url: "libs/php/deletePersonnel.php",
+    url: "libs/php/deletePersonnel.php?id=" + deletePersonnelId,
     type: "DELETE",
     dataType: "json",
-    data: {
-      id: id,
-    },
     success: function (res) {
       console.log("deleted personnel", res);
       location.reload();
@@ -203,10 +216,11 @@ function deletePersonnel(id) {
 }
 
 $("#deleteYes").click(function (event) {
-  // const userId = res.data[i].id;
-  var id = $("#id").val();
-  console.log("ID value:", id);
-  deletePersonnel(id);
+  const deletePersonnelId = document
+    .getElementById("deleteModal")
+    .getAttribute("data-id");
+  console.log("ID value:", deletePersonnelId);
+  deletePersonnel(deletePersonnelId);
 });
 
 // -------------------------------------------------------------------------------------------
@@ -214,7 +228,7 @@ $("#deleteYes").click(function (event) {
 function editPersonnel() {
   $.ajax({
     url: "libs/php/editedPersonnel.php",
-    type: "GET",
+    type: "POST",
     dataType: "json",
     data: {
       firstName: $("#editFirstName").val(),
@@ -222,6 +236,7 @@ function editPersonnel() {
       email: $("#editEmail").val(),
       jobTitle: $("#editJobTitle").val(),
       departmentID: $("#editDepSelect").val(),
+      id: $("#editPersonnelId").val(),
     },
     success: function (res) {
       console.log("edited personnel", res);
@@ -236,3 +251,9 @@ $("#editPersonnelSave").click(function (event) {
   editPersonnel();
 });
 // $("#editPersonnelModal").click(function (event) {});
+
+function populateEdit(data) {
+  Object.keys(data).forEach(function (elementId) {
+    document.getElementById(elementId).value = data[elementId];
+  });
+}

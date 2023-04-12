@@ -54,7 +54,7 @@ function loadAllDepartments() {
 
 function deleteDep(deleteDepartmentId) {
   $.ajax({
-    url: "libs/php/deleteDepartmentByID.php?id=" + deleteDepartmentId,
+    url: "libs/php/deleteDep.php?id=" + deleteDepartmentId,
     type: "DELETE",
     dataType: "json",
     success: function (res) {
@@ -99,24 +99,3 @@ function populateDepNameEdit(data) {
     document.getElementById("editDepName").value = data[elementId];
   });
 }
-
-// -----------------------------------------------------------------------------------------------------------
-// function deletePersonnel(deletePersonnelId) {
-//   $.ajax({
-//     url: "libs/php/deletePersonnel.php?id=" + deletePersonnelId,
-//     type: "DELETE",
-//     dataType: "json",
-//     success: function (res) {
-//       console.log("deleted personnel", res);
-//       location.reload();
-//     },
-//   });
-// }
-
-// $("#deleteYes").click(function (event) {
-//   const deletePersonnelId = document
-//     .getElementById("deleteModal")
-//     .getAttribute("data-id");
-//   console.log("ID value:", deletePersonnelId);
-//   deletePersonnel(deletePersonnelId);
-// });

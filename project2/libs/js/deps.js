@@ -21,9 +21,19 @@ function loadAllDepartments() {
                 <div class="card">
                   <div class="card-body">
                     <h5 class="card-title">${departmentName}</h5>
-                    <button class="btn btn-warning cardEdit" type="button" data-bs-toggle="modal" data-bs-target="#editDepModal" data-id="${item.id}">Edit</button>
-                    
-                    <button class="btn btn-danger cardDelete" type="button" data-bs-toggle="modal" data-bs-target="#deleteDepModal"data-id="${item.id}" onclick="document.getElementById('deleteDepModal').setAttribute('data-id','${item.id}')">Delete</button>
+                    <button class="btn btn-warning cardEdit" 
+                    type="button" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#editDepModal" 
+                    data-id="${item.id}" 
+                    onclick="populateDepNameEdit({
+                      'editDepName': '${item.id}')}">Edit
+                    </button>
+
+                    <button class="btn btn-danger cardDelete" 
+                    type="button" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#deleteDepModal" data-id="${item.id}" onclick="document.getElementById('deleteDepModal').setAttribute('data-id','${item.id}')">Delete</button>
                   </div>
                 </div>
               </div>
@@ -41,7 +51,7 @@ function loadAllDepartments() {
 
 function deleteDep(deleteDepartmentId) {
   $.ajax({
-    url: "libs/php/deleteDepartmentByID.php?Id=" + deleteDepartmentId,
+    url: "libs/php/deleteDepartmentByID.php?id=" + deleteDepartmentId,
     type: "DELETE",
     dataType: "json",
     success: function (res) {
@@ -58,6 +68,35 @@ $("#deleteDepYes").click(function (event) {
   // console.log("ID value:", departmentId);
   deleteDep(deleteDepartmentId);
 });
+
+// ---------------------------------------------------------------------------------------
+function editDepName() {
+  $.ajax({
+    url: "libs/php/editDep.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      Department: $("#editDepName").val(),
+    },
+    success: function (res) {
+      console.log(res);
+    },
+  });
+}
+
+$("#editDepSave").click(function (event) {
+  const editDepName = document
+    .getElementById("editDepModal")
+    .getAttribute("data-id");
+  // console.log("ID value:", departmentId);
+  editDepName();
+});
+
+function populateDepNameEdit(data) {
+  Object.keys(data).forEach(function (elementId) {
+    document.getElementById(elementId).value = data[elementId];
+  });
+}
 
 // -----------------------------------------------------------------------------------------------------------
 // function deletePersonnel(deletePersonnelId) {

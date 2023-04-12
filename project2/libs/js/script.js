@@ -42,23 +42,27 @@ function loadEmployeeInfo(filter = "") {
         <p class="card-text"> ${employeeDepartment}</p>
         <p class="card-text"> ${employeeLocation}</p>
 
-       <button class="btn btn-warning cardEdit btn-primary"
-  type="button"
-  data-bs-toggle="modal"
-  data-bs-target="#editPersonnelModal"
-  data-id="${item.id}"
-  onclick="populateEdit({
-    'editPersonnelId': '${item.id}',
-    'editFirstName': '${item.firstName}',
-    'editLastName': '${item.lastName}',
-    'editEmail': '${item.email}',
-    'editJobTitle': '${item.jobTitle}',
-    'editDepSelect': '${item.departmentId}'
-  });">
-  Edit
-</button>
+              <button class="btn btn-warning cardEdit"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#editPersonnelModal"
+              data-id="${item.id}"
+              onclick="populateEdit({
+              'editPersonnelId': '${item.id}',
+              'editFirstName': '${item.firstName}',
+              'editLastName': '${item.lastName}',
+              'editEmail': '${item.email}',
+              'editJobTitle': '${item.jobTitle}',
+              'editDepSelect': '${item.departmentId}'
+              });">
+              Edit
+              </button>
 
-        <button class="btn btn-danger cardDelete" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal"data-id="${item.id}" onclick="document.getElementById('deleteModal').setAttribute('data-id','${item.id}')">Delete</button>
+        <button class="btn btn-danger cardDelete" 
+        type="button" 
+        class="btn btn-primary" 
+        data-bs-toggle="modal" 
+        data-bs-target="#deleteModal"data-id="${item.id}" onclick="document.getElementById('deleteModal').setAttribute('data-id','${item.id}')">Delete</button>
       </div>
     </div>
   </div>
@@ -118,9 +122,29 @@ function filterOptions() {
                 <p class="card-text">${employeeEmail}</p>
                 <p class="card-text"> ${employeeDepartment}</p>
                 <p class="card-text"> ${employeeLocation}</p>
-                <button class="btn btn-warning cardEdit" ype="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filteredEditModal" data-id="${item.id}">Edit</button>
-                <button class="btn btn-danger cardDelete" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filteredDeleteModal"data-id="${item.id}">Delete</button>
-                        
+
+                <button class="btn btn-warning cardEdit"
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#editPersonnelModal"
+                data-id="${item.id}"
+                onclick="populateEdit({
+                'editPersonnelId': '${item.id}',
+                'editFirstName': '${item.firstName}',
+                'editLastName': '${item.lastName}',
+                'editEmail': '${item.email}',
+                'editJobTitle': '${item.jobTitle}',
+                'editDepSelect': '${item.departmentId}'
+                });">
+                Edit
+                </button>
+
+                <button class="btn btn-danger cardDelete" 
+                type="button" 
+                class="btn btn-primary" 
+                data-bs-toggle="modal" 
+                data-bs-target="#deleteModal"data-id="${item.id}" onclick="document.getElementById('deleteModal').setAttribute('data-id','${item.id}')">Delete</button>
+                                
               </div>
             </div>
           </div>

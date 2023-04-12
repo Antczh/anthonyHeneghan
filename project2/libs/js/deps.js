@@ -27,13 +27,16 @@ function loadAllDepartments() {
                     data-bs-target="#editDepModal" 
                     data-id="${item.id}" 
                     onclick="populateDepNameEdit({
-                      'editDepName': '${item.id}')}">Edit
+                      'editDepName': '${departmentName}'
+                    })">Edit
                     </button>
 
                     <button class="btn btn-danger cardDelete" 
                     type="button" 
                     data-bs-toggle="modal" 
-                    data-bs-target="#deleteDepModal" data-id="${item.id}" onclick="document.getElementById('deleteDepModal').setAttribute('data-id','${item.id}')">Delete</button>
+                    data-bs-target="#deleteDepModal" 
+                    data-id="${item.id}" 
+                    onclick="document.getElementById('deleteDepModal').setAttribute('data-id','${item.id}')">Delete</button>
                   </div>
                 </div>
               </div>
@@ -70,31 +73,30 @@ $("#deleteDepYes").click(function (event) {
 });
 
 // ---------------------------------------------------------------------------------------
-function editDepName() {
+function submitEditDepName() {
   $.ajax({
     url: "libs/php/editDep.php",
     type: "POST",
     dataType: "json",
     data: {
-      Department: $("#editDepName").val(),
+      name: $("#editDepName").val(),
     },
     success: function (res) {
       console.log(res);
+      location.reload();
     },
   });
 }
 
 $("#editDepSave").click(function (event) {
-  const editDepName = document
-    .getElementById("editDepModal")
-    .getAttribute("data-id");
-  // console.log("ID value:", departmentId);
-  editDepName();
+  // const editDepName = document.getElementById("editDepName").value;
+  // console.log("Department name:", editDepName);
+  submitEditDepName();
 });
 
 function populateDepNameEdit(data) {
   Object.keys(data).forEach(function (elementId) {
-    document.getElementById(elementId).value = data[elementId];
+    document.getElementById("editDepName").value = data[elementId];
   });
 }
 

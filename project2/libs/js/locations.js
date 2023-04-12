@@ -21,8 +21,25 @@ function loadAllLocations() {
                 <div class="card">
                   <div class="card-body">
                     <h5 class="card-title">${locationName}</h5>
-                    <button class="btn btn-warning cardEdit" ype="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editLocationModal" data-id="${item.id}">Edit</button>
-                    <button class="btn btn-danger cardDelete" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteLocationModal"data-id="${item.id}">Delete</button>                  </div>
+                    <button class="btn btn-warning cardEdit" 
+                    type="button" 
+                    class="btn btn-primary" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#editLocationModal" 
+                    data-id="${item.id}">
+                    Edit
+                    </button>
+
+
+                    <button class="btn btn-danger" 
+                    type="button" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#deleteLocationModal" 
+                    data-id="${item.id}"
+                    onclick="document.getElementById('deleteLocationModal').setAttribute('data-id','${item.id}')">
+                    Delete
+                    </button>                  
+                    </div>
                 </div>
               </div>
             `;
@@ -33,3 +50,34 @@ function loadAllLocations() {
     },
   });
 }
+
+function editLocationName() {
+  $.ajax({
+    url: "",
+    type: "",
+    dataType: "",
+    success: function (res) {
+      console.log(res);
+    },
+  });
+}
+
+function deleteLocation(locationId) {
+  $.ajax({
+    url: "libs/php/deleteLocation.php?id=" + locationId,
+    type: "DELETE",
+    dataType: "json",
+    success: function (res) {
+      console.log(res);
+      location.reload();
+    },
+  });
+}
+
+$("#deleteLocationYes").click(function (event) {
+  const locationId = document
+    .getElementById("deleteLocationModal")
+    .getAttribute("data-id");
+  console.log("ID value:", locationId);
+  deleteLocation(locationId);
+});

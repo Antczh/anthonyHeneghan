@@ -139,11 +139,12 @@ function filterOptions() {
                 Edit
                 </button>
 
-                <button class="btn btn-danger cardDelete" 
+                <button 
+                class="btn btn-danger" 
                 type="button" 
-                class="btn btn-primary" 
                 data-bs-toggle="modal" 
-                data-bs-target="#deleteModal"data-id="${item.id}" onclick="document.getElementById('deleteModal').setAttribute('data-id','${item.id}')">Delete</button>
+                data-bs-target="#deleteModal"data-id="${item.id}" 
+                onclick="document.getElementById('deleteModal').setAttribute('data-id','${item.id}')">Delete</button>
                                 
               </div>
             </div>

@@ -5,3 +5,8 @@
 .card{
     border: solid;
 }
+.locationInputField{
+    float: right;
+    width: 50%;
+    box-sizing: border-box;
+}

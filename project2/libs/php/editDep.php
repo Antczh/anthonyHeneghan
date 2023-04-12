@@ -44,7 +44,7 @@ if (mysqli_connect_errno()) {
 
 $query = $conn->prepare('UPDATE department SET name = ? WHERE id = ?');
 
-$query->bind_param("si", $_REQUEST['name'], $_REQUEST['departmentId']);
+$query->bind_param("si", $_REQUEST['name'], $_REQUEST['id']);
 
 
 if (false === $query) {

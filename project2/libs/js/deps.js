@@ -27,7 +27,8 @@ function loadAllDepartments() {
                     data-bs-target="#editDepModal" 
                     data-id="${item.id}" 
                     onclick="populateDepNameEdit({
-                      'editDepName': '${departmentName}'
+                      'editDepName': '${departmentName}',
+                      'editDepId':'${item.id}'
                     })">Edit
                     </button>
 
@@ -80,6 +81,7 @@ function submitEditDepName() {
     dataType: "json",
     data: {
       name: $("#editDepName").val(),
+      id: $("#editDeplId").val(),
     },
     success: function (res) {
       console.log(res);
@@ -89,13 +91,11 @@ function submitEditDepName() {
 }
 
 $("#editDepSave").click(function (event) {
-  // const editDepName = document.getElementById("editDepName").value;
-  // console.log("Department name:", editDepName);
   submitEditDepName();
 });
 
 function populateDepNameEdit(data) {
   Object.keys(data).forEach(function (elementId) {
-    document.getElementById("editDepName").value = data[elementId];
+    document.getElementById(elementId).value = data[elementId];
   });
 }

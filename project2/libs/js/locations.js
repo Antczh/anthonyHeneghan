@@ -26,7 +26,11 @@ function loadAllLocations() {
                     class="btn btn-primary" 
                     data-bs-toggle="modal" 
                     data-bs-target="#editLocationModal" 
-                    data-id="${item.id}">
+                    data-id="${item.id}"
+                    onclick="populateLocationNameEdit({
+                      'editLocationName': '${locationName}',
+                      'editLocationId': '${item.id}'
+                    })">
                     Edit
                     </button>
 
@@ -81,3 +85,9 @@ $("#deleteLocationYes").click(function (event) {
   console.log("ID value:", locationId);
   deleteLocation(locationId);
 });
+
+function populateLocationNameEdit(data) {
+  Object.keys(data).forEach(function (elementId) {
+    document.getElementById(elementId).value = data[elementId];
+  });
+}

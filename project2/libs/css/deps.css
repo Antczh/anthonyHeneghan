@@ -5,3 +5,9 @@
 .card{
     border: solid;
 }
+
+.depInputField{
+    float: right;
+    width: 50%;
+    box-sizing: border-box;
+}

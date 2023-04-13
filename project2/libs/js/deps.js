@@ -21,6 +21,7 @@ function loadAllDepartments() {
                 <div class="card">
                   <div class="card-body">
                     <h5 class="card-title">${departmentName}</h5>
+                    
                     <button class="btn btn-warning cardEdit" 
                     type="button" 
                     data-bs-toggle="modal" 
@@ -74,14 +75,14 @@ $("#deleteDepYes").click(function (event) {
 });
 
 // ---------------------------------------------------------------------------------------
-function submitEditDepName() {
+function editDepName() {
   $.ajax({
     url: "libs/php/editDep.php",
     type: "POST",
     dataType: "json",
     data: {
       name: $("#editDepName").val(),
-      id: $("#editDeplId").val(),
+      id: $("#editDepId").val(),
     },
     success: function (res) {
       console.log(res);
@@ -91,7 +92,7 @@ function submitEditDepName() {
 }
 
 $("#editDepSave").click(function (event) {
-  submitEditDepName();
+  editDepName();
 });
 
 function populateDepNameEdit(data) {

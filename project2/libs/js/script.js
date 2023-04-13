@@ -271,8 +271,6 @@ function editPersonnel() {
 }
 
 $("#editPersonnelSave").click(function (event) {
-  // const userId = res.data[i].id;
-  // console.log(editPersonnel);
   editPersonnel();
 });
 // $("#editPersonnelModal").click(function (event) {});

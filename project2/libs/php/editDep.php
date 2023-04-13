@@ -33,19 +33,13 @@ if (mysqli_connect_errno()) {
     exit;
 }
 
-// SQL statement accepts parameters and so is prepared to avoid SQL injection.
-// $_REQUEST used for development / debugging. Remember to change to $_POST for production
 
-// $query = $conn->prepare('UPDATE department SET name = ?, locationID = ? WHERE id = ?');
-
-// $query->bind_param("sii", $_REQUEST['name'], $_REQUEST['locationID'], $_REQUEST['departmentID']);
-
-// $query->execute();
 
 $query = $conn->prepare('UPDATE department SET name = ? WHERE id = ?');
 
 $query->bind_param("si", $_REQUEST['name'], $_REQUEST['id']);
 
+$query->execute();
 
 if (false === $query) {
 

@@ -16,7 +16,6 @@ function loadEmployeeInfo(filter = "") {
     type: "GET",
     dataType: "json",
     success: function (res) {
-      console.log("all personnel", res);
       personnelCard.empty();
       locationCard.empty();
       const filteredData = res.data.filter((item) =>
@@ -71,9 +70,7 @@ function loadEmployeeInfo(filter = "") {
         personnelCard.append(employeeCardHTML);
       });
     },
-    error: function (xhr, status, error) {
-      console.log(error);
-    },
+    error: function (xhr, status, error) {},
   });
 }
 
@@ -93,8 +90,6 @@ function filterOptions() {
     data: { department_id: departmentId, location_id: locationId },
     dataType: "json",
     success: function (res) {
-      console.log(res);
-
       const filteredCard = $("#filteredCard");
 
       filteredCard.empty();
@@ -154,9 +149,7 @@ function filterOptions() {
         filteredCard.append(employeeCard);
       });
     },
-    error: function (xhr, status, error) {
-      console.log(error);
-    },
+    error: function (xhr, status, error) {},
   });
 }
 
@@ -179,8 +172,6 @@ function addPersonal() {
       departmentID: $("#addDepSelect").val(),
     },
     success: function (res) {
-      console.log("added personnel", res);
-
       location.reload();
     },
   });
@@ -200,12 +191,10 @@ function addNewDep() {
     },
     success: function (res) {
       location.reload();
-      console.log(res);
     },
   });
 }
 $("#addDepSave").click(function (event) {
-  console.log("addDepSave clicked", addDepSave);
   addNewDep();
 });
 
@@ -219,12 +208,10 @@ function addLocation() {
     },
     success: function (res) {
       location.reload();
-      console.log(res);
     },
   });
 }
 $("#addLocationSave").click(function (event) {
-  console.log("addLocationSave clicked", addLocationSave);
   addLocation();
 });
 // -------------------------------------------------------------------------------------------
@@ -234,7 +221,6 @@ function deletePersonnel(deletePersonnelId) {
     type: "DELETE",
     dataType: "json",
     success: function (res) {
-      console.log("deleted personnel", res);
       location.reload();
     },
   });
@@ -244,7 +230,6 @@ $("#deleteYes").click(function (event) {
   const deletePersonnelId = document
     .getElementById("deleteModal")
     .getAttribute("data-id");
-  console.log("ID value:", deletePersonnelId);
   deletePersonnel(deletePersonnelId);
 });
 
@@ -264,7 +249,6 @@ function editPersonnel() {
       id: $("#editPersonnelId").val(),
     },
     success: function (res) {
-      console.log("edited personnel", res);
       location.reload();
     },
   });

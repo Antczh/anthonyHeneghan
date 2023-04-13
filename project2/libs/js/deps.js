@@ -8,7 +8,6 @@ function loadAllDepartments() {
     type: "POST",
     dataType: "json",
     success: function (res) {
-      console.log("dep cards", res);
 
       const departmentCard = $("#departmentCard");
       departmentCard.empty();
@@ -49,7 +48,6 @@ function loadAllDepartments() {
       departmentCard.append(departmentCard.append());
     },
     error: function (xhr, status, error) {
-      console.log(error);
     },
   });
 }
@@ -60,7 +58,6 @@ function deleteDep(deleteDepartmentId) {
     type: "DELETE",
     dataType: "json",
     success: function (res) {
-      console.log("deleted dep", res);
       location.reload();
     },
   });
@@ -70,7 +67,6 @@ $("#deleteDepYes").click(function (event) {
   const deleteDepartmentId = document
     .getElementById("deleteDepModal")
     .getAttribute("data-id");
-  // console.log("ID value:", departmentId);
   deleteDep(deleteDepartmentId);
 });
 
@@ -85,7 +81,6 @@ function editDepName() {
       id: $("#editDepId").val(),
     },
     success: function (res) {
-      console.log(res);
       location.reload();
     },
   });

@@ -8,8 +8,6 @@ function loadAllLocations() {
     type: "GET",
     dataType: "json",
     success: function (res) {
-      console.log("location cards", res);
-
       const locationCard = $("#locationCard");
       locationCard.empty();
 
@@ -65,7 +63,6 @@ function editLocationName() {
       id: $("#editLocationId").val(),
     },
     success: function (res) {
-      console.log(res);
       location.reload();
     },
   });
@@ -81,7 +78,6 @@ function deleteLocation(locationId) {
     type: "DELETE",
     dataType: "json",
     success: function (res) {
-      console.log(res);
       location.reload();
     },
   });
@@ -91,7 +87,6 @@ $("#deleteLocationYes").click(function (event) {
   const locationId = document
     .getElementById("deleteLocationModal")
     .getAttribute("data-id");
-  console.log("ID value:", locationId);
   deleteLocation(locationId);
 });
 

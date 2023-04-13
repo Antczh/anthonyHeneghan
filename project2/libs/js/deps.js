@@ -5,7 +5,7 @@ $(document).ready(function () {
 function loadAllDepartments() {
   $.ajax({
     url: "libs/php/getAllDepartments.php",
-    type: "GET",
+    type: "POST",
     dataType: "json",
     success: function (res) {
       console.log("dep cards", res);

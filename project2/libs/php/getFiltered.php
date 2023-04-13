@@ -34,11 +34,11 @@ if (mysqli_connect_errno()) {
 // SQL does not accept parameters and so is not prepared
 $query_string = "SELECT p.lastName, p.firstName, p.jobTitle, p.email, d.name as department, l.name as location FROM personnel p LEFT JOIN department d ON (d.id = p.departmentID) LEFT JOIN location l ON (l.id = d.locationID) ";
 
-if (isset($_REQUEST["department_id"]) && isset($_REQUEST["location_id"])) {
+if (isset($_POST["department_id"]) && isset($_POST["location_id"])) {
 	$query_string .= "WHERE d.id = ? AND l.id = ? ";
-} elseif (isset($_REQUEST["department_id"])) {
+} elseif (isset($_POST["department_id"])) {
 	$query_string .= "WHERE d.id = ? ";
-} elseif (isset($_REQUEST["location_id"])) {
+} elseif (isset($_POST["location_id"])) {
 	$query_string .= "WHERE l.id = ? ";
 }
 

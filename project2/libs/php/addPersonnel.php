@@ -37,7 +37,7 @@ if (mysqli_connect_errno()) {
 // $_REQUEST used for development / debugging. Remember to change to $_POST for production
 
 $query = $conn->prepare('INSERT INTO personnel (firstName, lastName, email, jobTitle, departmentID) VALUES (?, ?, ?, ?,?)');
-$query->bind_param("ssssi", $_REQUEST['firstName'], $_REQUEST['lastName'], $_REQUEST['email'],  $_REQUEST['jobTitle'], $_REQUEST['departmentID']);
+$query->bind_param("ssssi", $_POST['firstName'], $_POST['lastName'], $_POST['email'],  $_POST['jobTitle'], $_POST['departmentID']);
 
 
 $query->execute();

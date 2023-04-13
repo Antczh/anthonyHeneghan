@@ -39,7 +39,7 @@ if (mysqli_connect_errno()) {
 
 $query = $conn->prepare('UPDATE personnel SET firstName = ?, lastName = ?, email = ?, jobTitle = ?, departmentID = ? WHERE id = ?');
 
-$query->bind_param("ssssii", $_REQUEST['firstName'], $_REQUEST['lastName'], $_REQUEST['email'], $_REQUEST['jobTitle'], $_REQUEST['departmentID'], $_REQUEST['id']);
+$query->bind_param("ssssii", $_POST['firstName'], $_POST['lastName'], $_POST['email'], $_POST['jobTitle'], $_POST['departmentID'], $_POST['id']);
 
 $query->execute();
 

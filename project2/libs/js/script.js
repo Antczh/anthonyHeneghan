@@ -89,7 +89,7 @@ function filterOptions() {
 
   $.ajax({
     url: "libs/php/getFiltered.php?",
-    type: "GET",
+    type: "POST",
     data: { department_id: departmentId, location_id: locationId },
     dataType: "json",
     success: function (res) {
@@ -192,7 +192,7 @@ $("#addPersonnelSave").click(function (event) {
 function addNewDep() {
   $.ajax({
     url: "libs/php/addDepartment.php",
-    type: "GET",
+    type: "POST",
     dataType: "json",
     data: {
       name: $("#addDepName").val(),
@@ -212,7 +212,7 @@ $("#addDepSave").click(function (event) {
 function addLocation() {
   $.ajax({
     url: "libs/php/addLocation.php",
-    type: "GET",
+    type: "POST",
     dataType: "json",
     data: {
       name: $("#addNewLocationName").val(),

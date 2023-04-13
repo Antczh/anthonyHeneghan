@@ -57,14 +57,23 @@ function loadAllLocations() {
 
 function editLocationName() {
   $.ajax({
-    url: "",
-    type: "",
-    dataType: "",
+    url: "libs/php/editLocation.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      name: $("#editLocationName").val(),
+      id: $("#editLocationId").val(),
+    },
     success: function (res) {
       console.log(res);
+      location.reload();
     },
   });
 }
+
+$("#editLocationSave").click(function (event) {
+  editLocationName();
+});
 
 function deleteLocation(locationId) {
   $.ajax({

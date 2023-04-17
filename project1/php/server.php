@@ -8,7 +8,7 @@ $executionStartTime = microtime(true);
 $countryCode = $_GET['c'];
 
 
-$url = 'http://api.geonames.org/countryInfoJSON?formatted=true&country=' . $countryCode . '&username=antch';
+$url = 'http://api.geonames.org/countryInfoJSON?formatted=true&country=' . $countryCode . '&username=' . $geonames_key;
 
 
 $ch = curl_init();
@@ -30,7 +30,7 @@ $output['data'] = $decode['geonames'];
 // get wikipedia
 $capital = $output['data'][0]['capital'];
 
-$url = 'http://api.geonames.org/wikipediaSearchJSON?formatted=true&q=' . $capital . '&maxRows=10&username=antch&style=full';
+$url = 'http://api.geonames.org/wikipediaSearchJSON?formatted=true&q=' . $capital . '&maxRows=10&username=' . $geonames_key . '&style=full';
 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -66,7 +66,7 @@ curl_close($ch);
 
 
 // weather API
-$url = 'https://api.openweathermap.org/data/2.5/weather?lat=' . $latlng[0] . '&lon=' . $latlng[1] . '&appid=2cc2e66eaabbee0304c1c626a25344bc';
+$url = 'https://api.openweathermap.org/data/2.5/weather?lat=' . $latlng[0] . '&lon=' . $latlng[1] . '&appid=' . $weather_key;
 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);

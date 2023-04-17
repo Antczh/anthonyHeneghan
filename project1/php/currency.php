@@ -44,7 +44,7 @@ curl_setopt_array($curl, [
     CURLOPT_CUSTOMREQUEST => "GET",
     CURLOPT_HTTPHEADER => [
         "X-RapidAPI-Host: currency-converter-by-api-ninjas.p.rapidapi.com",
-        "X-RapidAPI-Key: 450da59770msh48f578fe4ec52bcp1e3255jsn924835a58ab7"
+        "X-RapidAPI-Key: $rapid_key"
     ],
 ]);
 

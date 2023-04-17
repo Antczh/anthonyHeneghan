@@ -22,7 +22,7 @@ curl_close($ch);
 // exit;
 
 // open weather 
-$url = 'https://api.openweathermap.org/data/2.5/weather?lat=' . $latlng[0] . '&lon=' . $latlng[1] . '&appid=2cc2e66eaabbee0304c1c626a25344bc&units=metric';
+$url = 'https://api.openweathermap.org/data/2.5/weather?lat=' . $latlng[0] . '&lon=' . $latlng[1] . '&appid=' . $weather_key . '&units=metric';
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

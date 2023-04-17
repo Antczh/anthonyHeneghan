@@ -9,7 +9,7 @@ require_once 'config.php';
 //     exit();
 // }
 
-$apiKey = '4ab907fcf8584274bc630ff7769a2037';
+$apiKey = $opencage_key;
 
 
 

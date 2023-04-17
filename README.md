@@ -1,6 +1,6 @@
 Project 1 Gazetteer
 
-This project is a map based app, where the difference in selection of country displays country specific information from several APIs. This project used HTML, CSS, JavaScript and PHP.
+This project is a map based app, where the difference in selection of country displays country specific information from several APIs. All of these APIs are being called using ajax calls in my Javascript. This project used HTML, CSS, JavaScript and PHP.
 
 
 Project 2 Company Directory

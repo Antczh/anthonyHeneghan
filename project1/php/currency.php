@@ -8,7 +8,7 @@ $executionStartTime = microtime(true);
 $countryCode = $_GET['c'];
 
 
-$url = 'http://api.geonames.org/countryInfoJSON?formatted=true&country=' . $countryCode . '&username=antch';
+$url = 'http://api.geonames.org/countryInfoJSON?formatted=true&country=' . $countryCode . '&username=' . $geonames_key;
 
 
 $ch = curl_init();

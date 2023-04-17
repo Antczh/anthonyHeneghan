@@ -13,7 +13,7 @@ $executionStartTime = microtime(true);
 
 $countryCode = $_GET['c'];
 
-$url = 'http://api.geonames.org/searchJSON?q=airport&country=' . $countryCode . '&maxRows=30&lang=en&username=antch';
+$url = 'http://api.geonames.org/searchJSON?q=airport&country=' . $countryCode . '&maxRows=30&lang=en&username=' . $geonames_key;
 
 $ch = curl_init();
 
